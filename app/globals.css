@@ -1,82 +1,116 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0a0a0a;
-  --foreground: #ededed;
+  --background: #FFFBF7;
+  --foreground: #2C2C2C;
   
-  /* Gold color palette */
-  --color-gold-50: #fdfbf7;
-  --color-gold-100: #fbf6ee;
-  --color-gold-200: #f6ebd4;
-  --color-gold-300: #f0ddb9;
-  --color-gold-400: #e5c285;
-  --color-gold-500: #d4a853;
-  --color-gold-600: #c89640;
-  --color-gold-700: #a67c35;
-  --color-gold-800: #84622a;
-  --color-gold-900: #6b5023;
+  /* Cream/Beige Palette - Primary */
+  --color-cream-50: #FFFBF7;
+  --color-cream-100: #FFF7F0;
+  --color-cream-200: #F5F3F0;
+  --color-cream-300: #E8E4DF;
+  --color-cream-400: #D4CEC7;
+  --color-cream-500: #C5BDB4;
+  --color-cream-600: #A89F94;
+  --color-cream-700: #8B7F72;
+  --color-cream-800: #6B625A;
+  --color-cream-900: #4A4340;
   
-  /* Charcoal color palette */
-  --color-charcoal-50: #f6f6f6;
-  --color-charcoal-100: #e7e7e7;
-  --color-charcoal-200: #d1d1d1;
-  --color-charcoal-300: #b0b0b0;
-  --color-charcoal-400: #888888;
-  --color-charcoal-500: #6d6d6d;
-  --color-charcoal-600: #5d5d5d;
-  --color-charcoal-700: #4f4f4f;
-  --color-charcoal-800: #454545;
-  --color-charcoal-900: #1a1a1a;
-  --color-charcoal-950: #0a0a0a;
+  /* Teal/Sage Accent - Professional CTAs */
+  --color-sage-50: #F0F7F4;
+  --color-sage-100: #E0F0E9;
+  --color-sage-200: #B8DCC9;
+  --color-sage-300: #8FC7AA;
+  --color-sage-400: #6DB08F;
+  --color-sage-500: #4A9574;
+  --color-sage-600: #3D7D60;
+  --color-sage-700: #2F614B;
+  --color-sage-800: #234739;
+  --color-sage-900: #1A3329;
+  
+  /* Neutral Grays */
+  --color-gray-50: #FAFAFA;
+  --color-gray-100: #F5F5F5;
+  --color-gray-200: #EEEEEE;
+  --color-gray-300: #E0E0E0;
+  --color-gray-400: #BDBDBD;
+  --color-gray-500: #9E9E9E;
+  --color-gray-600: #757575;
+  --color-gray-700: #616161;
+  --color-gray-800: #424242;
+  --color-gray-900: #2C2C2C;
+  
+  /* Accent Colors */
+  --color-accent-rose: #D4A5A5;
+  --color-accent-peach: #E8C4B8;
+  --color-accent-sand: #D9C8B8;
 }
 
 @theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   
-  --color-gold-*: initial;
-  --color-gold-50: var(--color-gold-50);
-  --color-gold-100: var(--color-gold-100);
-  --color-gold-200: var(--color-gold-200);
-  --color-gold-300: var(--color-gold-300);
-  --color-gold-400: var(--color-gold-400);
-  --color-gold-500: var(--color-gold-500);
-  --color-gold-600: var(--color-gold-600);
-  --color-gold-700: var(--color-gold-700);
-  --color-gold-800: var(--color-gold-800);
-  --color-gold-900: var(--color-gold-900);
+  --color-cream-*: initial;
+  --color-cream-50: var(--color-cream-50);
+  --color-cream-100: var(--color-cream-100);
+  --color-cream-200: var(--color-cream-200);
+  --color-cream-300: var(--color-cream-300);
+  --color-cream-400: var(--color-cream-400);
+  --color-cream-500: var(--color-cream-500);
+  --color-cream-600: var(--color-cream-600);
+  --color-cream-700: var(--color-cream-700);
+  --color-cream-800: var(--color-cream-800);
+  --color-cream-900: var(--color-cream-900);
   
-  --color-charcoal-*: initial;
-  --color-charcoal-50: var(--color-charcoal-50);
-  --color-charcoal-100: var(--color-charcoal-100);
-  --color-charcoal-200: var(--color-charcoal-200);
-  --color-charcoal-300: var(--color-charcoal-300);
-  --color-charcoal-400: var(--color-charcoal-400);
-  --color-charcoal-500: var(--color-charcoal-500);
-  --color-charcoal-600: var(--color-charcoal-600);
-  --color-charcoal-700: var(--color-charcoal-700);
-  --color-charcoal-800: var(--color-charcoal-800);
-  --color-charcoal-900: var(--color-charcoal-900);
-  --color-charcoal-950: var(--color-charcoal-950);
+  --color-sage-*: initial;
+  --color-sage-50: var(--color-sage-50);
+  --color-sage-100: var(--color-sage-100);
+  --color-sage-200: var(--color-sage-200);
+  --color-sage-300: var(--color-sage-300);
+  --color-sage-400: var(--color-sage-400);
+  --color-sage-500: var(--color-sage-500);
+  --color-sage-600: var(--color-sage-600);
+  --color-sage-700: var(--color-sage-700);
+  --color-sage-800: var(--color-sage-800);
+  --color-sage-900: var(--color-sage-900);
+  
+  --color-gray-*: initial;
+  --color-gray-50: var(--color-gray-50);
+  --color-gray-100: var(--color-gray-100);
+  --color-gray-200: var(--color-gray-200);
+  --color-gray-300: var(--color-gray-300);
+  --color-gray-400: var(--color-gray-400);
+  --color-gray-500: var(--color-gray-500);
+  --color-gray-600: var(--color-gray-600);
+  --color-gray-700: var(--color-gray-700);
+  --color-gray-800: var(--color-gray-800);
+  --color-gray-900: var(--color-gray-900);
   
   --font-sans: var(--font-inter);
-  --font-script: var(--font-dancing);
+  --font-serif: var(--font-playfair);
 }
 
 @layer base {
   * {
-    border-color: var(--color-charcoal-800);
+    border-color: var(--color-gray-200);
   }
   
   body {
-    background: var(--color-charcoal-950);
-    color: var(--foreground);
+    background: var(--color-cream-50);
+    color: var(--color-gray-900);
+    font-family: var(--font-sans);
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    color: var(--color-gray-900);
   }
 }
 
 @layer utilities {
-  .gold-glow {
-    text-shadow: 0 0 20px rgba(212, 168, 83, 0.5);
+  .card-elevated {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.06);
   }
   
   .card-hover {
@@ -84,20 +118,28 @@
   }
   
   .card-hover:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 20px rgba(212, 168, 83, 0.3);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.08);
   }
   
-  .bg-gold-glow {
-    background: radial-gradient(ellipse at center, rgba(212, 168, 83, 0.15) 0%, transparent 70%);
+  .section-padding {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
   }
   
-  .shadow-gold-glow {
-    box-shadow: 0 0 20px rgba(212, 168, 83, 0.3);
+  @media (min-width: 768px) {
+    .section-padding {
+      padding-top: 7rem;
+      padding-bottom: 7rem;
+    }
   }
   
-  .shadow-gold-glow-lg {
-    box-shadow: 0 0 40px rgba(212, 168, 83, 0.4);
+  .container-custom {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
   }
 }
 

@@ -7,45 +7,45 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-charcoal-950/95 backdrop-blur-sm border-b border-charcoal-800">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="text-2xl md:text-3xl font-script font-bold text-gold-500 gold-glow">
-              Tshedy&apos;s Beauty Parlour
-            </div>
+          <Link href="/" className="flex items-center">
+            <span className="text-2xl md:text-3xl font-serif font-medium text-gray-900">
+              Tshedy&apos;s
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             <Link 
               href="/" 
-              className="text-gray-300 hover:text-gold-500 transition-colors duration-200"
+              className="text-gray-700 hover:text-sage-600 transition-colors duration-200 text-sm font-medium"
             >
               Home
             </Link>
             <Link 
               href="/services" 
-              className="text-gray-300 hover:text-gold-500 transition-colors duration-200"
+              className="text-gray-700 hover:text-sage-600 transition-colors duration-200 text-sm font-medium"
             >
               Services
             </Link>
             <Link 
               href="/gallery" 
-              className="text-gray-300 hover:text-gold-500 transition-colors duration-200"
+              className="text-gray-700 hover:text-sage-600 transition-colors duration-200 text-sm font-medium"
             >
               Gallery
             </Link>
             <Link 
               href="/contact" 
-              className="text-gray-300 hover:text-gold-500 transition-colors duration-200"
+              className="text-gray-700 hover:text-sage-600 transition-colors duration-200 text-sm font-medium"
             >
               Contact
             </Link>
             <Link 
               href="/book" 
-              className="px-6 py-2.5 bg-gold-500 text-charcoal-950 font-semibold rounded-full hover:bg-gold-400 hover:shadow-gold-glow transition-all duration-300"
+              className="px-6 py-2.5 bg-sage-600 text-white font-medium rounded-lg hover:bg-sage-700 transition-all duration-300"
             >
               Book Now
             </Link>
@@ -54,7 +54,7 @@ export default function Navbar() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden text-gold-500 focus:outline-none"
+            className="md:hidden text-gray-900 focus:outline-none"
             aria-label="Toggle menu"
           >
             <svg
@@ -77,38 +77,38 @@ export default function Navbar() {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="md:hidden pb-4 space-y-3">
+          <div className="md:hidden pb-4 space-y-3 bg-white border-t border-gray-200 mt-2 pt-4">
             <Link 
               href="/" 
-              className="block text-gray-300 hover:text-gold-500 transition-colors duration-200 py-2"
+              className="block text-gray-700 hover:text-sage-600 transition-colors duration-200 py-2 text-sm font-medium"
               onClick={() => setIsOpen(false)}
             >
               Home
             </Link>
             <Link 
               href="/services" 
-              className="block text-gray-300 hover:text-gold-500 transition-colors duration-200 py-2"
+              className="block text-gray-700 hover:text-sage-600 transition-colors duration-200 py-2 text-sm font-medium"
               onClick={() => setIsOpen(false)}
             >
               Services
             </Link>
             <Link 
               href="/gallery" 
-              className="block text-gray-300 hover:text-gold-500 transition-colors duration-200 py-2"
+              className="block text-gray-700 hover:text-sage-600 transition-colors duration-200 py-2 text-sm font-medium"
               onClick={() => setIsOpen(false)}
             >
               Gallery
             </Link>
             <Link 
               href="/contact" 
-              className="block text-gray-300 hover:text-gold-500 transition-colors duration-200 py-2"
+              className="block text-gray-700 hover:text-sage-600 transition-colors duration-200 py-2 text-sm font-medium"
               onClick={() => setIsOpen(false)}
             >
               Contact
             </Link>
             <Link 
               href="/book" 
-              className="block w-full px-6 py-2.5 bg-gold-500 text-charcoal-950 font-semibold rounded-full hover:bg-gold-400 text-center mt-4"
+              className="block w-full px-6 py-2.5 bg-sage-600 text-white font-medium rounded-lg hover:bg-sage-700 text-center mt-4"
               onClick={() => setIsOpen(false)}
             >
               Book Now

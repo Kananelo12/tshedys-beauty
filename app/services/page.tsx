@@ -101,15 +101,14 @@ export default function ServicesPage() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen pt-20">
+      <main className="min-h-screen pt-20 bg-cream-50">
         {/* Header Section */}
-        <section className="relative py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-charcoal-950 via-charcoal-900 to-charcoal-950">
-          <div className="absolute inset-0 bg-gold-glow opacity-10"></div>
-          <div className="relative max-w-7xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl font-script font-bold text-gold-500 mb-6 gold-glow">
+        <section className="relative section-padding bg-gradient-to-br from-sage-50 to-cream-50">
+          <div className="relative max-w-7xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+            <h1 className="text-5xl md:text-6xl font-serif font-medium text-gray-900 mb-6">
               Our Services
             </h1>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Discover our comprehensive range of beauty services, each designed to enhance your natural beauty 
               and leave you feeling confident and radiant.
             </p>
@@ -117,16 +116,16 @@ export default function ServicesPage() {
         </section>
 
         {/* Categories Filter */}
-        <section className="py-8 px-4 sm:px-6 lg:px-8 bg-charcoal-900 border-b border-charcoal-800">
+        <section className="py-8 px-4 sm:px-6 lg:px-8 bg-white border-b border-gray-200">
           <div className="max-w-7xl mx-auto">
             <div className="flex flex-wrap gap-3 justify-center">
               {categories.map((category, index) => (
                 <button
                   key={index}
-                  className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                  className={`px-6 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
                     index === 0
-                      ? 'bg-gold-500 text-charcoal-950 shadow-gold-glow'
-                      : 'bg-charcoal-800 text-gray-300 hover:bg-charcoal-700 hover:text-gold-500 border border-charcoal-700'
+                      ? 'bg-sage-600 text-white'
+                      : 'bg-cream-100 text-gray-700 hover:bg-cream-200 hover:text-sage-600 border border-gray-200'
                   }`}
                 >
                   {category.name} <span className="ml-1 opacity-70">({category.count})</span>
@@ -137,8 +136,8 @@ export default function ServicesPage() {
         </section>
 
         {/* Services Grid */}
-        <section className="py-16 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-7xl mx-auto">
+        <section className="section-padding">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {services.map((service, index) => (
                 <ServiceCard key={index} {...service} />
@@ -148,24 +147,24 @@ export default function ServicesPage() {
         </section>
 
         {/* Booking CTA */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-charcoal-900">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-4xl md:text-5xl font-script font-bold text-gold-500 mb-6">
+        <section className="section-padding bg-sage-600">
+          <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+            <h2 className="text-4xl md:text-5xl font-serif font-medium text-white mb-6">
               Ready to Book Your Service?
             </h2>
-            <p className="text-xl text-gray-300 mb-8">
+            <p className="text-xl text-sage-50 mb-8">
               Choose your preferred service and schedule your appointment today
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href="/book"
-                className="px-8 py-3 bg-gold-500 text-charcoal-950 font-semibold rounded-full hover:bg-gold-400 hover:shadow-gold-glow transition-all duration-300"
+                className="px-8 py-3 bg-white text-sage-600 font-medium rounded-lg hover:bg-cream-50 transition-all duration-300"
               >
                 Book Appointment
               </a>
               <a
                 href="/contact"
-                className="px-8 py-3 bg-transparent text-gold-500 border-2 border-gold-500 font-semibold rounded-full hover:bg-gold-500 hover:text-charcoal-950 transition-all duration-300"
+                className="px-8 py-3 bg-transparent text-white border-2 border-white font-medium rounded-lg hover:bg-white hover:text-sage-600 transition-all duration-300"
               >
                 Contact Us
               </a>
@@ -174,27 +173,27 @@ export default function ServicesPage() {
         </section>
 
         {/* Additional Info */}
-        <section className="py-12 px-4 sm:px-6 lg:px-8 bg-charcoal-950 border-t border-charcoal-800">
+        <section className="py-12 px-4 sm:px-6 lg:px-8 bg-white border-t border-gray-200">
           <div className="max-w-7xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
               <div>
                 <div className="text-3xl mb-3">📋</div>
-                <h3 className="text-lg font-semibold text-gold-500 mb-2">Consultation Available</h3>
-                <p className="text-sm text-gray-400">
+                <h3 className="text-lg font-serif font-medium text-gray-900 mb-2">Consultation Available</h3>
+                <p className="text-sm text-gray-600">
                   Not sure which service? Book a free consultation with our experts
                 </p>
               </div>
               <div>
                 <div className="text-3xl mb-3">💳</div>
-                <h3 className="text-lg font-semibold text-gold-500 mb-2">Flexible Payment</h3>
-                <p className="text-sm text-gray-400">
+                <h3 className="text-lg font-serif font-medium text-gray-900 mb-2">Flexible Payment</h3>
+                <p className="text-sm text-gray-600">
                   We accept cash, card, and digital payments for your convenience
                 </p>
               </div>
               <div>
                 <div className="text-3xl mb-3">🎁</div>
-                <h3 className="text-lg font-semibold text-gold-500 mb-2">Package Deals</h3>
-                <p className="text-sm text-gray-400">
+                <h3 className="text-lg font-serif font-medium text-gray-900 mb-2">Package Deals</h3>
+                <p className="text-sm text-gray-600">
                   Ask about our service packages and loyalty discounts
                 </p>
               </div>
