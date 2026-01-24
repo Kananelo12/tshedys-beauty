@@ -12,30 +12,6 @@ import CTA from './components/CTA';
 import BlogList from './components/BlogList';
 
 export default function Home() {
-  const featuredServices = [
-    {
-      title: 'Hair Styling',
-      description: 'Professional cuts, styling, and treatments tailored to your unique beauty.',
-      price: 'R250',
-      duration: '1-2 hours',
-      icon: '💇‍♀️',
-    },
-    {
-      title: 'Hair Treatments',
-      description: 'Deep conditioning, keratin treatments, and hair repair solutions.',
-      price: 'R350',
-      duration: '1.5 hours',
-      icon: '✨',
-    },
-    {
-      title: 'Braiding & Extensions',
-      description: 'Beautiful braids, weaves, and extensions for any occasion.',
-      price: 'R400',
-      duration: '3-5 hours',
-      icon: '🌺',
-    },
-  ];
-
   return (
     <>
       <Navbar />
@@ -66,7 +42,6 @@ export default function Home() {
         <CTA />
         <BlogList />
       </main>
-      <Footer />
-    </>
+    </div>
   );
 }
