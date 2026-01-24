@@ -3,120 +3,75 @@
 import { useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import Image from 'next/image';
+import Button from '../components/Button';
 
 export default function GalleryPage() {
   const [selectedCategory, setSelectedCategory] = useState('All');
 
-  const categories = ['All', 'Hairstyles', 'Braiding', 'Coloring', 'Natural Hair', 'Special Events'];
+  const categories = ['All', 'Hairstyles', 'Braiding', 'Coloring', 'Natural Hair', 'Events'];
 
-  const galleryItems = [
-    { id: 1, category: 'Hairstyles', title: 'Elegant Updo', description: 'Perfect for special occasions' },
-    { id: 2, category: 'Braiding', title: 'Box Braids', description: 'Classic protective style' },
-    { id: 3, category: 'Coloring', title: 'Balayage Highlights', description: 'Sun-kissed natural look' },
-    { id: 4, category: 'Natural Hair', title: 'Twist Out', description: 'Beautiful defined curls' },
-    { id: 5, category: 'Special Events', title: 'Bridal Style', description: 'Romantic wedding hair' },
-    { id: 6, category: 'Hairstyles', title: 'Bob Cut', description: 'Sleek and modern' },
-    { id: 7, category: 'Braiding', title: 'Ghana Braids', description: 'Intricate cornrow pattern' },
-    { id: 8, category: 'Coloring', title: 'Ombre Color', description: 'Gradual color transition' },
-    { id: 9, category: 'Natural Hair', title: 'Afro Style', description: 'Full natural volume' },
-    { id: 10, category: 'Hairstyles', title: 'Layered Cut', description: 'Dynamic movement' },
-    { id: 11, category: 'Braiding', title: 'Knotless Braids', description: 'Lightweight and natural' },
-    { id: 12, category: 'Special Events', title: 'Prom Updo', description: 'Glamorous evening style' },
-  ];
+  const galleryItems = Array.from({ length: 12 }).map((_, i) => ({
+    id: i + 1,
+    category: categories[(i % (categories.length - 1)) + 1],
+    title: `Style ${i + 1}`,
+    src: '/hero.webp',
+  }));
 
-  const filteredItems = selectedCategory === 'All' 
-    ? galleryItems 
-    : galleryItems.filter(item => item.category === selectedCategory);
+  const filtered = selectedCategory === 'All' ? galleryItems : galleryItems.filter(g => g.category === selectedCategory);
 
   return (
     <>
       <Navbar />
-      <main className="min-h-screen pt-20 bg-cream-50">
-        {/* Header Section */}
-        <section className="relative section-padding bg-gradient-to-br from-sage-50 to-cream-50">
-          <div className="relative max-w-7xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-            <h1 className="text-5xl md:text-6xl font-serif font-medium text-gray-900 mb-6">
-              Our Gallery
-            </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Explore our portfolio of stunning transformations and beautiful hairstyles. 
-              Get inspired for your next look!
-            </p>
+      <main className="min-h-screen pt-24 bg-cream-50">
+        <section className="py-16">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 className="text-3xl md:text-4xl font-serif font-semibold text-gray-900">Our Gallery</h1>
+            <p className="text-gray-600 max-w-2xl mx-auto mt-3">A curated selection of our recent styles and looks. Tap to view details.</p>
           </div>
         </section>
 
-        {/* Category Filter */}
-        <section className="py-8 px-4 sm:px-6 lg:px-8 bg-white border-b border-gray-200 sticky top-20 z-40">
-          <div className="max-w-7xl mx-auto">
+        <section className="py-6 bg-white border-b border-gray-100">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-wrap gap-3 justify-center">
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  onClick={() => setSelectedCategory(category)}
-                  className={`px-6 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
-                    selectedCategory === category
-                      ? 'bg-sage-600 text-white'
-                      : 'bg-cream-100 text-gray-700 hover:bg-cream-200 hover:text-sage-600 border border-gray-200'
-                  }`}
-                >
-                  {category}
+              {categories.map(cat => (
+                <button key={cat} onClick={() => setSelectedCategory(cat)} className={`px-4 py-2 rounded-full text-sm ${selectedCategory===cat ? 'bg-sage-600 text-white' : 'bg-cream-100 text-gray-700'}`}>
+                  {cat}
                 </button>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Gallery Grid */}
-        <section className="section-padding">
+        <section className="py-12">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {filteredItems.map((item) => (
-                <div 
-                  key={item.id}
-                  className="group relative bg-white rounded-xl overflow-hidden border border-gray-200 card-elevated card-hover cursor-pointer"
-                >
-                  {/* Image Placeholder */}
-                  <div className="aspect-square bg-gradient-to-br from-sage-100 to-cream-100 flex items-center justify-center">
-                    <div className="text-center p-6">
-                      <div className="text-6xl mb-4 opacity-50">✨</div>
-                      <p className="text-gray-400 text-sm">Image Placeholder</p>
-                    </div>
-                  </div>
-                  
-                  {/* Overlay with info */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                    <span className="text-xs text-sage-300 mb-2">{item.category}</span>
-                    <h3 className="text-lg font-serif font-medium text-white mb-1">{item.title}</h3>
-                    <p className="text-sm text-gray-200">{item.description}</p>
+            <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
+              {filtered.map(item => (
+                <div key={item.id} className="break-inside-avoid rounded-lg overflow-hidden bg-white shadow-sm">
+                  <Image src={item.src} alt={item.title} width={800} height={600} className="w-full h-auto object-cover" />
+                  <div className="p-4">
+                    <div className="text-xs text-sage-600 mb-1">{item.category}</div>
+                    <h3 className="font-medium text-gray-900">{item.title}</h3>
                   </div>
                 </div>
               ))}
             </div>
 
-            {/* Load More Button */}
-            <div className="text-center mt-12">
-              <button className="px-8 py-3 bg-sage-600 text-white font-medium rounded-lg hover:bg-sage-700 transition-all duration-300">
-                Load More
-              </button>
+            <div className="text-center mt-8">
+              <Button variant="outline">Load More</Button>
             </div>
           </div>
         </section>
 
-        {/* CTA Section */}
-        <section className="section-padding bg-sage-600">
-          <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-            <h2 className="text-4xl md:text-5xl font-serif font-medium text-white mb-6">
-              Ready to Get Your Perfect Look?
-            </h2>
-            <p className="text-xl text-sage-50 mb-8">
-              Book your appointment today and let us create something beautiful together
-            </p>
-            <a
-              href="/book"
-              className="inline-block px-8 py-3 bg-white text-sage-600 font-medium rounded-lg hover:bg-cream-50 transition-all duration-300"
-            >
-              Schedule Your Visit
-            </a>
+        <section className="py-12">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="bg-cream-100 rounded-xl p-10 text-center">
+              <h3 className="text-xl font-serif font-semibold">Inspired? Book your visit</h3>
+              <p className="text-gray-600 mt-2">We’ll help you recreate any of these looks with expert care.</p>
+              <div className="mt-4">
+                <Button>Book Appointment</Button>
+              </div>
+            </div>
           </div>
         </section>
       </main>
