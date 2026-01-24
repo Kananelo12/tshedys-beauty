@@ -1,6 +1,8 @@
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ServiceCard from '../components/ServiceCard';
+import Button from '../components/Button';
+import { Search } from 'lucide-react';
 
 export default function ServicesPage() {
   const services = [
@@ -101,102 +103,81 @@ export default function ServicesPage() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen pt-20">
-        {/* Header Section */}
-        <section className="relative py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-charcoal-950 via-charcoal-900 to-charcoal-950">
-          <div className="absolute inset-0 bg-gold-glow opacity-10"></div>
-          <div className="relative max-w-7xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl font-script font-bold text-gold-500 mb-6 gold-glow">
-              Our Services
-            </h1>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Discover our comprehensive range of beauty services, each designed to enhance your natural beauty 
-              and leave you feeling confident and radiant.
-            </p>
-          </div>
-        </section>
-
-        {/* Categories Filter */}
-        <section className="py-8 px-4 sm:px-6 lg:px-8 bg-charcoal-900 border-b border-charcoal-800">
-          <div className="max-w-7xl mx-auto">
-            <div className="flex flex-wrap gap-3 justify-center">
-              {categories.map((category, index) => (
-                <button
-                  key={index}
-                  className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                    index === 0
-                      ? 'bg-gold-500 text-charcoal-950 shadow-gold-glow'
-                      : 'bg-charcoal-800 text-gray-300 hover:bg-charcoal-700 hover:text-gold-500 border border-charcoal-700'
-                  }`}
-                >
-                  {category.name} <span className="ml-1 opacity-70">({category.count})</span>
-                </button>
-              ))}
+      <main className="min-h-screen pt-24 bg-cream-50">
+        {/* Hero header */}
+        <section className="py-16">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center">
+              <h1 className="text-3xl md:text-4xl font-serif font-semibold text-gray-900">Services</h1>
+              <p className="text-gray-600 max-w-2xl mx-auto mt-3">Tailored hair, braiding, nail and beauty services crafted by expert stylists.</p>
             </div>
           </div>
         </section>
 
-        {/* Services Grid */}
-        <section className="py-16 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Controls */}
+        <section className="py-6 bg-white border-b border-gray-100">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+              <div className="flex items-center gap-3 w-full md:w-1/2">
+                <div className="relative w-full">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                  <input aria-label="Search services" placeholder="Search services" className="w-full pl-10 pr-4 py-3 rounded-full border border-gray-200 bg-white" />
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3 justify-end">
+                <select className="px-4 py-2 rounded-full border border-gray-200 bg-white">
+                  <option>All Categories</option>
+                  <option>Hair Styling</option>
+                  <option>Braiding</option>
+                  <option>Nails</option>
+                </select>
+                <Button variant="outline">Filter</Button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Services grid */}
+        <section className="py-12">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {services.map((service, index) => (
-                <ServiceCard key={index} {...service} />
+                <div key={index} className="transition hover:shadow-lg">
+                  <ServiceCard {...service} />
+                </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Booking CTA */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-charcoal-900">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-4xl md:text-5xl font-script font-bold text-gold-500 mb-6">
-              Ready to Book Your Service?
-            </h2>
-            <p className="text-xl text-gray-300 mb-8">
-              Choose your preferred service and schedule your appointment today
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href="/book"
-                className="px-8 py-3 bg-gold-500 text-charcoal-950 font-semibold rounded-full hover:bg-gold-400 hover:shadow-gold-glow transition-all duration-300"
-              >
-                Book Appointment
-              </a>
-              <a
-                href="/contact"
-                className="px-8 py-3 bg-transparent text-gold-500 border-2 border-gold-500 font-semibold rounded-full hover:bg-gold-500 hover:text-charcoal-950 transition-all duration-300"
-              >
-                Contact Us
-              </a>
+        {/* CTA */}
+        <section className="py-12 bg-cream-100">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 className="text-2xl font-serif font-semibold text-gray-900 mb-3">Ready to Book?</h2>
+            <p className="text-gray-600 mb-6">Select your service and choose a convenient time for your visit.</p>
+            <div className="flex justify-center gap-4">
+              <Button variant="outline">Contact Us</Button>
+              <Button>Book Appointment</Button>
             </div>
           </div>
         </section>
 
-        {/* Additional Info */}
-        <section className="py-12 px-4 sm:px-6 lg:px-8 bg-charcoal-950 border-t border-charcoal-800">
-          <div className="max-w-7xl mx-auto">
+        {/* Info */}
+        <section className="py-12">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
               <div>
-                <div className="text-3xl mb-3">📋</div>
-                <h3 className="text-lg font-semibold text-gold-500 mb-2">Consultation Available</h3>
-                <p className="text-sm text-gray-400">
-                  Not sure which service? Book a free consultation with our experts
-                </p>
+                <h3 className="text-lg font-medium">Personal Consultations</h3>
+                <p className="text-sm text-gray-600">Free 10-minute consultation to match style with your lifestyle.</p>
               </div>
               <div>
-                <div className="text-3xl mb-3">💳</div>
-                <h3 className="text-lg font-semibold text-gold-500 mb-2">Flexible Payment</h3>
-                <p className="text-sm text-gray-400">
-                  We accept cash, card, and digital payments for your convenience
-                </p>
+                <h3 className="text-lg font-medium">Premium Products</h3>
+                <p className="text-sm text-gray-600">We use salon-grade products selected for your needs.</p>
               </div>
               <div>
-                <div className="text-3xl mb-3">🎁</div>
-                <h3 className="text-lg font-semibold text-gold-500 mb-2">Package Deals</h3>
-                <p className="text-sm text-gray-400">
-                  Ask about our service packages and loyalty discounts
-                </p>
+                <h3 className="text-lg font-medium">Loyalty Rewards</h3>
+                <p className="text-sm text-gray-600">Earn points and get exclusive offers as a member.</p>
               </div>
             </div>
           </div>

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Dancing_Script } from "next/font/google";
+import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -7,15 +7,15 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-const dancing = Dancing_Script({
-  variable: "--font-dancing",
+const playfair = Playfair_Display({
+  variable: "--font-playfair",
   subsets: ["latin"],
-  weight: ["400", "700"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
-  title: "Tshedy's Beauty Parlour - Premium Beauty Services",
-  description: "Experience luxury beauty treatments at Tshedy's Beauty Parlour. Professional hairstyling, treatments, and beauty services.",
+  title: "Tshedy's Beauty Parlour - Premium Beauty & Wellness",
+  description: "Experience luxury beauty treatments at Tshedy's Beauty Parlour. Professional hairstyling, treatments, and beauty services in a serene environment.",
 };
 
 export default function RootLayout({
@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${dancing.variable} font-sans antialiased`}
+        className={`${inter.variable} ${playfair.variable} font-sans antialiased`}
       >
         {children}
       </body>
