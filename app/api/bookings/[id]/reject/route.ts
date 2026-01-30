@@ -29,7 +29,7 @@ async function handleReject(id: string, token: string) {
 
   await sendClientNotification(booking, service, 'rejected');
 
-  return NextResponse.redirect(`${process.env.BASE_URL}/admin/bookings/success`);
+  return NextResponse.redirect(`${process.env.BASE_URL}/admin/bookings/success?status=rejected`);
 }
 
 export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {

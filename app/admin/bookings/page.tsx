@@ -1,14 +1,45 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { fromUTC } from '@/lib/availability';
+
+interface Booking {
+  _id: string;
+  clientName: string;
+  service: { name: string };
+  startDateTime: Date;
+  status: string;
+}
 
 export default function AdminBookingsPage() {
   const [filter, setFilter] = useState('all');
-  const sample = [
-    { id: 1, client: 'Sarah Johnson', service: 'Hair Coloring', date: 'Today 10:00', status: 'confirmed' },
-    { id: 2, client: 'Maria Garcia', service: 'Braiding', date: 'Today 14:00', status: 'confirmed' },
-    { id: 3, client: 'Lisa Chen', service: 'Keratin', date: 'Tomorrow 11:00', status: 'pending' },
-  ];
+  const [bookings, setBookings] = useState<Booking[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('/api/bookings')
+      .then(res => res.json())
+      .then(data => {
+        setBookings(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error(err);
+        setLoading(false);
+      });
+  }, []);
+
+  const filteredBookings = bookings.filter(booking => {
+    if (filter === 'all') return true;
+    if (filter === 'pending') return booking.status === 'PENDING';
+    if (filter === 'today') {
+      const today = new Date().toDateString();
+      return new Date(booking.startDateTime).toDateString() === today;
+    }
+    return true;
+  });
+
+  if (loading) return <div>Loading...</div>;
 
   return (
     <div className="space-y-6">
@@ -37,22 +68,25 @@ export default function AdminBookingsPage() {
               </tr>
             </thead>
             <tbody>
-              {sample.map((s) => (
-                <tr key={s.id} className="odd:bg-white even:bg-cream-50">
-                  <td className="px-4 py-3 font-medium">{s.client}</td>
-                  <td className="px-4 py-3 text-sm text-gray-600">{s.service}</td>
-                  <td className="px-4 py-3 text-sm text-gray-600">{s.date}</td>
-                  <td className="px-4 py-3">
-                    <span className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${
-                      s.status === 'confirmed' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'
-                    }`}>{s.status}</span>
-                  </td>
-                  <td className="px-4 py-3 text-right">
-                    <a href="#" className="text-sm text-sage-600 mr-3">Edit</a>
-                    <a href="#" className="text-sm text-red-500">Cancel</a>
-                  </td>
-                </tr>
-              ))}
+              {filteredBookings.map((booking) => {
+                const { date, time } = fromUTC(new Date(booking.startDateTime));
+                return (
+                  <tr key={booking._id} className="odd:bg-white even:bg-cream-50">
+                    <td className="px-4 py-3 font-medium">{booking.clientName}</td>
+                    <td className="px-4 py-3 text-sm text-gray-600">{booking.service?.name || 'Unknown'}</td>
+                    <td className="px-4 py-3 text-sm text-gray-600">{date} {time}</td>
+                    <td className="px-4 py-3">
+                      <span className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${
+                        booking.status === 'ACCEPTED' ? 'bg-green-100 text-green-700' : booking.status === 'PENDING' ? 'bg-yellow-100 text-yellow-700' : 'bg-red-100 text-red-700'
+                      }`}>{booking.status.toLowerCase()}</span>
+                    </td>
+                    <td className="px-4 py-3 text-right">
+                      <a href={`/admin/bookings/${booking._id}`} className="text-sm text-sage-600 mr-3">View</a>
+                      <a href="#" className="text-sm text-red-500">Cancel</a>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>

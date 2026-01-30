@@ -29,7 +29,7 @@ async function handleConfirm(id: string, token: string) {
 
   await sendClientNotification(booking, service, 'confirmed');
 
-  return NextResponse.redirect(`${process.env.BASE_URL}/admin/bookings/success`);
+  return NextResponse.redirect(`${process.env.BASE_URL}/admin/bookings/success?status=accepted`);
 }
 
 export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {

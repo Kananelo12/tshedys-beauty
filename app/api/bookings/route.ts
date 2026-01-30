@@ -6,6 +6,32 @@ import { addMinutes } from 'date-fns';
 import { toUTC } from '@/lib/availability';
 import { sendBookingNotification } from '@/lib/notifications';
 
+export async function GET() {
+  try {
+    const client = await clientPromise;
+    const db = client.db('tshedybeauty');
+
+    const bookings = await db.collection('bookings').find({}).sort({ startDateTime: -1 }).toArray();
+    const services = await db.collection('services').find({}).toArray();
+    const providers = await db.collection('providers').find({}).toArray();
+
+    const serviceMap = new Map(services.map(s => [s._id.toString(), s]));
+    const providerMap = new Map(providers.map(p => [p._id.toString(), p]));
+
+    const enrichedBookings = bookings.map(booking => ({
+      ...booking,
+      _id: booking._id.toString(),
+      service: serviceMap.get(booking.serviceId),
+      provider: providerMap.get(booking.providerId),
+    }));
+
+    return NextResponse.json(enrichedBookings);
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+  }
+}
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
