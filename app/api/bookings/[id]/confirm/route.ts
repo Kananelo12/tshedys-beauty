@@ -10,7 +10,7 @@ async function handleConfirm(id: string, token: string) {
   const booking = await db.collection('bookings').findOne({
     _id: new ObjectId(id),
     actionToken: token,
-    status: 'pending',
+    status: 'PENDING',
     expiresAt: { $gt: new Date() }
   });
 
@@ -21,16 +21,15 @@ async function handleConfirm(id: string, token: string) {
   // Update status
   await db.collection('bookings').updateOne(
     { _id: booking._id },
-    { $set: { status: 'confirmed' } }
+    { $set: { status: 'ACCEPTED', providerActionAt: new Date() } }
   );
 
-  // Get service and provider for notification
+  // Get service for notification
   const service = await db.collection('services').findOne({ _id: new ObjectId(booking.serviceId) });
-  const provider = await db.collection('providers').findOne({ _id: new ObjectId(booking.providerId) });
 
   await sendClientNotification(booking, service, 'confirmed');
 
-  return NextResponse.json({ message: 'Booking confirmed' });
+  return NextResponse.redirect(`${process.env.BASE_URL}/admin/bookings/success`);
 }
 
 export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {

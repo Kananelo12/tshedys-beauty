@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
     // Check for conflicts
     const conflict = await db.collection('bookings').findOne({
       providerId: provider._id,
-      status: { $in: ['confirmed', 'pending'] },
+      status: { $in: ['ACCEPTED', 'PENDING'] },
       $or: [
         { startDateTime: { $lt: endDateTime }, endDateTime: { $gt: startDateTime } }
       ]
@@ -56,7 +56,7 @@ export async function POST(request: NextRequest) {
       clientPhone,
       startDateTime,
       endDateTime,
-      status: 'pending',
+      status: 'PENDING',
       isHouseCall: !!isHouseCall,
       houseCallFee: isHouseCall ? 100 : 0,
       transportCost: isHouseCall ? 50 : 0, // configurable

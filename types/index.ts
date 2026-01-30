@@ -23,11 +23,12 @@ export interface Booking {
   clientPhone: string;
   startDateTime: Date;
   endDateTime: Date;
-  status: 'pending' | 'confirmed' | 'rejected' | 'cancelled';
+  status: 'PENDING' | 'ACCEPTED' | 'REJECTED';
   isHouseCall: boolean;
   houseCallFee: number;
   transportCost: number;
   createdAt: Date;
   expiresAt: Date;
   actionToken: string;
+  providerActionAt?: Date;
 }
