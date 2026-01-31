@@ -82,6 +82,7 @@ export default function BookingPage() {
         const data = await res.json();
         setError(data.error);
       }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
       setError('Failed to submit booking');
     } finally {
@@ -140,7 +141,7 @@ export default function BookingPage() {
       <Navbar />
       <main className="min-h-screen pt-20 bg-cream-50">
         {/* Header Section */}
-        <section className="relative section-padding bg-gradient-to-br from-sage-50 to-cream-50">
+        <section className="relative section-padding bg-linear-to-br from-sage-50 to-cream-50">
           <div className="relative max-w-7xl mx-auto text-center px-4 sm:px-6 lg:px-8">
             <h1 className="text-5xl md:text-6xl font-serif font-medium text-gray-900 mb-6">
               Book Your Appointment
