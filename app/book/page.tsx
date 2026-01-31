@@ -1,52 +1,96 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Button from '../components/Button';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
+
+interface Service {
+  _id: string;
+  name: string;
+  duration: number;
+  price: number;
+  description: string;
+}
 
 export default function BookingPage() {
+  const [services, setServices] = useState<Service[]>([]);
+  const [selectedService, setSelectedService] = useState('');
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [availableTimes, setAvailableTimes] = useState<string[]>([]);
+  const [selectedTime, setSelectedTime] = useState('');
+  const [isHouseCall, setIsHouseCall] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
-    service: '',
-    date: '',
-    time: '',
-    notes: '',
   });
-
+  const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState('');
 
-  const services = [
-    'Haircuts & Styling',
-    'Hair Coloring',
-    'Deep Conditioning Treatment',
-    'Keratin Treatment',
-    'Braiding',
-    'Weaves & Extensions',
-    'Natural Hair Care',
-    'Bridal Hair & Makeup',
-    'Special Occasion Styling',
-    'Hair Spa Treatment',
-    'Loc Maintenance',
-    'Kids Styling',
-  ];
+  useEffect(() => {
+    fetch('/api/services')
+      .then(res => res.json())
+      .then(data => setServices(data.services));
+  }, []);
 
-  const timeSlots = [
-    '09:00 AM', '10:00 AM', '11:00 AM', '12:00 PM',
-    '01:00 PM', '02:00 PM', '03:00 PM', '04:00 PM',
-    '05:00 PM', '06:00 PM',
-  ];
+  useEffect(() => {
+    if (selectedService && selectedDate) {
+      const dateStr = selectedDate.toISOString().split('T')[0];
+      fetch(`/api/availability?date=${dateStr}&serviceId=${selectedService}`)
+        .then(res => res.json())
+        .then(data => setAvailableTimes(data.slots));
+    } else {
+      setAvailableTimes([]);
+    }
+  }, [selectedService, selectedDate]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    console.log('Booking submitted:', formData);
+    if (!selectedService || !selectedDate || !selectedTime) {
+      setError('Please select service, date, and time');
+      return;
+    }
+
+    setLoading(true);
+    setError('');
+
+    const dateStr = selectedDate.toISOString().split('T')[0];
+
+    try {
+      const res = await fetch('/api/bookings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          serviceId: selectedService,
+          clientName: formData.name,
+          clientEmail: formData.email,
+          clientPhone: formData.phone,
+          date: dateStr,
+          time: selectedTime,
+          isHouseCall,
+        }),
+      });
+
+      if (res.ok) {
+        setSubmitted(true);
+      } else {
+        const data = await res.json();
+        setError(data.error);
+      }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (err) {
+      setError('Failed to submit booking');
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -66,33 +110,16 @@ export default function BookingPage() {
                 </svg>
               </div>
               <h2 className="text-4xl font-serif font-medium text-gray-900 mb-4">
-                Booking Confirmed!
+                Booking Submitted!
               </h2>
               <p className="text-gray-600 mb-6 text-lg">
-                Thank you, {formData.name}! Your appointment has been successfully scheduled.
+                Thank you, {formData.name}! Your booking request has been sent and is awaiting confirmation.
               </p>
-              <div className="bg-cream-50 rounded-xl p-6 mb-8 text-left">
-                <div className="space-y-3 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-gray-500">Service:</span>
-                    <span className="text-sage-600 font-semibold">{formData.service}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-500">Date:</span>
-                    <span className="text-gray-900">{formData.date}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-500">Time:</span>
-                    <span className="text-gray-900">{formData.time}</span>
-                  </div>
-                </div>
-              </div>
               <p className="text-gray-600 text-sm mb-8">
-                A confirmation has been sent to <span className="text-sage-600">{formData.email}</span>. 
-                We&apos;ll send you a reminder 24 hours before your appointment.
+                You will receive a WhatsApp message once your booking is confirmed or rejected.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button onClick={() => setSubmitted(false)}>
+                <Button onClick={() => window.location.reload()}>
                   Book Another Appointment
                 </Button>
                 <Link href="/">
@@ -114,7 +141,7 @@ export default function BookingPage() {
       <Navbar />
       <main className="min-h-screen pt-20 bg-cream-50">
         {/* Header Section */}
-        <section className="relative section-padding bg-gradient-to-br from-sage-50 to-cream-50">
+        <section className="relative section-padding bg-linear-to-br from-sage-50 to-cream-50">
           <div className="relative max-w-7xl mx-auto text-center px-4 sm:px-6 lg:px-8">
             <h1 className="text-5xl md:text-6xl font-serif font-medium text-gray-900 mb-6">
               Book Your Appointment
@@ -127,9 +154,77 @@ export default function BookingPage() {
 
         {/* Booking Form */}
         <section className="py-16 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto">
+          <div className="max-w-4xl mx-auto">
             <div className="bg-white rounded-2xl p-8 md:p-12 border border-gray-200 card-elevated">
               <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Service Selection */}
+                <div className="space-y-4">
+                  <h2 className="text-2xl font-serif font-medium text-gray-900 mb-4">Select Service</h2>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Service *</label>
+                    <select
+                      value={selectedService}
+                      onChange={(e) => setSelectedService(e.target.value)}
+                      required
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sage-500 focus:border-transparent bg-white text-gray-900"
+                    >
+                      <option value="">Choose a service...</option>
+                      {services.map((service) => (
+                        <option key={service._id} value={service._id}>{service.name} - M{service.price}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                {/* Date Selection */}
+                <div className="space-y-4">
+                  <h2 className="text-2xl font-serif font-medium text-gray-900 mb-4">Select Date</h2>
+                  <div className="flex justify-center">
+                    <Calendar
+                      onChange={(value) => setSelectedDate(value as Date | null)}
+                      value={selectedDate}
+                      minDate={new Date()}
+                      className="react-calendar"
+                    />
+                  </div>
+                </div>
+
+                {/* Time Selection */}
+                {selectedDate && selectedService && (
+                  <div className="space-y-4">
+                    <h2 className="text-2xl font-serif font-medium text-gray-900 mb-4">Select Time</h2>
+                    <div className="grid grid-cols-3 gap-2">
+                      {availableTimes.map((time) => (
+                        <button
+                          key={time}
+                          type="button"
+                          onClick={() => setSelectedTime(time)}
+                          className={`px-4 py-2 border rounded-lg ${selectedTime === time ? 'bg-sage-600 text-white' : 'bg-white text-gray-900 border-gray-300'}`}
+                        >
+                          {time}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* House Call */}
+                <div className="space-y-4">
+                  <h2 className="text-2xl font-serif font-medium text-gray-900 mb-4">Service Type</h2>
+                  <div className="flex items-center">
+                    <input
+                      type="checkbox"
+                      id="houseCall"
+                      checked={isHouseCall}
+                      onChange={(e) => setIsHouseCall(e.target.checked)}
+                      className="mr-2"
+                    />
+                    <label htmlFor="houseCall" className="text-gray-700">
+                      House Call (+M100 + transport cost)
+                    </label>
+                  </div>
+                </div>
+
                 {/* Personal Information */}
                 <div className="space-y-4">
                   <h2 className="text-2xl font-serif font-medium text-gray-900 mb-4">Personal Information</h2>
@@ -162,7 +257,7 @@ export default function BookingPage() {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number *</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">WhatsApp Number *</label>
                       <input
                         type="tel"
                         name="phone"
@@ -170,81 +265,18 @@ export default function BookingPage() {
                         onChange={handleChange}
                         required
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sage-500 focus:border-transparent bg-white text-gray-900"
-                        placeholder="+27 123 456 789"
+                        placeholder="+266 123 456 789"
                       />
                     </div>
                   </div>
                 </div>
 
-                {/* Service Selection */}
-                <div className="space-y-4">
-                  <h2 className="text-2xl font-serif font-medium text-gray-900 mb-4">Select Service</h2>
-                  
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Service *</label>
-                    <select
-                      name="service"
-                      value={formData.service}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sage-500 focus:border-transparent bg-white text-gray-900"
-                    >
-                      <option value="">Choose a service...</option>
-                      {services.map((service) => (
-                        <option key={service} value={service}>{service}</option>
-                      ))}
-                    </select>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Preferred Date *</label>
-                      <input
-                        type="date"
-                        name="date"
-                        value={formData.date}
-                        onChange={handleChange}
-                        required
-                        min={new Date().toISOString().split('T')[0]}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sage-500 focus:border-transparent bg-white text-gray-900"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Preferred Time *</label>
-                      <select
-                        name="time"
-                        value={formData.time}
-                        onChange={handleChange}
-                        required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sage-500 focus:border-transparent bg-white text-gray-900"
-                      >
-                        <option value="">Select time...</option>
-                        {timeSlots.map((slot) => (
-                          <option key={slot} value={slot}>{slot}</option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Additional Notes */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Additional Notes (Optional)</label>
-                  <textarea
-                    name="notes"
-                    value={formData.notes}
-                    onChange={handleChange}
-                    rows={4}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sage-500 focus:border-transparent bg-white text-gray-900"
-                    placeholder="Any special requests or information we should know..."
-                  />
-                </div>
+                {error && <p className="text-red-600">{error}</p>}
 
                 {/* Submit Button */}
                 <div className="pt-4">
-                  <Button type="submit" size="lg" className="w-full">
-                    Confirm Booking
+                  <Button type="submit" size="lg" className="w-full" disabled={loading}>
+                    {loading ? 'Submitting...' : 'Submit Booking Request'}
                   </Button>
                 </div>
 
