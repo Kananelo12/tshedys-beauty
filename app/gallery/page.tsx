@@ -11,11 +11,18 @@ export default function GalleryPage() {
 
   const categories = ['All', 'Hairstyles', 'Braiding', 'Coloring', 'Natural Hair', 'Events'];
 
+  const images = [
+    '/CHRISTMAS Lunch 23136B.JPG', '/CHRISTMAS Lunch 23137C.JPG', '/CHRISTMAS Lunch 23138D.JPG',
+    '/CHRISTMAS Lunch 23150P.JPG', '/CHRISTMAS Lunch 23151Q.JPG', '/CHRISTMAS Lunch 23169BI.JPG',
+    '/CHRISTMAS Lunch 23176BP.JPG', '/CHRISTMAS Lunch 23181BU.JPG', '/CHRISTMAS Lunch 23182BV.JPG',
+    '/CHRISTMAS Lunch 23183BW.JPG', '/CHRISTMAS Lunch 23184BX.JPG', '/CHRISTMAS Lunch 23188CB.JPG'
+  ];
+  
   const galleryItems = Array.from({ length: 12 }).map((_, i) => ({
     id: i + 1,
     category: categories[(i % (categories.length - 1)) + 1],
     title: `Style ${i + 1}`,
-    src: '/hero.webp',
+    src: images[i],
   }));
 
   const filtered = selectedCategory === 'All' ? galleryItems : galleryItems.filter(g => g.category === selectedCategory);

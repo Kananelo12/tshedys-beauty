@@ -1,6 +1,9 @@
+'use client';
+
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export default function Hero() {
   return (
@@ -8,7 +11,12 @@ export default function Hero() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="flex flex-col-reverse lg:flex-row items-center gap-10 lg:gap-16">
           {/* Left content */}
-          <div className="w-full lg:w-6/12">
+          <motion.div 
+            className="w-full lg:w-6/12"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          >
             <div className="max-w-xl">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-semibold text-gray-900 leading-tight mb-6">
                 Elevate Your Look with Premium Hair & Beauty
@@ -20,73 +28,59 @@ export default function Hero() {
                 luxury.
               </p>
 
-              <ul className="flex flex-wrap gap-3 text-sm text-gray-600 mb-8">
-                <li className="px-3 py-1 bg-cream-100 rounded-full">
-                  Hair Styling
-                </li>
-                <li className="px-3 py-1 bg-cream-100 rounded-full">
-                  Braiding
-                </li>
-                <li className="px-3 py-1 bg-cream-100 rounded-full">Nails</li>
-                <li className="px-3 py-1 bg-cream-100 rounded-full">
-                  Beauty Treatments
-                </li>
-              </ul>
+              <motion.ul 
+                className="flex flex-wrap gap-3 text-sm text-gray-600 mb-8"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+              >
+                {['Hair Styling', 'Braiding', 'Nails', 'Beauty Treatments'].map((tag, i) => (
+                  <motion.li 
+                    key={tag}
+                    className="px-3 py-1 bg-cream-100 rounded-full transition-colors hover:bg-sage-100 hover:text-sage-700"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.3, delay: 0.4 + i * 0.1 }}
+                  >
+                    {tag}
+                  </motion.li>
+                ))}
+              </motion.ul>
 
-              <div className="flex flex-col sm:flex-row gap-4 items-center">
-                <Link href="/book" className="inline-block">
-                  <span className="inline-flex items-center justify-center px-6 py-3 rounded-full border-2 border-sage-600 text-sage-700 font-medium hover:bg-sage-50 transition">
+              <motion.div 
+                className="flex flex-col sm:flex-row gap-4 items-center"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.5 }}
+              >
+                <Link href="/book" className="inline-block group">
+                  <span className="inline-flex items-center justify-center px-6 py-3 rounded-full border-2 border-sage-600 text-sage-700 font-medium hover:bg-sage-50 hover:shadow-md transition-all duration-300">
                     <span>Book Appointment</span>
-                    <span className="ml-3 inline-flex items-center justify-center bg-sage-600 text-white rounded-full w-8 h-8">
+                    <span className="ml-3 inline-flex items-center justify-center bg-sage-600 text-white rounded-full w-8 h-8 group-hover:rotate-45 transition-transform duration-300">
                       <ArrowUpRight size={16} />
                     </span>
                   </span>
                 </Link>
 
                 <Link href="/services" className="inline-block">
-                  <span className="inline-flex items-center justify-center px-6 py-3 rounded-full border border-gray-300 text-gray-800 font-medium hover:bg-gray-50 transition">
+                  <span className="inline-flex items-center justify-center px-6 py-3 rounded-full border border-gray-300 text-gray-800 font-medium hover:bg-gray-50 hover:border-gray-400 transition-all duration-300">
                     View Services
                   </span>
                 </Link>
-              </div>
-
-              {/* <div className="mt-8 text-sm text-gray-600 flex flex-wrap gap-6">
-                <div className="flex items-center gap-2">
-                  <svg
-                    className="w-5 h-5 text-sage-600"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
-                  <span>4.9 ★ — Trusted Stylists</span>
-                </div>
-
-                <div className="flex items-center gap-2">
-                  <svg
-                    className="w-5 h-5 text-sage-600"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
-                  <span>Book online • Flexible hours</span>
-                </div>
-              </div> */}
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Right image */}
-          <div className="w-full lg:w-6/12 flex justify-center lg:justify-end">
+          <motion.div 
+            className="w-full lg:w-6/12 flex justify-center lg:justify-end"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
+          >
             <div className="relative group max-w-md w-full lg:max-w-xl rounded-xl overflow-hidden shadow-soft-lg h-80 md:h-105 lg:h-160">
               <Image
-                src="/hero.webp"
+                src="/CHRISTMAS Lunch 23150P.png"
                 alt="Model with styled hair relaxing at the salon"
                 width={1080}
                 height={880}
@@ -95,7 +89,7 @@ export default function Hero() {
                 priority
               />
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

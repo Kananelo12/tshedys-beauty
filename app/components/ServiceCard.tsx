@@ -1,3 +1,7 @@
+'use client';
+
+import { motion } from 'framer-motion';
+
 interface ServiceCardProps {
   title: string;
   description: string;
@@ -8,11 +12,22 @@ interface ServiceCardProps {
 
 export default function ServiceCard({ title, description, price, duration, icon }: ServiceCardProps) {
   return (
-    <div className="bg-white rounded-xl p-6 border border-gray-200 card-elevated card-hover group">
+    <motion.div 
+      className="bg-white rounded-xl p-6 border border-gray-200 card-elevated group cursor-pointer"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      whileHover={{ y: -8, boxShadow: "0 20px 40px rgba(0,0,0,0.1)" }}
+      transition={{ duration: 0.3 }}
+    >
       {/* Icon/Image placeholder */}
-      <div className="w-16 h-16 bg-sage-100 rounded-full flex items-center justify-center mb-4 group-hover:bg-sage-200 transition-all duration-300">
+      <motion.div 
+        className="w-16 h-16 bg-sage-100 rounded-full flex items-center justify-center mb-4 group-hover:bg-sage-200 transition-all duration-300"
+        whileHover={{ scale: 1.1, rotate: 5 }}
+        transition={{ type: "spring", stiffness: 300 }}
+      >
         <span className="text-2xl">{icon || '✨'}</span>
-      </div>
+      </motion.div>
 
       {/* Service Info */}
       <h3 className="text-xl font-serif font-medium text-gray-900 mb-2">{title}</h3>
@@ -29,6 +44,6 @@ export default function ServiceCard({ title, description, price, duration, icon 
           <p className="text-sm text-gray-700">{duration}</p>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

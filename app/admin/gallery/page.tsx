@@ -3,7 +3,11 @@
 import { useState } from 'react';
 
 export default function AdminGalleryPage() {
-  const [images] = useState(Array.from({ length: 8 }).map((_, i) => `/hero.webp`));
+  const [images] = useState([
+    '/CHRISTMAS Lunch 23189CC.JPG', '/CHRISTMAS Lunch 23208CV.JPG', '/CHRISTMAS Lunch 232136B.JPG',
+    '/CHRISTMAS Lunch 23218DF.JPG', '/CHRISTMAS Lunch 23219DG.JPG', '/CHRISTMAS Lunch 23221DI.JPG',
+    '/CHRISTMAS Lunch 23225DM.JPG', '/CHRISTMAS Lunch 23226DN.JPG'
+  ]);
 
   return (
     <div className="space-y-6">

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { fromUTC } from '@/lib/availability';
+import Link from 'next/link';
 
 interface Booking {
   _id: string;
@@ -81,7 +82,7 @@ export default function AdminBookingsPage() {
                       }`}>{booking.status.toLowerCase()}</span>
                     </td>
                     <td className="px-4 py-3 text-right">
-                      <a href={`/admin/bookings/${booking._id}`} className="text-sm text-sage-600 mr-3">View</a>
+                      <Link href={`/admin/bookings/${booking._id}`} className="text-sm text-sage-600 mr-3">View</Link>
                       <a href="#" className="text-sm text-red-500">Cancel</a>
                     </td>
                   </tr>
