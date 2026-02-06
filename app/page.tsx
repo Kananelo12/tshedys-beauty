@@ -5,29 +5,31 @@ import ServiceCard from './components/ServiceCard';
 import About from './components/About';
 import Features from './components/Features';
 import Gallery from './components/Gallery';
+import Testimonials from './components/Testimonials';
 import Pricing from './components/Pricing';
 import CTA from './components/CTA';
 import BlogList from './components/BlogList';
+import ScrollReveal from './components/ScrollReveal';
 
 export default function Home() {
   const featuredServices = [
     {
-      title: 'Hair Styling',
-      description: 'Professional cuts, styling, and treatments tailored to your unique beauty.',
+      title: 'Royal Hair Styling',
+      description: 'Professional cuts, luxury styling, and premium treatments fit for royalty.',
       price: 'R250',
       duration: '1-2 hours',
-      icon: '💇‍♀️',
+      icon: '👑',
     },
     {
-      title: 'Hair Treatments',
-      description: 'Deep conditioning, keratin treatments, and hair repair solutions.',
+      title: 'Magical Treatments',
+      description: 'Enchanting deep conditioning, keratin magic, and transformative hair repair.',
       price: 'R350',
       duration: '1.5 hours',
       icon: '✨',
     },
     {
-      title: 'Braiding & Extensions',
-      description: 'Beautiful braids, weaves, and extensions for any occasion.',
+      title: 'Fantasy Braiding',
+      description: 'Mystical braids, magical weaves, and fantasy extensions for every occasion.',
       price: 'R400',
       duration: '3-5 hours',
       icon: '🌺',
@@ -37,32 +39,70 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen bg-cream-50">
+      <main className="min-h-screen relative overflow-hidden">
         <Hero />
 
-        {/* New sections inspired by the design */}
-        <About />
-        <Features />
+        {/* About Section */}
+        <ScrollReveal>
+          <About />
+        </ScrollReveal>
 
-        <section className="section-padding bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-serif font-medium text-gray-900 mb-4">Featured Services</h2>
-              <p className="text-gray-600 max-w-2xl mx-auto">Discover our most popular beauty treatments, crafted with care.</p>
-            </div>
+        {/* Features Section */}
+        <ScrollReveal delay={0.2}>
+          <Features />
+        </ScrollReveal>
+
+        {/* Featured Services */}
+        <section className="section-padding relative">
+          {/* Background Decoration */}
+          <div className="absolute inset-0 bg-linear-to-b from-transparent via-pink-50 to-transparent opacity-50" />
+          
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <ScrollReveal>
+              <div className="text-center mb-16">
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold bg-linear-to-r from-pink-600 via-rose-500 to-purple-600 bg-clip-text text-transparent mb-6">
+                  ✨ Our Magical Services
+                </h2>
+                <p className="text-lg text-charcoal-600 max-w-3xl mx-auto leading-relaxed">
+                  Discover our enchanting beauty treatments, crafted with care and a touch of magic to transform you into royalty.
+                </p>
+              </div>
+            </ScrollReveal>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {featuredServices.map((service, index) => (
-                <ServiceCard key={index} {...service} />
+                <ScrollReveal key={index} delay={index * 0.1}>
+                  <ServiceCard {...service} />
+                </ScrollReveal>
               ))}
             </div>
           </div>
         </section>
 
-        <Gallery />
-        <Pricing />
-        <CTA />
-        <BlogList />
+        {/* Gallery Section */}
+        <ScrollReveal>
+          <Gallery />
+        </ScrollReveal>
+
+        {/* Testimonials Section */}
+        <ScrollReveal>
+          <Testimonials />
+        </ScrollReveal>
+
+        {/* Pricing Section */}
+        <ScrollReveal>
+          <Pricing />
+        </ScrollReveal>
+
+        {/* CTA Section */}
+        <ScrollReveal>
+          <CTA />
+        </ScrollReveal>
+
+        {/* Blog Section */}
+        <ScrollReveal>
+          <BlogList />
+        </ScrollReveal>
       </main>
       <Footer />
     </>

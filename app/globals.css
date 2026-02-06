@@ -1,90 +1,138 @@
 @import "tailwindcss";
 
 :root {
-  --background: #FFFBF7;
-  --foreground: #2C2C2C;
+  --background: #FFF0F8;
+  --foreground: #1A0A14;
   
-  /* Cream/Beige Palette - Primary */
-  --color-cream-50: #FFFBF7;
-  --color-cream-100: #FFF7F0;
-  --color-cream-200: #F5F3F0;
-  --color-cream-300: #E8E4DF;
-  --color-cream-400: #D4CEC7;
-  --color-cream-500: #C5BDB4;
-  --color-cream-600: #A89F94;
-  --color-cream-700: #8B7F72;
-  --color-cream-800: #6B625A;
-  --color-cream-900: #4A4340;
+  /* Fantasy Pink Palette - Primary */
+  --color-pink-50: #FFF0F8;
+  --color-pink-100: #FFE0F0;
+  --color-pink-200: #FFC0E0;
+  --color-pink-300: #FF99D1;
+  --color-pink-400: #FF70C2;
+  --color-pink-500: #FF47B3;
+  --color-pink-600: #E02896;
+  --color-pink-700: #C01E7A;
+  --color-pink-800: #8F1659;
+  --color-pink-900: #5E0F3B;
   
-  /* Teal/Sage Accent - Professional CTAs */
-  --color-sage-50: #F0F7F4;
-  --color-sage-100: #E0F0E9;
-  --color-sage-200: #B8DCC9;
-  --color-sage-300: #8FC7AA;
-  --color-sage-400: #6DB08F;
-  --color-sage-500: #4A9574;
-  --color-sage-600: #3D7D60;
-  --color-sage-700: #2F614B;
-  --color-sage-800: #234739;
-  --color-sage-900: #1A3329;
+  /* Blush & Rose - Soft Accents */
+  --color-blush-50: #FFF5F7;
+  --color-blush-100: #FFE8ED;
+  --color-blush-200: #FFD1DC;
+  --color-blush-300: #FFB4C6;
+  --color-blush-400: #FF8FB0;
+  --color-blush-500: #FF6A99;
+  --color-blush-600: #E64980;
+  --color-blush-700: #CC3366;
+  --color-blush-800: #B3264D;
+  --color-blush-900: #801A36;
   
-  /* Neutral Grays */
-  --color-gray-50: #FAFAFA;
-  --color-gray-100: #F5F5F5;
-  --color-gray-200: #EEEEEE;
-  --color-gray-300: #E0E0E0;
-  --color-gray-400: #BDBDBD;
-  --color-gray-500: #9E9E9E;
-  --color-gray-600: #757575;
-  --color-gray-700: #616161;
-  --color-gray-800: #424242;
-  --color-gray-900: #2C2C2C;
+  /* Deep Rose - Bold Accents */
+  --color-rose-50: #FFF0F5;
+  --color-rose-100: #FFD6E8;
+  --color-rose-200: #FFB3D6;
+  --color-rose-300: #FF8FC4;
+  --color-rose-400: #FF66B0;
+  --color-rose-500: #F72585;
+  --color-rose-600: #D41E6F;
+  --color-rose-700: #B11859;
+  --color-rose-800: #8E1244;
+  --color-rose-900: #6B0D33;
   
-  /* Accent Colors */
-  --color-accent-rose: #D4A5A5;
-  --color-accent-peach: #E8C4B8;
-  --color-accent-sand: #D9C8B8;
+  /* Purple Fantasy - Magical */
+  --color-purple-50: #FAF5FF;
+  --color-purple-100: #F3E7FF;
+  --color-purple-200: #E7CFFF;
+  --color-purple-300: #D4A5FF;
+  --color-purple-400: #C280FF;
+  --color-purple-500: #B05CFF;
+  --color-purple-600: #9333EA;
+  --color-purple-700: #7C2DC7;
+  --color-purple-800: #6525A3;
+  --color-purple-900: #4E1D80;
+  
+  /* Neutral Contrast */
+  --color-charcoal-50: #F8F8FA;
+  --color-charcoal-100: #F0F0F5;
+  --color-charcoal-200: #E0E0EB;
+  --color-charcoal-300: #B8B8CC;
+  --color-charcoal-400: #8F8FAA;
+  --color-charcoal-500: #666688;
+  --color-charcoal-600: #4D4D66;
+  --color-charcoal-700: #333344;
+  --color-charcoal-800: #1A1A2E;
+  --color-charcoal-900: #0D0D1A;
+  
+  /* White & Light Tints */
+  --color-white: #FFFFFF;
+  --color-light-50: #FFFAFC;
+  --color-light-100: #FFF5F9;
 }
 
 @theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   
-  --color-cream-*: initial;
-  --color-cream-50: var(--color-cream-50);
-  --color-cream-100: var(--color-cream-100);
-  --color-cream-200: var(--color-cream-200);
-  --color-cream-300: var(--color-cream-300);
-  --color-cream-400: var(--color-cream-400);
-  --color-cream-500: var(--color-cream-500);
-  --color-cream-600: var(--color-cream-600);
-  --color-cream-700: var(--color-cream-700);
-  --color-cream-800: var(--color-cream-800);
-  --color-cream-900: var(--color-cream-900);
+  --color-pink-*: initial;
+  --color-pink-50: var(--color-pink-50);
+  --color-pink-100: var(--color-pink-100);
+  --color-pink-200: var(--color-pink-200);
+  --color-pink-300: var(--color-pink-300);
+  --color-pink-400: var(--color-pink-400);
+  --color-pink-500: var(--color-pink-500);
+  --color-pink-600: var(--color-pink-600);
+  --color-pink-700: var(--color-pink-700);
+  --color-pink-800: var(--color-pink-800);
+  --color-pink-900: var(--color-pink-900);
   
-  --color-sage-*: initial;
-  --color-sage-50: var(--color-sage-50);
-  --color-sage-100: var(--color-sage-100);
-  --color-sage-200: var(--color-sage-200);
-  --color-sage-300: var(--color-sage-300);
-  --color-sage-400: var(--color-sage-400);
-  --color-sage-500: var(--color-sage-500);
-  --color-sage-600: var(--color-sage-600);
-  --color-sage-700: var(--color-sage-700);
-  --color-sage-800: var(--color-sage-800);
-  --color-sage-900: var(--color-sage-900);
+  --color-blush-*: initial;
+  --color-blush-50: var(--color-blush-50);
+  --color-blush-100: var(--color-blush-100);
+  --color-blush-200: var(--color-blush-200);
+  --color-blush-300: var(--color-blush-300);
+  --color-blush-400: var(--color-blush-400);
+  --color-blush-500: var(--color-blush-500);
+  --color-blush-600: var(--color-blush-600);
+  --color-blush-700: var(--color-blush-700);
+  --color-blush-800: var(--color-blush-800);
+  --color-blush-900: var(--color-blush-900);
   
-  --color-gray-*: initial;
-  --color-gray-50: var(--color-gray-50);
-  --color-gray-100: var(--color-gray-100);
-  --color-gray-200: var(--color-gray-200);
-  --color-gray-300: var(--color-gray-300);
-  --color-gray-400: var(--color-gray-400);
-  --color-gray-500: var(--color-gray-500);
-  --color-gray-600: var(--color-gray-600);
-  --color-gray-700: var(--color-gray-700);
-  --color-gray-800: var(--color-gray-800);
-  --color-gray-900: var(--color-gray-900);
+  --color-rose-*: initial;
+  --color-rose-50: var(--color-rose-50);
+  --color-rose-100: var(--color-rose-100);
+  --color-rose-200: var(--color-rose-200);
+  --color-rose-300: var(--color-rose-300);
+  --color-rose-400: var(--color-rose-400);
+  --color-rose-500: var(--color-rose-500);
+  --color-rose-600: var(--color-rose-600);
+  --color-rose-700: var(--color-rose-700);
+  --color-rose-800: var(--color-rose-800);
+  --color-rose-900: var(--color-rose-900);
+  
+  --color-purple-*: initial;
+  --color-purple-50: var(--color-purple-50);
+  --color-purple-100: var(--color-purple-100);
+  --color-purple-200: var(--color-purple-200);
+  --color-purple-300: var(--color-purple-300);
+  --color-purple-400: var(--color-purple-400);
+  --color-purple-500: var(--color-purple-500);
+  --color-purple-600: var(--color-purple-600);
+  --color-purple-700: var(--color-purple-700);
+  --color-purple-800: var(--color-purple-800);
+  --color-purple-900: var(--color-purple-900);
+  
+  --color-charcoal-*: initial;
+  --color-charcoal-50: var(--color-charcoal-50);
+  --color-charcoal-100: var(--color-charcoal-100);
+  --color-charcoal-200: var(--color-charcoal-200);
+  --color-charcoal-300: var(--color-charcoal-300);
+  --color-charcoal-400: var(--color-charcoal-400);
+  --color-charcoal-500: var(--color-charcoal-500);
+  --color-charcoal-600: var(--color-charcoal-600);
+  --color-charcoal-700: var(--color-charcoal-700);
+  --color-charcoal-800: var(--color-charcoal-800);
+  --color-charcoal-900: var(--color-charcoal-900);
   
   --font-sans: var(--font-inter);
   --font-serif: var(--font-playfair);
@@ -92,45 +140,109 @@
 
 @layer base {
   * {
-    border-color: var(--color-gray-200);
+    border-color: var(--color-pink-200);
   }
   
   body {
-    background: var(--color-cream-50);
-    color: var(--color-gray-900);
+    background: linear-gradient(135deg, var(--color-pink-50) 0%, var(--color-blush-50) 50%, var(--color-purple-50) 100%);
+    color: var(--color-charcoal-900);
     font-family: var(--font-sans);
+    overflow-x: hidden;
   }
   
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-serif);
-    font-weight: 400;
-    color: var(--color-gray-900);
+    font-weight: 600;
+    color: var(--color-charcoal-900);
+    letter-spacing: -0.02em;
   }
 }
 
 @layer utilities {
+  /* Glassmorphism Effects */
+  .glass {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(255, 71, 179, 0.15);
+  }
+  
+  .glass-dark {
+    background: rgba(255, 71, 179, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 112, 194, 0.2);
+  }
+  
+  /* Gradient Utilities */
+  .gradient-pink {
+    background: linear-gradient(135deg, var(--color-pink-500) 0%, var(--color-rose-500) 100%);
+  }
+  
+  .gradient-fantasy {
+    background: linear-gradient(135deg, var(--color-pink-400) 0%, var(--color-purple-500) 50%, var(--color-rose-500) 100%);
+  }
+  
+  .gradient-blush {
+    background: linear-gradient(135deg, var(--color-blush-300) 0%, var(--color-pink-400) 100%);
+  }
+  
+  /* Glow Effects */
+  .glow-pink {
+    box-shadow: 0 0 20px rgba(255, 71, 179, 0.5), 0 0 40px rgba(255, 71, 179, 0.3), 0 0 60px rgba(255, 71, 179, 0.2);
+  }
+  
+  .glow-purple {
+    box-shadow: 0 0 20px rgba(176, 92, 255, 0.5), 0 0 40px rgba(176, 92, 255, 0.3);
+  }
+  
+  .text-glow {
+    text-shadow: 0 0 30px rgba(255, 71, 179, 0.6), 0 0 60px rgba(255, 71, 179, 0.4);
+  }
+  
+  /* Card Styles */
   .card-elevated {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 10px 40px rgba(255, 71, 179, 0.2), 0 4px 12px rgba(247, 37, 133, 0.15);
+    transform: translateZ(0);
   }
   
   .card-hover {
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
   
   .card-hover:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.08);
+    transform: translateY(-12px) scale(1.02);
+    box-shadow: 0 20px 60px rgba(255, 71, 179, 0.3), 0 8px 24px rgba(247, 37, 133, 0.25);
   }
   
+  /* Animation Utilities */
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  .animate-bounce-slow {
+    animation: bounce-slow 3s ease-in-out infinite;
+  }
+  
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+  
+  .animate-sparkle {
+    animation: sparkle 2s ease-in-out infinite;
+  }
+  
+  /* Section Styles */
   .section-padding {
-    padding-top: 5rem;
-    padding-bottom: 5rem;
+    padding-top: 6rem;
+    padding-bottom: 6rem;
   }
   
   @media (min-width: 768px) {
     .section-padding {
-      padding-top: 7rem;
-      padding-bottom: 7rem;
+      padding-top: 8rem;
+      padding-bottom: 8rem;
     }
   }
   
@@ -143,15 +255,65 @@
   }
 }
 
-/* React Calendar Styles */
+/* Keyframe Animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes bounce-slow {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(255, 71, 179, 0.5), 0 0 40px rgba(255, 71, 179, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(255, 71, 179, 0.8), 0 0 60px rgba(255, 71, 179, 0.5);
+  }
+}
+
+@keyframes sparkle {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.2) rotate(180deg);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+/* React Calendar Styles - Pink Theme */
 .react-calendar {
   width: 100%;
   max-width: 400px;
-  background: white;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  border: 2px solid var(--color-pink-200);
+  border-radius: 16px;
   font-family: inherit;
   line-height: 1.125em;
+  box-shadow: 0 10px 40px rgba(255, 71, 179, 0.2);
 }
 
 .react-calendar--doubleView {
@@ -198,15 +360,19 @@
   background: none;
   font-size: 16px;
   margin-top: 8px;
+  color: var(--color-pink-700);
+  font-weight: 600;
 }
 
 .react-calendar__navigation button:disabled {
-  background-color: #f0f0f0;
+  background-color: var(--color-pink-100);
+  color: var(--color-pink-300);
 }
 
 .react-calendar__navigation button:enabled:hover,
 .react-calendar__navigation button:enabled:focus {
-  background-color: #e6e6e6;
+  background-color: var(--color-pink-100);
+  border-radius: 8px;
 }
 
 .react-calendar__month-view__weekdays {
@@ -214,7 +380,7 @@
   text-transform: uppercase;
   font-weight: bold;
   font-size: 0.75em;
-  color: #757575;
+  color: var(--color-purple-600);
 }
 
 .react-calendar__month-view__weekdays__weekday {
@@ -227,15 +393,15 @@
   justify-content: center;
   font-size: 0.75em;
   font-weight: bold;
-  color: #757575;
+  color: var(--color-charcoal-500);
 }
 
 .react-calendar__month-view__days__day--weekend {
-  color: #d10000;
+  color: var(--color-rose-500);
 }
 
 .react-calendar__month-view__days__day--neighboringMonth {
-  color: #757575;
+  color: var(--color-charcoal-400);
 }
 
 .react-calendar__year-view .react-calendar__tile,
@@ -251,47 +417,55 @@
   text-align: center;
   line-height: 16px;
   font-size: 0.833em;
+  border-radius: 8px;
+  transition: all 0.3s ease;
 }
 
 .react-calendar__tile:disabled {
-  background-color: #f0f0f0;
-  color: #ababab;
+  background-color: var(--color-pink-50);
+  color: var(--color-charcoal-300);
 }
 
 .react-calendar__tile:enabled:hover,
 .react-calendar__tile:enabled:focus {
-  background-color: #e6e6e6;
+  background: linear-gradient(135deg, var(--color-pink-200) 0%, var(--color-blush-200) 100%);
+  transform: scale(1.1);
+  color: var(--color-charcoal-900);
 }
 
 .react-calendar__tile--now {
-  background: #ffff76;
+  background: linear-gradient(135deg, var(--color-purple-300) 0%, var(--color-pink-300) 100%);
+  color: white;
+  font-weight: bold;
 }
 
 .react-calendar__tile--now:enabled:hover,
 .react-calendar__tile--now:enabled:focus {
-  background: #ffffa9;
+  background: linear-gradient(135deg, var(--color-purple-400) 0%, var(--color-pink-400) 100%);
 }
 
 .react-calendar__tile--hasActive {
-  background: #76baff;
+  background: var(--color-blush-300);
 }
 
 .react-calendar__tile--hasActive:enabled:hover,
 .react-calendar__tile--hasActive:enabled:focus {
-  background: #a9d4ff;
+  background: var(--color-blush-400);
 }
 
 .react-calendar__tile--active {
-  background: #006edc;
+  background: linear-gradient(135deg, var(--color-pink-500) 0%, var(--color-rose-500) 100%);
   color: white;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(255, 71, 179, 0.4);
 }
 
 .react-calendar__tile--active:enabled:hover,
 .react-calendar__tile--active:enabled:focus {
-  background: #1087ff;
+  background: linear-gradient(135deg, var(--color-pink-600) 0%, var(--color-rose-600) 100%);
+  box-shadow: 0 6px 16px rgba(255, 71, 179, 0.5);
 }
 
 .react-calendar--selectRange .react-calendar__tile--hover {
-  background-color: #e6e6e6;
+  background-color: var(--color-pink-200);
 }
-

@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { Sparkles } from 'lucide-react';
 
 interface ServiceCardProps {
   title: string;
@@ -13,36 +14,89 @@ interface ServiceCardProps {
 export default function ServiceCard({ title, description, price, duration, icon }: ServiceCardProps) {
   return (
     <motion.div 
-      className="bg-white rounded-xl p-6 border border-gray-200 card-elevated group cursor-pointer"
-      initial={{ opacity: 0, y: 20 }}
+      className="relative glass border-2 border-pink-200 rounded-3xl p-8 group cursor-pointer overflow-hidden"
+      initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
-      whileHover={{ y: -8, boxShadow: "0 20px 40px rgba(0,0,0,0.1)" }}
-      transition={{ duration: 0.3 }}
+      whileHover={{ 
+        y: -15, 
+        scale: 1.03,
+        rotateY: 5,
+      }}
+      transition={{ 
+        duration: 0.4,
+        type: 'spring',
+        stiffness: 260,
+        damping: 20
+      }}
+      style={{ transformStyle: 'preserve-3d' }}
     >
-      {/* Icon/Image placeholder */}
+      {/* Animated Background Gradient */}
       <motion.div 
-        className="w-16 h-16 bg-sage-100 rounded-full flex items-center justify-center mb-4 group-hover:bg-sage-200 transition-all duration-300"
-        whileHover={{ scale: 1.1, rotate: 5 }}
-        transition={{ type: "spring", stiffness: 300 }}
-      >
-        <span className="text-2xl">{icon || '✨'}</span>
-      </motion.div>
+        className="absolute inset-0 bg-gradient-to-br from-pink-100 via-blush-50 to-purple-100 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+        initial={{ scale: 0.8 }}
+        whileHover={{ scale: 1.1 }}
+        transition={{ duration: 0.6 }}
+      />
 
-      {/* Service Info */}
-      <h3 className="text-xl font-serif font-medium text-gray-900 mb-2">{title}</h3>
-      <p className="text-gray-600 text-sm mb-4 leading-relaxed">{description}</p>
+      {/* Glow Effect */}
+      <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 glow-pink" />
 
-      {/* Price & Duration */}
-      <div className="flex justify-between items-center pt-4 border-t border-gray-200">
-        <div>
-          <p className="text-xs text-gray-500 uppercase tracking-wider">From</p>
-          <p className="text-lg font-semibold text-sage-600">{price}</p>
+      {/* Content */}
+      <div className="relative z-10">
+        {/* Icon with Animation */}
+        <motion.div 
+          className="w-20 h-20 bg-gradient-to-br from-pink-400 to-purple-500 rounded-2xl flex items-center justify-center mb-6 shadow-elevated"
+          whileHover={{ 
+            scale: 1.2, 
+            rotate: 360,
+            boxShadow: '0 0 30px rgba(255, 71, 179, 0.6)'
+          }}
+          transition={{ 
+            type: "spring", 
+            stiffness: 260,
+            damping: 20
+          }}
+        >
+          <span className="text-3xl">{icon || '✨'}</span>
+        </motion.div>
+
+        {/* Service Title */}
+        <h3 className="text-2xl font-serif font-bold bg-gradient-to-r from-pink-700 to-purple-700 bg-clip-text text-transparent mb-3 group-hover:from-pink-600 group-hover:to-rose-600 transition-all">
+          {title}
+        </h3>
+        
+        {/* Description */}
+        <p className="text-charcoal-600 text-base mb-6 leading-relaxed">{description}</p>
+
+        {/* Sparkle Divider */}
+        <div className="flex items-center gap-2 mb-4">
+          <div className="flex-1 h-px bg-gradient-to-r from-transparent via-pink-300 to-transparent" />
+          <Sparkles className="text-pink-400 animate-sparkle" size={16} />
+          <div className="flex-1 h-px bg-gradient-to-r from-transparent via-pink-300 to-transparent" />
         </div>
-        <div className="text-right">
-          <p className="text-xs text-gray-500 uppercase tracking-wider">Duration</p>
-          <p className="text-sm text-gray-700">{duration}</p>
+
+        {/* Price & Duration */}
+        <div className="flex justify-between items-center">
+          <div>
+            <p className="text-xs text-charcoal-500 uppercase tracking-wider font-semibold mb-1">Starting From</p>
+            <p className="text-2xl font-bold bg-gradient-to-r from-pink-600 to-rose-600 bg-clip-text text-transparent">{price}</p>
+          </div>
+          <div className="text-right">
+            <p className="text-xs text-charcoal-500 uppercase tracking-wider font-semibold mb-1">Duration</p>
+            <p className="text-base font-bold text-purple-600">{duration}</p>
+          </div>
         </div>
+
+        {/* Hover indicator */}
+        <motion.div
+          className="absolute bottom-4 right-4 w-10 h-10 bg-pink-500 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100"
+          initial={{ scale: 0 }}
+          whileHover={{ scale: 1 }}
+          transition={{ duration: 0.3 }}
+        >
+          <span className="text-white text-xl">→</span>
+        </motion.div>
       </div>
     </motion.div>
   );
