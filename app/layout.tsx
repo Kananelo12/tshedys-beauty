@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
+import MagicalSparkles from "./components/MagicalSparkles";
+import FloatingShapes from "./components/FloatingShapes";
+import ParticleBackground from "./components/ParticleBackground";
+import ScrollProgress from "./components/ScrollProgress";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -10,12 +14,12 @@ const inter = Inter({
 const playfair = Playfair_Display({
   variable: "--font-playfair",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {
-  title: "Tshedy's Beauty Parlour - Premium Beauty & Wellness",
-  description: "Experience luxury beauty treatments at Tshedy's Beauty Parlour. Professional hairstyling, treatments, and beauty services in a serene environment.",
+  title: "✨ Tshedy's Magical Beauty Parlour - Fantasy Hair & Beauty",
+  description: "Experience enchanting beauty treatments at Tshedy's. Where fantasy meets beauty with magical hair styling, mystical braids, and spellbinding treatments.",
 };
 
 export default function RootLayout({
@@ -26,9 +30,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${playfair.variable} font-sans antialiased`}
+        className={`${inter.variable} ${playfair.variable} font-sans antialiased relative`}
       >
-        {children}
+        {/* Magical Background Effects */}
+        <MagicalSparkles />
+        <FloatingShapes />
+        <ParticleBackground />
+        <ScrollProgress />
+        
+        {/* Main Content */}
+        <div className="relative z-10">
+          {children}
+        </div>
       </body>
     </html>
   );
