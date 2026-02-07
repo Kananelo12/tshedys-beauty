@@ -8,31 +8,51 @@ import Gallery from './components/Gallery';
 import Testimonials from './components/Testimonials';
 import Pricing from './components/Pricing';
 import CTA from './components/CTA';
-import BlogList from './components/BlogList';
 import ScrollReveal from './components/ScrollReveal';
 
 export default function Home() {
   const featuredServices = [
     {
-      title: 'Royal Hair Styling',
-      description: 'Professional cuts, luxury styling, and premium treatments fit for royalty.',
-      price: 'R250',
-      duration: '1-2 hours',
-      icon: '👑',
+      title: 'Knotless Braids',
+      description: 'Sleek protective braids without tension in various sizes - from small to jumbo.',
+      price: 'From M150',
+      duration: '2-6 hours',
+      icon: '💇‍♀️',
     },
     {
-      title: 'Magical Treatments',
-      description: 'Enchanting deep conditioning, keratin magic, and transformative hair repair.',
-      price: 'R350',
-      duration: '1.5 hours',
-      icon: '✨',
-    },
-    {
-      title: 'Fantasy Braiding',
-      description: 'Mystical braids, magical weaves, and fantasy extensions for every occasion.',
-      price: 'R400',
-      duration: '3-5 hours',
+      title: 'Boho Knotless',
+      description: 'Trendy boho knotless braids with free-flowing curls for a bohemian vibe.',
+      price: 'From M200',
+      duration: '2-6 hours',
       icon: '🌺',
+    },
+    {
+      title: 'Twist Braids',
+      description: 'Elegant twist braids offering versatile protective styling in multiple sizes.',
+      price: 'From M80',
+      duration: '1.5-5 hours',
+      icon: '🌀',
+    },
+    {
+      title: 'Butterfly Locs',
+      description: 'Trendy butterfly locs with a textured, distressed finish for a unique style.',
+      price: 'From M250',
+      duration: '4-6 hours',
+      icon: '🦋',
+    },
+    {
+      title: 'Bridal Makeup',
+      description: 'Professional bridal makeup for your perfect wedding day.',
+      price: 'From M300',
+      duration: '1.5 hours',
+      icon: '👰',
+    },
+    {
+      title: 'French Curls',
+      description: 'Beautiful French curls for elegant, flowing waves in short or long styles.',
+      price: 'From M200',
+      duration: '2-4 hours',
+      icon: '🌹',
     },
   ];
 
@@ -76,6 +96,31 @@ export default function Home() {
                 </ScrollReveal>
               ))}
             </div>
+
+            {/* View All Button */}
+            <ScrollReveal delay={0.4}>
+              <div className="text-center mt-12">
+                <a 
+                  href="/services" 
+                  className="inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-white bg-linear-to-r from-pink-600 via-rose-500 to-purple-600 rounded-full hover:shadow-lg hover:scale-105 transition-all duration-300"
+                >
+                  View All Services
+                  <svg 
+                    className="ml-2 w-5 h-5" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round" 
+                      strokeWidth={2} 
+                      d="M9 5l7 7-7 7" 
+                    />
+                  </svg>
+                </a>
+              </div>
+            </ScrollReveal>
           </div>
         </section>
 
@@ -100,9 +145,9 @@ export default function Home() {
         </ScrollReveal>
 
         {/* Blog Section */}
-        <ScrollReveal>
+        {/* <ScrollReveal>
           <BlogList />
-        </ScrollReveal>
+        </ScrollReveal> */}
       </main>
       <Footer />
     </>
