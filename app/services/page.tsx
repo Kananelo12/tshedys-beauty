@@ -1,103 +1,445 @@
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
-import ServiceCard from '../components/ServiceCard';
-import Button from '../components/Button';
-import { Search } from 'lucide-react';
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import ServiceCard from "../components/ServiceCard";
+import Button from "../components/Button";
+import { Search } from "lucide-react";
 
 export default function ServicesPage() {
   const services = [
+    // Knotless Braids
     {
-      title: 'Haircuts & Styling',
-      description: 'Professional haircuts tailored to your face shape and style preferences. Includes wash, cut, and blow-dry.',
-      price: 'R250',
-      duration: '1 hour',
-      icon: '💇‍♀️',
+      title: "Knotless Braids - Small",
+      description:
+        "Sleek protective braids without tension, perfect for a natural look.",
+      price: "From M250",
+      duration: "4-6 hours",
+      icon: "💇‍♀️",
+      category: "Braids",
     },
     {
-      title: 'Hair Coloring',
-      description: 'Full color, highlights, balayage, or ombre. Using premium products for vibrant, long-lasting results.',
-      price: 'R500',
-      duration: '2-3 hours',
-      icon: '🎨',
+      title: "Knotless Braids - Medium",
+      description:
+        "Medium-sized knotless braids for a comfortable, stylish protective hairstyle.",
+      price: "From M200",
+      duration: "3-5 hours",
+      icon: "💇‍♀️",
+      category: "Braids",
     },
     {
-      title: 'Deep Conditioning Treatment',
-      description: 'Intensive hair repair and moisture treatment for damaged, dry, or chemically treated hair.',
-      price: 'R350',
-      duration: '1.5 hours',
-      icon: '✨',
+      title: "Knotless Braids - Large",
+      description: "Large knotless braids for a bold, low-maintenance look.",
+      price: "From M170",
+      duration: "2-4 hours",
+      icon: "💇‍♀️",
+      category: "Braids",
     },
     {
-      title: 'Keratin Treatment',
-      description: 'Smoothing treatment that eliminates frizz and leaves hair silky, manageable, and shiny.',
-      price: 'R800',
-      duration: '2-3 hours',
-      icon: '💎',
+      title: "Knotless Braids - Jumbo",
+      description: "Jumbo knotless braids for a trendy, voluminous style.",
+      price: "From M150",
+      duration: "2-3 hours",
+      icon: "💇‍♀️",
+      category: "Braids",
     },
-    {
-      title: 'Braiding',
-      description: 'Box braids, cornrows, Ghana braids, and more. Protective styling that looks beautiful.',
-      price: 'R400',
-      duration: '3-5 hours',
-      icon: '🌺',
-    },
-    {
-      title: 'Weaves & Extensions',
-      description: 'High-quality weaves and extensions for added length and volume. Multiple textures available.',
-      price: 'R600',
-      duration: '3-4 hours',
-      icon: '👑',
-    },
-    {
-      title: 'Natural Hair Care',
-      description: 'Specialized care for natural hair including twist-outs, wash and go, and protective styling.',
-      price: 'R300',
-      duration: '1.5-2 hours',
-      icon: '🍃',
-    },
-    {
-      title: 'Bridal Hair & Makeup',
-      description: 'Complete bridal beauty package including consultation, trial, and day-of styling.',
-      price: 'R1500',
-      duration: '3-4 hours',
-      icon: '👰',
-    },
-    {
-      title: 'Special Occasion Styling',
-      description: 'Elegant updos and styling for weddings, proms, and special events.',
-      price: 'R450',
-      duration: '1.5-2 hours',
-      icon: '🌟',
-    },
-    {
-      title: 'Hair Spa Treatment',
-      description: 'Luxurious scalp massage and treatment to promote healthy hair growth and relaxation.',
-      price: 'R400',
-      duration: '1 hour',
-      icon: '💆‍♀️',
-    },
-    {
-      title: 'Loc Maintenance',
-      description: 'Professional retwisting, interlocking, and maintenance for dreadlocs.',
-      price: 'R350',
-      duration: '2-3 hours',
-      icon: '🔒',
-    },
-    {
-      title: 'Kids Styling',
-      description: 'Gentle, fun styling services for children. Braids, twists, and cute hairstyles.',
-      price: 'R200',
-      duration: '1-2 hours',
-      icon: '🧒',
-    },
-  ];
 
-  const categories = [
-    { name: 'All Services', count: services.length },
-    { name: 'Hair Styling', count: 4 },
-    { name: 'Treatments', count: 3 },
-    { name: 'Braiding & Extensions', count: 3 },
-    { name: 'Special Occasions', count: 2 },
+    // Curled Knotless
+    {
+      title: "Curled Knotless - Small",
+      description:
+        "Small knotless braids with beautiful curled ends for added flair.",
+      price: "From M280",
+      duration: "4-6 hours",
+      icon: "🌊",
+      category: "Braids",
+    },
+    {
+      title: "Curled Knotless - Medium",
+      description:
+        "Medium curled knotless braids combining elegance with texture.",
+      price: "From M230",
+      duration: "3-5 hours",
+      icon: "🌊",
+      category: "Braids",
+    },
+    {
+      title: "Curled Knotless - Large",
+      description:
+        "Large curled knotless braids for a glamorous protective style.",
+      price: "From M200",
+      duration: "3-4 hours",
+      icon: "🌊",
+      category: "Braids",
+    },
+    {
+      title: "Curled Knotless - Jumbo",
+      description: "Jumbo curled knotless braids for maximum volume and style.",
+      price: "From M180",
+      duration: "2-3 hours",
+      icon: "🌊",
+      category: "Braids",
+    },
+
+    // Boho Knotless
+    {
+      title: "Boho Knotless - Small",
+      description:
+        "Small boho knotless braids with free-flowing curls for a bohemian vibe.",
+      price: "From M300",
+      duration: "4-6 hours",
+      icon: "🌺",
+      category: "Braids",
+    },
+    {
+      title: "Boho Knotless - Medium",
+      description: "Medium boho knotless with artistic curls and texture.",
+      price: "From M250",
+      duration: "3-5 hours",
+      icon: "🌺",
+      category: "Braids",
+    },
+    {
+      title: "Boho Knotless - Large",
+      description: "Large boho knotless braids for an effortlessly chic look.",
+      price: "From M220",
+      duration: "3-4 hours",
+      icon: "🌺",
+      category: "Braids",
+    },
+    {
+      title: "Boho Knotless - Jumbo",
+      description: "Jumbo boho knotless for a bold bohemian statement.",
+      price: "From M200",
+      duration: "2-3 hours",
+      icon: "🌺",
+      category: "Braids",
+    },
+
+    // Twist Braids
+    {
+      title: "Twist Braids - Small",
+      description:
+        "Small twist braids for a refined, elegant protective style.",
+      price: "From M300",
+      duration: "3-5 hours",
+      icon: "🌀",
+      category: "Twists",
+    },
+    {
+      title: "Twist Braids - Medium",
+      description: "Medium twist braids offering versatility and style.",
+      price: "From M250",
+      duration: "2-4 hours",
+      icon: "🌀",
+      category: "Twists",
+    },
+    {
+      title: "Twist Braids - Large",
+      description: "Large twist braids for a classic, low-maintenance look.",
+      price: "From M200",
+      duration: "2-3 hours",
+      icon: "🌀",
+      category: "Twists",
+    },
+    {
+      title: "Twist Braids - Jumbo",
+      description: "Jumbo twist braids for a bold, trendy appearance.",
+      price: "From M150",
+      duration: "1.5-2 hours",
+      icon: "🌀",
+      category: "Twists",
+    },
+    {
+      title: "Mini Twist (Hair)",
+      description: "Delicate mini twists for a natural, textured look.",
+      price: "From M80",
+      duration: "3-4 hours",
+      icon: "🌀",
+      category: "Twists",
+    },
+
+    // Curled Twist
+    {
+      title: "Curled Twist - Small",
+      description: "Small curled twists with beautiful bouncy ends.",
+      price: "From M330",
+      duration: "3-5 hours",
+      icon: "💫",
+      category: "Twists",
+    },
+    {
+      title: "Curled Twist - Medium",
+      description: "Medium curled twists for a glamorous finish.",
+      price: "From M280",
+      duration: "2-4 hours",
+      icon: "💫",
+      category: "Twists",
+    },
+    {
+      title: "Curled Twist - Large",
+      description: "Large curled twists combining volume and elegance.",
+      price: "From M230",
+      duration: "2-3 hours",
+      icon: "💫",
+      category: "Twists",
+    },
+    {
+      title: "Curled Twist - Jumbo",
+      description: "Jumbo curled twists for maximum impact.",
+      price: "From M180",
+      duration: "1.5-2 hours",
+      icon: "💫",
+      category: "Twists",
+    },
+    {
+      title: "Mini Twist",
+      description: "Delicate mini twists with curled ends.",
+      price: "From M180",
+      duration: "3-4 hours",
+      icon: "💫",
+      category: "Twists",
+    },
+
+    // Boho Twist
+    {
+      title: "Boho Twist - Small",
+      description:
+        "Small boho twists with free-flowing curls for a carefree style.",
+      price: "From M350",
+      duration: "3-5 hours",
+      icon: "🌸",
+      category: "Twists",
+    },
+    {
+      title: "Boho Twist - Medium",
+      description: "Medium boho twists blending structure with natural flow.",
+      price: "From M300",
+      duration: "2-4 hours",
+      icon: "🌸",
+      category: "Twists",
+    },
+    {
+      title: "Boho Twist - Large",
+      description: "Large boho twists for an artistic, bohemian look.",
+      price: "From M250",
+      duration: "2-3 hours",
+      icon: "🌸",
+      category: "Twists",
+    },
+    {
+      title: "Boho Twist - Jumbo",
+      description: "Jumbo boho twists for a stunning statement style.",
+      price: "From M200",
+      duration: "1.5-2 hours",
+      icon: "🌸",
+      category: "Twists",
+    },
+
+    // Dreadlocks
+    {
+      title: "Eco-Dread",
+      description:
+        "Eco-friendly dreadlocs installation for a natural, authentic look.",
+      price: "From M170",
+      duration: "4-6 hours",
+      icon: "🔒",
+      category: "Locs",
+    },
+    {
+      title: "Durban Dread",
+      description: "Traditional Durban-style dreadlocs with expert finishing.",
+      price: "From M170",
+      duration: "4-6 hours",
+      icon: "🔒",
+      category: "Locs",
+    },
+    {
+      title: "Butterfly Locs",
+      description: "Trendy butterfly locs with a textured, distressed finish.",
+      price: "From M250",
+      duration: "4-6 hours",
+      icon: "🦋",
+      category: "Locs",
+    },
+    {
+      title: "Faux Locs",
+      description: "Temporary faux locs for the look without the commitment.",
+      price: "From M250",
+      duration: "4-6 hours",
+      icon: "🔒",
+      category: "Locs",
+    },
+
+    // Gel/Lephondo
+    {
+      title: "Bun",
+      description: "Sleek gel bun for a polished, sophisticated look.",
+      price: "From M100",
+      duration: "30-45 min",
+      icon: "💎",
+      category: "Styling",
+    },
+    {
+      title: "Braided Bun",
+      description: "Elegant braided bun combining style and elegance.",
+      price: "From M120",
+      duration: "45-60 min",
+      icon: "💎",
+      category: "Styling",
+    },
+    {
+      title: "Ponytail",
+      description: "Sleek gel ponytail for a classic, chic style.",
+      price: "From M130",
+      duration: "30-45 min",
+      icon: "✨",
+      category: "Styling",
+    },
+    {
+      title: "Braided Ponytail",
+      description: "Beautiful braided ponytail with intricate detailing.",
+      price: "From M150",
+      duration: "45-60 min",
+      icon: "✨",
+      category: "Styling",
+    },
+
+    // Essence/Cornrows
+    {
+      title: "Backline",
+      description: "Classic backline cornrows for a neat, timeless look.",
+      price: "From M70",
+      duration: "1-2 hours",
+      icon: "〰️",
+      category: "Cornrows",
+    },
+    {
+      title: "Paff",
+      description: "Stylish paff cornrows with a modern twist.",
+      price: "From M100",
+      duration: "1.5-2 hours",
+      icon: "〰️",
+      category: "Cornrows",
+    },
+    {
+      title: "Extended Paff",
+      description: "Extended paff cornrows with added length and volume.",
+      price: "From M150",
+      duration: "2-3 hours",
+      icon: "〰️",
+      category: "Cornrows",
+    },
+    {
+      title: "Extended Backline",
+      description: "Extended backline cornrows for a fuller, longer style.",
+      price: "From M120",
+      duration: "2-3 hours",
+      icon: "〰️",
+      category: "Cornrows",
+    },
+
+    // Make-up
+    {
+      title: "Soft Glam",
+      description: "Natural, radiant makeup for everyday elegance.",
+      price: "From M150",
+      duration: "45 min",
+      icon: "💄",
+      category: "Makeup",
+    },
+    {
+      title: "Full Glam",
+      description: "Complete glamorous makeup for special occasions.",
+      price: "From M200",
+      duration: "1 hour",
+      icon: "💄",
+      category: "Makeup",
+    },
+    {
+      title: "Bridal Makeup",
+      description: "Professional bridal makeup for your perfect wedding day.",
+      price: "From M300",
+      duration: "1.5 hours",
+      icon: "👰",
+      category: "Makeup",
+    },
+
+    // Lashes
+    {
+      title: "Lashes - Classic",
+      description: "Classic lash extensions for natural enhancement.",
+      price: "From M70",
+      duration: "1 hour",
+      icon: "👁️",
+      category: "Lashes",
+    },
+    {
+      title: "Lashes - Hybrid",
+      description: "Hybrid lash extensions combining classic and volume.",
+      price: "From M100",
+      duration: "1.5 hours",
+      icon: "👁️",
+      category: "Lashes",
+    },
+    {
+      title: "Lashes - Volume",
+      description: "Full volume lash extensions for dramatic impact.",
+      price: "From M120",
+      duration: "2 hours",
+      icon: "👁️",
+      category: "Lashes",
+    },
+
+    // French Curls
+    {
+      title: "Short French Curls",
+      description: "Bouncy short French curls for a playful look.",
+      price: "From M200",
+      duration: "2-3 hours",
+      icon: "🌹",
+      category: "Curls",
+    },
+    {
+      title: "Short Boho French",
+      description: "Short boho French curls with a carefree vibe.",
+      price: "From M250",
+      duration: "2-3 hours",
+      icon: "🌹",
+      category: "Curls",
+    },
+    {
+      title: "Long French Curls",
+      description: "Long French curls for elegant, flowing waves.",
+      price: "From M300",
+      duration: "3-4 hours",
+      icon: "🌹",
+      category: "Curls",
+    },
+
+    // Hair Wash & Extension
+    {
+      title: "Natural Hair Wash",
+      description: "Gentle wash and conditioning for natural hair.",
+      price: "From M40",
+      duration: "30 min",
+      icon: "🚿",
+      category: "Hair Care",
+    },
+    {
+      title: "Relaxed Hair Wash",
+      description: "Specialized wash treatment for relaxed hair.",
+      price: "From M30",
+      duration: "30 min",
+      icon: "🚿",
+      category: "Hair Care",
+    },
+    {
+      title: "Sew-in Hair Extension",
+      description: "Professional sew-in extensions for length and volume.",
+      price: "From M150",
+      duration: "3-4 hours",
+      icon: "✂️",
+      category: "Hair Care",
+    },
   ];
 
   return (
@@ -108,8 +450,13 @@ export default function ServicesPage() {
         <section className="py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center">
-              <h1 className="text-3xl md:text-4xl font-serif font-semibold text-gray-900">Services</h1>
-              <p className="text-gray-600 max-w-2xl mx-auto mt-3">Tailored hair, braiding, nail and beauty services crafted by expert stylists.</p>
+              <h1 className="text-3xl md:text-4xl font-serif font-semibold text-gray-900">
+                Services
+              </h1>
+              <p className="text-gray-600 max-w-2xl mx-auto mt-3">
+                Tailored hair, braiding, nail and beauty services crafted by
+                expert stylists.
+              </p>
             </div>
           </div>
         </section>
@@ -120,8 +467,15 @@ export default function ServicesPage() {
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
               <div className="flex items-center gap-3 w-full md:w-1/2">
                 <div className="relative w-full">
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
-                  <input aria-label="Search services" placeholder="Search services" className="w-full pl-10 pr-4 py-3 rounded-full border border-gray-200 bg-white" />
+                  <Search
+                    className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                    size={18}
+                  />
+                  <input
+                    aria-label="Search services"
+                    placeholder="Search services"
+                    className="w-full pl-10 pr-4 py-3 rounded-full border border-gray-200 bg-white"
+                  />
                 </div>
               </div>
 
@@ -154,8 +508,12 @@ export default function ServicesPage() {
         {/* CTA */}
         <section className="py-12 bg-cream-100">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-2xl font-serif font-semibold text-gray-900 mb-3">Ready to Book?</h2>
-            <p className="text-gray-600 mb-6">Select your service and choose a convenient time for your visit.</p>
+            <h2 className="text-2xl font-serif font-semibold text-gray-900 mb-3">
+              Ready to Book?
+            </h2>
+            <p className="text-gray-600 mb-6">
+              Select your service and choose a convenient time for your visit.
+            </p>
             <div className="flex justify-center gap-4">
               <Button variant="outline">Contact Us</Button>
               <Button>Book Appointment</Button>
@@ -169,15 +527,22 @@ export default function ServicesPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
               <div>
                 <h3 className="text-lg font-medium">Personal Consultations</h3>
-                <p className="text-sm text-gray-600">Free 10-minute consultation to match style with your lifestyle.</p>
+                <p className="text-sm text-gray-600">
+                  Free 10-minute consultation to match style with your
+                  lifestyle.
+                </p>
               </div>
               <div>
                 <h3 className="text-lg font-medium">Premium Products</h3>
-                <p className="text-sm text-gray-600">We use salon-grade products selected for your needs.</p>
+                <p className="text-sm text-gray-600">
+                  We use salon-grade products selected for your needs.
+                </p>
               </div>
               <div>
                 <h3 className="text-lg font-medium">Loyalty Rewards</h3>
-                <p className="text-sm text-gray-600">Earn points and get exclusive offers as a member.</p>
+                <p className="text-sm text-gray-600">
+                  Earn points and get exclusive offers as a member.
+                </p>
               </div>
             </div>
           </div>

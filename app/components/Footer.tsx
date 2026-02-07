@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
-  Heart,
   Mail,
   Phone,
   MapPin,
@@ -204,11 +203,11 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-gray-700/50 text-center">
-          <p className="text-sm text-gray-400 flex items-center justify-center gap-2">
+          {/* <p className="text-sm text-gray-400 flex items-center justify-center gap-2">
             Made with{" "}
             <Heart size={16} className="text-pink-500 animate-pulse-glow" /> by
             Tshedy&apos;s Team
-          </p>
+          </p> */}
           <p className="text-xs text-gray-500 mt-2">
             © {new Date().getFullYear()} Tshedy&apos;s Beauty Parlour. All rights
             reserved.
