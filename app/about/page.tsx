@@ -29,7 +29,7 @@ export default function AboutPage() {
                 Our Story ✨
               </h1>
               <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                A journey of passion, faith, and beauty — from a little
+                A journey of passion, faith, and beauty. From a little
                 girl&apos;s dream to a thriving beauty parlour.
               </p>
             </motion.div>

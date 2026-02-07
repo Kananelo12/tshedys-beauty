@@ -31,6 +31,7 @@
     "react-dom": "19.2.3",
     "react-leaflet": "^5.0.0",
     "react-scroll-parallax": "^3.5.0",
+    "resend": "^6.9.1",
     "three": "^0.182.0",
     "uuid": "^13.0.0"
   },

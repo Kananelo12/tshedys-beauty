@@ -19,15 +19,44 @@ export default function ContactPage() {
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    console.log("Contact submitted", formData);
+    setLoading(true);
+    setError("");
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to send message");
+      }
+
+      setSubmitted(true);
+      setFormData({
+        name: "",
+        email: "",
+        subject: "",
+        message: "",
+      });
+    } catch (err) {
+      setError("Failed to send message. Please try again or contact us directly.");
+      console.error("Contact form error:", err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -40,7 +69,7 @@ export default function ContactPage() {
               Get In Touch ✨
             </h1>
             <p className="text-gray-600 max-w-2xl mx-auto mt-3">
-              Questions, bookings, or consultations — we&apos;re here to help
+              Questions, bookings, or consultations. We&apos;re here to help
               you look and feel amazing!
             </p>
           </div>
@@ -175,6 +204,12 @@ export default function ContactPage() {
                     </div>
                   ) : (
                     <form onSubmit={handleSubmit} className="space-y-4">
+                      {error && (
+                        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+                          {error}
+                        </div>
+                      )}
+                      
                       <div>
                         <label
                           htmlFor="name"
@@ -188,7 +223,8 @@ export default function ContactPage() {
                           required
                           value={formData.name}
                           onChange={handleChange}
-                          className="mt-1 block w-full rounded-full border border-gray-200 px-4 py-3"
+                          disabled={loading}
+                          className="mt-1 block w-full rounded-full border border-gray-200 px-4 py-3 disabled:bg-gray-100 disabled:cursor-not-allowed"
                         />
                       </div>
 
@@ -206,7 +242,8 @@ export default function ContactPage() {
                           required
                           value={formData.email}
                           onChange={handleChange}
-                          className="mt-1 block w-full rounded-full border border-gray-200 px-4 py-3"
+                          disabled={loading}
+                          className="mt-1 block w-full rounded-full border border-gray-200 px-4 py-3 disabled:bg-gray-100 disabled:cursor-not-allowed"
                         />
                       </div>
 
@@ -222,7 +259,8 @@ export default function ContactPage() {
                           name="subject"
                           value={formData.subject}
                           onChange={handleChange}
-                          className="mt-1 block w-full rounded-full border border-gray-200 px-4 py-3"
+                          disabled={loading}
+                          className="mt-1 block w-full rounded-full border border-gray-200 px-4 py-3 disabled:bg-gray-100 disabled:cursor-not-allowed"
                         />
                       </div>
 
@@ -240,12 +278,13 @@ export default function ContactPage() {
                           required
                           value={formData.message}
                           onChange={handleChange}
-                          className="mt-1 block w-full rounded-xl border border-gray-200 px-4 py-3"
+                          disabled={loading}
+                          className="mt-1 block w-full rounded-xl border border-gray-200 px-4 py-3 disabled:bg-gray-100 disabled:cursor-not-allowed"
                         />
                       </div>
 
-                      <Button type="submit" className="w-full">
-                        Send Message
+                      <Button type="submit" className="w-full" disabled={loading}>
+                        {loading ? "Sending..." : "Send Message"}
                       </Button>
                     </form>
                   )}
