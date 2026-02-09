@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Image from 'next/image';
@@ -76,7 +77,9 @@ export default function GalleryPage() {
               <h3 className="text-xl font-serif font-semibold">Inspired? Book your visit</h3>
               <p className="text-gray-600 mt-2">We’ll help you recreate any of these looks with expert care.</p>
               <div className="mt-4">
-                <Button>Book Appointment</Button>
+                <Link href="/book">
+                  <Button>Book Appointment</Button>
+                </Link>
               </div>
             </div>
           </div>

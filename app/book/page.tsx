@@ -2,10 +2,10 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion"
 import {
   Calendar as CalendarIcon,
-  Clock,
   Home,
   MapPin,
   User,
@@ -16,6 +16,7 @@ import {
   Heart,
   Crown,
   Star,
+  Clock,
 } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -39,23 +40,6 @@ function Step1ServiceSelection({
   selectedService: string;
   setSelectedService: (id: string) => void;
 }) {
-  const serviceIcons: { [key: string]: string } = {
-    hair: "💇‍♀️",
-    styling: "👑",
-    treatment: "✨",
-    braid: "🌺",
-    color: "🎨",
-    cut: "✂️",
-  };
-
-  const getServiceIcon = (name: string) => {
-    const lowerName = name.toLowerCase();
-    for (const [key, icon] of Object.entries(serviceIcons)) {
-      if (lowerName.includes(key)) return icon;
-    }
-    return "💅";
-  };
-
   return (
     <motion.div
       initial={{ x: 300, opacity: 0 }}
@@ -72,12 +56,22 @@ function Step1ServiceSelection({
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="relative">
+        <div className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide">
+        <style jsx>{`
+          .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+          }
+          .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+          }
+        `}</style>
         {services.map((service) => (
           <motion.button
             key={service._id}
             onClick={() => setSelectedService(service._id)}
-            className={`p-6 rounded-3xl text-left transition-all relative overflow-hidden ${
+            className={`min-w-70 md:min-w-[320px] p-6 rounded-3xl text-left transition-all relative overflow-hidden snap-center shrink-0 ${
               selectedService === service._id
                 ? "bg-linear-to-br from-pink-100 to-purple-100 border-3 border-pink-400 shadow-xl"
                 : "bg-white border-2 border-pink-200 hover:border-pink-300"
@@ -96,7 +90,15 @@ function Step1ServiceSelection({
 
             <div className="relative z-10">
               <div className="flex items-start justify-between mb-3">
-                <span className="text-5xl">{getServiceIcon(service.name)}</span>
+                <div className="w-16 h-16 relative">
+                  <Image 
+                    src="/flower.png" 
+                    alt="Service icon" 
+                    width={64} 
+                    height={64}
+                    className="object-contain"
+                  />
+                </div>
                 {selectedService === service._id && (
                   <motion.div
                     initial={{ scale: 0, rotate: -180 }}
@@ -115,13 +117,7 @@ function Step1ServiceSelection({
                 {service.description}
               </p>
 
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <Clock className="w-4 h-4 text-pink-500" />
-                  <span className="text-sm text-gray-600">
-                    {service.duration} mins
-                  </span>
-                </div>
+              <div className="flex items-center justify-end">
                 <span className="text-lg font-bold text-pink-600">
                   M{service.price}
                 </span>
@@ -129,6 +125,17 @@ function Step1ServiceSelection({
             </div>
           </motion.button>
         ))}
+        </div>
+        
+        {/* Scroll indicators */}
+        <div className="flex justify-center gap-2 mt-4">
+          {services.map((_, index) => (
+            <div
+              key={index}
+              className="w-2 h-2 rounded-full bg-pink-200"
+            />
+          ))}
+        </div>
       </div>
     </motion.div>
   );

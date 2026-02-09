@@ -7,11 +7,10 @@ interface ServiceCardProps {
   title: string;
   description: string;
   price: string;
-  duration: string;
   icon?: string;
 }
 
-export default function ServiceCard({ title, description, price, duration, icon }: ServiceCardProps) {
+export default function ServiceCard({ title, description, price, icon }: ServiceCardProps) {
   return (
     <motion.div 
       className="relative glass border-2 border-pink-200 rounded-3xl p-8 group cursor-pointer overflow-hidden"
@@ -76,15 +75,11 @@ export default function ServiceCard({ title, description, price, duration, icon 
           <div className="flex-1 h-px bg-linear-to-r from-transparent via-pink-300 to-transparent" />
         </div>
 
-        {/* Price & Duration */}
-        <div className="flex justify-between items-center">
+        {/* Price */}
+        <div className="flex justify-start items-center">
           <div>
             <p className="text-xs text-charcoal-500 uppercase tracking-wider font-semibold mb-1">Starting From</p>
             <p className="text-2xl font-bold bg-linear-to-r from-pink-600 to-rose-600 bg-clip-text text-transparent">{price}</p>
-          </div>
-          <div className="text-right">
-            <p className="text-xs text-charcoal-500 uppercase tracking-wider font-semibold mb-1">Duration</p>
-            <p className="text-base font-bold text-purple-600">{duration}</p>
           </div>
         </div>
 

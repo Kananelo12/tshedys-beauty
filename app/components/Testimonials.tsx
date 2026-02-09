@@ -37,6 +37,18 @@ const testimonials: Testimonial[] = [
       "I looked sooo pretty!\nMy braids were very neat and comfortable, especially considering it was my first experience with jumbo braids. I absolutely loved how light and painless everything felt.\nHape ke ratile hore o khona ho braid le ha moriri o ts'umuhile 😭 that really impressed me. I felt confident, comfortable, and so beautiful.\nThank you for the amazing work and the good vibes 🤍✨",
     name: "Lintle Mpale",
   },
+  {
+    image: "testimonial-5.jpeg",
+    content:
+      "I am so obsessed with this hairstyle! 😍\nIt is so well-defined and very neat, honestly the most comfortable hairstyle ever.\nI feel so pretty 🥺😍 and it's all thanks to you. Not just for your blessed hands, but also for being so chill, friendly, and welcoming ❤️\nThe whole experience was amazing, and I left feeling confident and beautiful.",
+    name: "Ntshieng",
+  },
+  {
+    image: "testimonial-6.jpeg",
+    content:
+      "Heyy Tshedy! The way you did my braids made me feel so happy.\nThey are super neat and very comfortable, and they definitely give vibes ✨🔥.\nThank you so much 🤍.",
+    name: "Thato Tebele",
+  },
 ];
 
 function TestimonialCard({

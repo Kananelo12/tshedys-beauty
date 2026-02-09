@@ -9,6 +9,7 @@ import Testimonials from './components/Testimonials';
 import Pricing from './components/Pricing';
 import CTA from './components/CTA';
 import ScrollReveal from './components/ScrollReveal';
+import BlogList from './components/BlogList';
 
 export default function Home() {
   const featuredServices = [
@@ -16,42 +17,36 @@ export default function Home() {
       title: 'Knotless Braids',
       description: 'Sleek protective braids without tension in various sizes - from small to jumbo.',
       price: 'From M150',
-      duration: '2-6 hours',
       icon: '💇‍♀️',
     },
     {
       title: 'Boho Knotless',
       description: 'Trendy boho knotless braids with free-flowing curls for a bohemian vibe.',
       price: 'From M200',
-      duration: '2-6 hours',
       icon: '🌺',
     },
     {
       title: 'Twist Braids',
       description: 'Elegant twist braids offering versatile protective styling in multiple sizes.',
       price: 'From M80',
-      duration: '1.5-5 hours',
       icon: '🌀',
     },
     {
       title: 'Butterfly Locs',
       description: 'Trendy butterfly locs with a textured, distressed finish for a unique style.',
       price: 'From M250',
-      duration: '4-6 hours',
       icon: '🦋',
     },
     {
       title: 'Bridal Makeup',
       description: 'Professional bridal makeup for your perfect wedding day.',
       price: 'From M300',
-      duration: '1.5 hours',
       icon: '👰',
     },
     {
       title: 'French Curls',
       description: 'Beautiful French curls for elegant, flowing waves in short or long styles.',
       price: 'From M200',
-      duration: '2-4 hours',
       icon: '🌹',
     },
   ];
@@ -135,14 +130,14 @@ export default function Home() {
         </ScrollReveal>
 
         {/* Pricing Section */}
-        <ScrollReveal>
+        {/* <ScrollReveal>
           <Pricing />
-        </ScrollReveal>
+        </ScrollReveal> */}
 
         {/* CTA Section */}
-        <ScrollReveal>
+        {/* <ScrollReveal>
           <CTA />
-        </ScrollReveal>
+        </ScrollReveal> */}
 
         {/* Blog Section */}
         {/* <ScrollReveal>

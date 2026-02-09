@@ -3,6 +3,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import Lightbox from './Lightbox';
 
 export default function Gallery() {
@@ -51,6 +52,35 @@ export default function Gallery() {
             </motion.div>
           ))}
         </div>
+
+        {/* View All Button */}
+        <motion.div 
+          className="text-center mt-10"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+        >
+          <Link 
+            href="/gallery" 
+            className="inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-white bg-linear-to-r from-pink-600 via-rose-500 to-purple-600 rounded-full hover:shadow-lg hover:scale-105 transition-all duration-300"
+          >
+            View All Gallery
+            <svg 
+              className="ml-2 w-5 h-5" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                strokeWidth={2} 
+                d="M9 5l7 7-7 7" 
+              />
+            </svg>
+          </Link>
+        </motion.div>
       </div>
 
       {/* Lightbox */}
