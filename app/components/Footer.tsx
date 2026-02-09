@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   Mail,
@@ -24,15 +25,24 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand Section */}
           <div>
-            <motion.h3
-              className="text-3xl font-serif font-bold bg-linear-to-r from-pink-400 via-rose-400 to-purple-400 bg-clip-text text-transparent mb-4 flex items-center gap-2"
+            <motion.div
+              className="flex items-center gap-3 mb-4"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <Sparkles className="text-pink-400 animate-sparkle" size={24} />
-              Tshedy
-            </motion.h3>
+              <div className="relative w-12 h-12">
+                <Image 
+                  src="/logo.png" 
+                  alt="Tshedy Beauty Logo" 
+                  fill
+                  className="object-contain"
+                />
+              </div>
+              <h3 className="text-2xl font-serif font-bold bg-linear-to-r from-pink-400 via-rose-400 to-purple-400 bg-clip-text text-transparent">
+                Tshedy Beauty
+              </h3>
+            </motion.div>
             <p className="text-gray-300 text-sm leading-relaxed mb-4">
               Where fantasy meets beauty. Luxury hair & beauty services crafted
               with magic to transform you into royalty.

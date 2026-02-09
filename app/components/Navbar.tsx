@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { Sparkles, X, Menu } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -19,9 +20,9 @@ export default function Navbar() {
 
   return (
     <motion.nav 
-      className={`fixed top-0 left-0 right-0 bg-white/40 backdrop-blur-md z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 bg-white z-50 transition-all duration-300 ${
         scrolled 
-          ? 'glass border-b-2 border-pink-200 shadow-elevated' 
+          ? 'border-b-2 border-pink-200 shadow-elevated' 
           : 'border-b border-pink-100'
       }`}
       initial={{ y: -100 }}
@@ -32,13 +33,25 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-20">
           <div className="flex items-center space-x-12">
             {/* Logo */}
-            <Link href="/" className="flex items-center group">
+            <Link href="/" className="flex items-center gap-3 group">
+              <motion.div
+                whileHover={{ scale: 1.05, rotate: 5 }}
+                transition={{ type: 'spring', stiffness: 400 }}
+                className="relative w-12 h-12"
+              >
+                <Image 
+                  src="/logo.png" 
+                  alt="Tshedy Beauty Logo" 
+                  fill
+                  className="object-contain"
+                />
+              </motion.div>
               <motion.span 
-                className="text-3xl font-serif font-bold bg-linear-to-r from-pink-600 via-rose-500 to-purple-600 bg-clip-text text-transparent"
+                className="text-2xl font-serif font-bold bg-linear-to-r from-pink-600 via-rose-500 to-purple-600 bg-clip-text text-transparent"
                 whileHover={{ scale: 1.05 }}
                 transition={{ type: 'spring', stiffness: 400 }}
               >
-                ✨ Tshedy
+                Tshedy Beauty
               </motion.span>
             </Link>
 

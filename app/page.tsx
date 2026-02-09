@@ -6,10 +6,7 @@ import About from './components/About';
 import Features from './components/Features';
 import Gallery from './components/Gallery';
 import Testimonials from './components/Testimonials';
-import Pricing from './components/Pricing';
-import CTA from './components/CTA';
 import ScrollReveal from './components/ScrollReveal';
-import BlogList from './components/BlogList';
 
 export default function Home() {
   const featuredServices = [
