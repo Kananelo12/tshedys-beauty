@@ -1,5 +1,6 @@
-import { addHours, addMinutes, format, getDay, isWithinInterval, parseISO, setHours, setMinutes, startOfDay } from 'date-fns';
-import { toZonedTime, fromZonedTime } from 'date-fns-tz';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { addMinutes, format, getDay, isWithinInterval, parseISO, setHours, setMinutes } from 'date-fns';
+import { toZonedTime } from 'date-fns-tz';
 
 const TIMEZONE = 'Africa/Maseru'; // UTC+2
 
@@ -63,8 +64,14 @@ function isSlotAvailable(start: Date, end: Date, blocked: { start: string; end: 
 }
 
 export function toUTC(date: string, time: string): Date {
-  const local = parseISO(`${date}T${time}:00`);
-  return fromZonedTime(local, TIMEZONE);
+  // Parse the date and time components
+  const [hours, minutes] = time.split(':').map(Number);
+  const [year, month, day] = date.split('-').map(Number);
+  
+  // Create UTC date by subtracting Lesotho timezone offset (UTC+2)
+  // Local time in Maseru minus 2 hours = UTC time
+  const utcDate = new Date(Date.UTC(year, month - 1, day, hours - 2, minutes));
+  return utcDate;
 }
 
 export function fromUTC(date: Date): { date: string; time: string } {

@@ -713,7 +713,11 @@ export default function BookingPage() {
 
   useEffect(() => {
     if (selectedService && selectedDate) {
-      const dateStr = selectedDate.toISOString().split("T")[0];
+      // Format date in local timezone (not UTC) to prevent date shifts
+      const year = selectedDate.getFullYear();
+      const month = String(selectedDate.getMonth() + 1).padStart(2, '0');
+      const day = String(selectedDate.getDate()).padStart(2, '0');
+      const dateStr = `${year}-${month}-${day}`;
       fetch(`/api/availability?date=${dateStr}&serviceId=${selectedService}`)
         .then((res) => res.json())
         .then((data) => setAvailableTimes(data.slots));
@@ -731,7 +735,11 @@ export default function BookingPage() {
     setLoading(true);
     setError("");
 
-    const dateStr = selectedDate.toISOString().split("T")[0];
+    // Format date in local timezone (not UTC) to prevent date shifts
+    const year = selectedDate.getFullYear();
+    const month = String(selectedDate.getMonth() + 1).padStart(2, '0');
+    const day = String(selectedDate.getDate()).padStart(2, '0');
+    const dateStr = `${year}-${month}-${day}`;
 
     try {
       const res = await fetch("/api/bookings", {

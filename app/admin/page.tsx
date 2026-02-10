@@ -38,8 +38,8 @@ export default function AdminDashboard() {
     fetch('/api/bookings')
       .then(res => res.json())
       .then(data => {
-        if (data.bookings) {
-          setBookings(data.bookings);
+        if (Array.isArray(data)) {
+          setBookings(data);
         }
         setLoading(false);
       })
@@ -49,18 +49,20 @@ export default function AdminDashboard() {
       });
   }, []);
 
-  // Calculate stats
+  // Calculate stats (convert UTC to Lesotho timezone UTC+2)
   const todayBookings = bookings.filter(b => {
-    const bookingDate = new Date(b.startDateTime);
+    const utcDate = new Date(b.startDateTime);
+    const localDate = new Date(utcDate.getTime() + (2 * 60 * 60 * 1000));
     const today = new Date();
-    return bookingDate.toDateString() === today.toDateString();
+    return localDate.toDateString() === today.toDateString();
   }).length;
 
   const yesterdayBookings = bookings.filter(b => {
-    const bookingDate = new Date(b.startDateTime);
+    const utcDate = new Date(b.startDateTime);
+    const localDate = new Date(utcDate.getTime() + (2 * 60 * 60 * 1000));
     const yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
-    return bookingDate.toDateString() === yesterday.toDateString();
+    return localDate.toDateString() === yesterday.toDateString();
   }).length;
 
   const pendingBookings = bookings.filter(b => b.status === 'PENDING').length;
@@ -76,13 +78,15 @@ export default function AdminDashboard() {
   startOfLastWeek.setDate(startOfWeek.getDate() - 7);
   
   const thisWeekBookings = bookings.filter(b => {
-    const date = new Date(b.startDateTime);
-    return date >= startOfWeek && b.status === 'ACCEPTED';
+    const utcDate = new Date(b.startDateTime);
+    const localDate = new Date(utcDate.getTime() + (2 * 60 * 60 * 1000));
+    return localDate >= startOfWeek && b.status === 'ACCEPTED';
   }).length;
   
   const lastWeekBookings = bookings.filter(b => {
-    const date = new Date(b.startDateTime);
-    return date >= startOfLastWeek && date < startOfWeek && b.status === 'ACCEPTED';
+    const utcDate = new Date(b.startDateTime);
+    const localDate = new Date(utcDate.getTime() + (2 * 60 * 60 * 1000));
+    return localDate >= startOfLastWeek && localDate < startOfWeek && b.status === 'ACCEPTED';
   }).length;
   
   const weeklyChange = lastWeekBookings > 0 
@@ -96,17 +100,29 @@ export default function AdminDashboard() {
   
   const thisMonthRevenue = bookings
     .filter(b => {
-      const date = new Date(b.startDateTime);
-      return date >= startOfMonth && b.status === 'ACCEPTED';
+      const utcDate = new Date(b.startDateTime);
+      const localDate = new Date(utcDate.getTime() + (2 * 60 * 60 * 1000));
+      return localDate >= startOfMonth && b.status === 'ACCEPTED';
     })
-    .reduce((sum, b) => sum + (b.totalPrice || 0), 0);
+    .reduce((sum, b) => {
+      const servicePrice = b.service?.price || 0;
+      const houseCallFee = b.houseCallFee || 0;
+      const transportCost = b.transportCost || 0;
+      return sum + servicePrice + houseCallFee + transportCost;
+    }, 0);
   
   const lastMonthRevenue = bookings
     .filter(b => {
-      const date = new Date(b.startDateTime);
-      return date >= startOfLastMonth && date <= endOfLastMonth && b.status === 'ACCEPTED';
+      const utcDate = new Date(b.startDateTime);
+      const localDate = new Date(utcDate.getTime() + (2 * 60 * 60 * 1000));
+      return localDate >= startOfLastMonth && localDate <= endOfLastMonth && b.status === 'ACCEPTED';
     })
-    .reduce((sum, b) => sum + (b.totalPrice || 0), 0);
+    .reduce((sum, b) => {
+      const servicePrice = b.service?.price || 0;
+      const houseCallFee = b.houseCallFee || 0;
+      const transportCost = b.transportCost || 0;
+      return sum + servicePrice + houseCallFee + transportCost;
+    }, 0);
   
   const monthlyChange = lastMonthRevenue > 0
     ? (((thisMonthRevenue - lastMonthRevenue) / lastMonthRevenue) * 100).toFixed(1)
@@ -114,7 +130,12 @@ export default function AdminDashboard() {
   
   const totalRevenue = bookings
     .filter(b => b.status === 'ACCEPTED')
-    .reduce((sum, b) => sum + (b.totalPrice || 0), 0);
+    .reduce((sum, b) => {
+      const servicePrice = b.service?.price || 0;
+      const houseCallFee = b.houseCallFee || 0;
+      const transportCost = b.transportCost || 0;
+      return sum + servicePrice + houseCallFee + transportCost;
+    }, 0);
 
   const stats = [
     {
@@ -161,12 +182,18 @@ export default function AdminDashboard() {
     const data = days.map(day => ({ name: day, bookings: 0, revenue: 0 }));
     
     bookings.forEach(booking => {
-      const date = new Date(booking.startDateTime);
-      if (date >= startOfWeek) {
-        const dayIndex = date.getDay();
+      // Convert UTC date to Lesotho timezone (UTC+2)
+      const utcDate = new Date(booking.startDateTime);
+      const localDate = new Date(utcDate.getTime() + (2 * 60 * 60 * 1000)); // Add 2 hours for UTC+2
+      
+      if (localDate >= startOfWeek) {
+        const dayIndex = localDate.getDay();
         data[dayIndex].bookings += 1;
         if (booking.status === 'ACCEPTED') {
-          data[dayIndex].revenue += booking.totalPrice || 0;
+          const servicePrice = booking.service?.price || 0;
+          const houseCallFee = booking.houseCallFee || 0;
+          const transportCost = booking.transportCost || 0;
+          data[dayIndex].revenue += servicePrice + houseCallFee + transportCost;
         }
       }
     });
@@ -252,7 +279,7 @@ export default function AdminDashboard() {
             Weekly Performance
           </h3>
           {bookings.length === 0 ? (
-            <div className="flex flex-col items-center justify-center h-[300px] text-center">
+            <div className="flex flex-col items-center justify-center h-75 text-center">
               <TrendingUp className="w-16 h-16 text-charcoal-300 mb-4" />
               <p className="text-charcoal-600 font-medium mb-2">No data yet</p>
               <p className="text-sm text-charcoal-500">
@@ -306,7 +333,7 @@ export default function AdminDashboard() {
             Booking Status
           </h3>
           {bookings.length === 0 ? (
-            <div className="flex flex-col items-center justify-center h-[300px] text-center">
+            <div className="flex flex-col items-center justify-center h-75 text-center">
               <AlertCircle className="w-16 h-16 text-charcoal-300 mb-4" />
               <p className="text-charcoal-600 font-medium mb-2">No bookings yet</p>
               <p className="text-sm text-charcoal-500">
@@ -321,10 +348,28 @@ export default function AdminDashboard() {
                   cx="50%"
                   cy="50%"
                   labelLine={false}
-                  label={({ name, percent }) =>
-                    `${name} ${((percent || 0) * 100).toFixed(0)}%`
-                  }
-                  outerRadius={80}
+                  label={({ cx, cy, midAngle, outerRadius, percent }) => {
+                    if (!midAngle || !percent) return null;
+                    
+                    const RADIAN = Math.PI / 180;
+                    const radius = outerRadius + 25;
+                    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+                    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+                    
+                    return (
+                      <text 
+                        x={x} 
+                        y={y} 
+                        fill="#374151" 
+                        textAnchor={x > cx ? 'start' : 'end'} 
+                        dominantBaseline="central"
+                        className="text-sm font-semibold"
+                      >
+                        {`${(percent * 100).toFixed(0)}%`}
+                      </text>
+                    );
+                  }}
+                  outerRadius={90}
                   fill="#8884d8"
                   dataKey="value"
                 >
@@ -333,6 +378,13 @@ export default function AdminDashboard() {
                   ))}
                 </Pie>
                 <Tooltip />
+                <Legend 
+                  verticalAlign="bottom" 
+                  height={36}
+                  formatter={(value) => (
+                    <span className="text-sm text-charcoal-700">{value}</span>
+                  )}
+                />
               </PieChart>
             </ResponsiveContainer>
           )}
@@ -408,7 +460,7 @@ export default function AdminDashboard() {
                       </div>
                     </td>
                     <td className="px-4 py-4 text-sm text-charcoal-600">
-                      {booking.serviceName || 'N/A'}
+                      {booking.service?.name || 'N/A'}
                     </td>
                     <td className="px-4 py-4 text-sm text-charcoal-600">
                       {new Date(booking.startDateTime).toLocaleString()}
