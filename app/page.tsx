@@ -7,6 +7,7 @@ import Features from './components/Features';
 import Gallery from './components/Gallery';
 import Testimonials from './components/Testimonials';
 import ScrollReveal from './components/ScrollReveal';
+import { Scissors, Flower, Wind, Waves, UserRound, Flower2, Sparkles } from 'lucide-react';
 
 export default function Home() {
   const featuredServices = [
@@ -14,37 +15,37 @@ export default function Home() {
       title: 'Knotless Braids',
       description: 'Sleek protective braids without tension in various sizes - from small to jumbo.',
       price: 'From M150',
-      icon: '💇‍♀️',
+      icon: <Scissors size={32} />,
     },
     {
       title: 'Boho Knotless',
       description: 'Trendy boho knotless braids with free-flowing curls for a bohemian vibe.',
       price: 'From M200',
-      icon: '🌺',
+      icon: <Flower size={32} />,
     },
     {
       title: 'Twist Braids',
       description: 'Elegant twist braids offering versatile protective styling in multiple sizes.',
       price: 'From M80',
-      icon: '🌀',
+      icon: <Wind size={32} />,
     },
     {
       title: 'Butterfly Locs',
       description: 'Trendy butterfly locs with a textured, distressed finish for a unique style.',
       price: 'From M250',
-      icon: '🦋',
+      icon: <Waves size={32} />,
     },
     {
       title: 'Bridal Makeup',
       description: 'Professional bridal makeup for your perfect wedding day.',
       price: 'From M300',
-      icon: '👰',
+      icon: <UserRound size={32} />,
     },
     {
       title: 'French Curls',
       description: 'Beautiful French curls for elegant, flowing waves in short or long styles.',
       price: 'From M200',
-      icon: '🌹',
+      icon: <Flower2 size={32} />,
     },
   ];
 
@@ -72,8 +73,9 @@ export default function Home() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <ScrollReveal>
               <div className="text-center mb-16">
-                <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold bg-linear-to-r from-pink-600 via-rose-500 to-purple-600 bg-clip-text text-transparent mb-6">
-                  ✨ Our Magical Services
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold bg-linear-to-r from-pink-600 via-rose-500 to-purple-600 bg-clip-text text-transparent mb-6 flex items-center justify-center gap-3">
+                  <Sparkles className="text-pink-500" size={48} />
+                  Our Magical Services
                 </h2>
                 <p className="text-lg text-charcoal-600 max-w-3xl mx-auto leading-relaxed">
                   Discover our enchanting beauty treatments, crafted with care and a touch of magic to transform you into royalty.

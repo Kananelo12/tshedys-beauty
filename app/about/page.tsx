@@ -6,6 +6,7 @@ import Footer from "../components/Footer";
 import Button from "../components/Button";
 import Link from "next/link";
 import Image from "next/image";
+import { Lightbulb, Sparkles } from "lucide-react";
 
 export default function AboutPage() {
   return (
@@ -152,7 +153,7 @@ export default function AboutPage() {
                 <div className="grid grid-cols-2 gap-4">
                   <div className="rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
                     <Image
-                      src="/CHRISTMAS Lunch 23185BY.JPG"
+                      src="/CHRISTMAS Lunch 23138D.JPG"
                       alt="Tshedy styling"
                       width={400}
                       height={400}
@@ -173,7 +174,7 @@ export default function AboutPage() {
                 <div className="bg-linear-to-br from-blush-50 to-white rounded-3xl p-8 shadow-sm border border-blush-100">
                   <div className="flex items-center gap-3 mb-4">
                     <div className="w-12 h-12 bg-linear-to-br from-gold-400 to-rosegold-400 rounded-full flex items-center justify-center text-2xl">
-                      ✨
+                      <Sparkles />
                     </div>
                     <h2 className="text-2xl font-serif font-semibold text-gray-900">
                       Today
@@ -208,7 +209,7 @@ export default function AboutPage() {
             >
               <div className="inline-block mb-6">
                 <div className="w-16 h-16 bg-linear-to-br from-blush-400 via-lilac-400 to-rosegold-400 rounded-full flex items-center justify-center text-3xl mx-auto shadow-lg">
-                  🌟
+                  <Lightbulb />
                 </div>
               </div>
 
@@ -247,7 +248,9 @@ export default function AboutPage() {
               transition={{ duration: 0.6 }}
               className="bg-white rounded-3xl p-8 md:p-12 shadow-lg border border-gray-100 text-center"
             >
-              <div className="text-4xl mb-4">🙏🏾💕</div>
+                <div className="flex justify-center mb-4">
+                <Image src="/love.png" alt="Love" width={64} height={64} />
+                </div>
               <h2 className="text-2xl md:text-3xl font-serif font-semibold text-gray-900 mb-6">
                 With Gratitude
               </h2>
@@ -264,7 +267,7 @@ export default function AboutPage() {
 
               <div className="mt-8 pt-8 border-t border-gray-200">
                 <p className="text-sm text-gray-600 italic">
-                  &quot;Faith, Passion & Purpose — Making Beauty a Blessing ✨&quot;
+                  &quot;Faith, Passion & Purpose. Making Beauty a Blessing&quot;
                 </p>
               </div>
             </motion.div>

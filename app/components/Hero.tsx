@@ -3,7 +3,7 @@
 import { Suspense, useState } from 'react';
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, Sparkles, Star } from 'lucide-react';
+import { ArrowUpRight, Sparkles, Star, Crown, Wand2, Hand, Stars } from 'lucide-react';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 
@@ -45,8 +45,9 @@ export default function Hero() {
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-6 border border-pink-300"
               >
                 <Sparkles className="w-4 h-4 text-pink-500 animate-pulse-glow" />
-                <span className="text-sm font-semibold bg-linear-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
-                  ✨ Fantasy Hair & Beauty Experience
+                <span className="text-sm font-semibold bg-linear-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent flex items-center gap-2">
+                  <Sparkles size={16} className="text-pink-500" />
+                  Fantasy Hair & Beauty Experience
                 </span>
               </motion.div>
 
@@ -95,14 +96,14 @@ export default function Hero() {
                 transition={{ duration: 0.5, delay: 0.6 }}
               >
                 {[
-                  { name: '👑 Royal Styling', gradient: 'from-pink-400 to-rose-400' },
-                  { name: '✨ Magical Braids', gradient: 'from-purple-400 to-pink-400' },
-                  { name: '💅 Enchanted Nails', gradient: 'from-blush-400 to-pink-400' },
-                  { name: '🌟 Beauty Spells', gradient: 'from-rose-400 to-purple-400' },
+                  { name: 'Royal Styling', gradient: 'from-pink-400 to-rose-400', icon: Crown },
+                  { name: 'Magical Braids', gradient: 'from-purple-400 to-pink-400', icon: Wand2 },
+                  { name: 'Enchanted Nails', gradient: 'from-blush-400 to-pink-400', icon: Hand },
+                  { name: 'Beauty Spells', gradient: 'from-rose-400 to-purple-400', icon: Stars },
                 ].map((tag, i) => (
                   <motion.li 
                     key={tag.name}
-                    className={`px-5 py-3 bg-linear-to-r ${tag.gradient} text-white rounded-full font-semibold text-sm shadow-elevated hover:shadow-elevated-hover transition-all cursor-pointer`}
+                    className={`px-5 py-3 bg-linear-to-r ${tag.gradient} text-white rounded-full font-semibold text-sm shadow-elevated hover:shadow-elevated-hover transition-all cursor-pointer flex items-center gap-2`}
                     initial={{ opacity: 0, scale: 0.5, rotate: -10 }}
                     animate={{ opacity: 1, scale: 1, rotate: 0 }}
                     whileHover={{ 
@@ -118,6 +119,7 @@ export default function Hero() {
                       stiffness: 300
                     }}
                   >
+                    <tag.icon size={16} />
                     {tag.name}
                   </motion.li>
                 ))}

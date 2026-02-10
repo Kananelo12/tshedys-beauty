@@ -10,6 +10,8 @@ import {
   Instagram,
   Facebook,
   Sparkles,
+  Link2,
+  Heart,
 } from "lucide-react";
 
 export default function Footer() {
@@ -96,7 +98,8 @@ export default function Footer() {
           {/* Services Section */}
           <div>
             <h4 className="text-lg font-bold text-pink-300 mb-4 flex items-center gap-2">
-              ✨ Magical Services
+              <Sparkles size={18} className="text-pink-400" />
+              Magical Services
             </h4>
             <ul className="space-y-3 text-gray-300 text-sm">
               {[
@@ -128,7 +131,8 @@ export default function Footer() {
           {/* Quick Links */}
           <div>
             <h4 className="text-lg font-bold text-purple-300 mb-4 flex items-center gap-2">
-              🔗 Quick Links
+              <Link2 size={18} className="text-purple-400" />
+              Quick Links
             </h4>
             <ul className="space-y-3 text-gray-300 text-sm">
               {[
@@ -160,7 +164,8 @@ export default function Footer() {
           {/* Contact & Newsletter */}
           <div>
             <h4 className="text-lg font-bold text-rose-300 mb-4 flex items-center gap-2">
-              💌 Stay Connected
+              <Heart size={18} className="text-rose-400" />
+              Stay Connected
             </h4>
             <div className="space-y-3 text-gray-300 text-sm mb-6">
               <p className="flex items-center gap-2">

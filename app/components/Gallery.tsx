@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Lightbox from './Lightbox';
+import { Sparkles } from 'lucide-react';
 
 export default function Gallery() {
   const urls = ['/CHRISTMAS Lunch 23144J.JPG','/CHRISTMAS Lunch 23155U.JPG','/CHRISTMAS Lunch 23177BQ.JPG','/CHRISTMAS Lunch 23229DQ.JPG','/CHRISTMAS Lunch 23248EJ.JPG','/CHRISTMAS Lunch 23270FF.JPG'];
@@ -47,7 +48,10 @@ export default function Gallery() {
               
               {/* Hover Overlay */}
               <div className="absolute inset-0 bg-linear-to-t from-pink-600/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
-                <span className="text-white font-semibold text-sm">Click to view ✨</span>
+                <span className="text-white font-semibold text-sm flex items-center gap-2">
+                  Click to view
+                  <Sparkles size={16} />
+                </span>
               </div>
             </motion.div>
           ))}

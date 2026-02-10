@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, ChevronUp, Sparkles, Heart } from "lucide-react";
+import { ChevronDown, ChevronUp, Sparkles, Heart, Star } from "lucide-react";
 import Image from "next/image";
 import Lightbox from "./Lightbox";
 
@@ -113,15 +113,14 @@ function TestimonialCard({
             </h3>
             <div className="flex gap-1 mt-1">
               {[...Array(5)].map((_, i) => (
-                <motion.span
+                <motion.div
                   key={i}
                   initial={{ opacity: 0, scale: 0 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.1 * i }}
-                  className="text-gold-500"
                 >
-                  ⭐
-                </motion.span>
+                  <Star className="w-4 h-4 text-gold-500 fill-gold-500" />
+                </motion.div>
               ))}
             </div>
           </div>
@@ -196,7 +195,7 @@ export default function Testimonials() {
       {/* Floating Sparkles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
-          className="absolute top-20 left-10 text-pink-300"
+          className="absolute top-20 left-10"
           animate={{
             y: [0, -20, 0],
             rotate: [0, 360],
@@ -208,10 +207,10 @@ export default function Testimonials() {
             ease: "easeInOut",
           }}
         >
-          ✨
+          <Sparkles className="w-6 h-6 text-pink-300" />
         </motion.div>
         <motion.div
-          className="absolute top-40 right-20 text-purple-300"
+          className="absolute top-40 right-20"
           animate={{
             y: [0, 20, 0],
             rotate: [360, 0],
@@ -223,10 +222,10 @@ export default function Testimonials() {
             ease: "easeInOut",
           }}
         >
-          💜
+          <Heart className="w-6 h-6 text-purple-300 fill-purple-300" />
         </motion.div>
         <motion.div
-          className="absolute bottom-40 left-20 text-gold-400"
+          className="absolute bottom-40 left-20"
           animate={{
             y: [0, -15, 0],
             x: [0, 10, 0],
@@ -238,7 +237,7 @@ export default function Testimonials() {
             ease: "easeInOut",
           }}
         >
-          ⭐
+          <Star className="w-6 h-6 text-gold-400 fill-gold-400" />
         </motion.div>
       </div>
 
@@ -250,12 +249,14 @@ export default function Testimonials() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold bg-linear-to-r from-pink-600 via-rose-500 to-purple-600 bg-clip-text text-transparent mb-6">
-            💕 Hear from Our Queens
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold bg-linear-to-r from-pink-600 via-rose-500 to-purple-600 bg-clip-text text-transparent mb-6 flex items-center justify-center gap-3">
+            <Heart className="text-pink-500 fill-pink-500" size={48} />
+            Hear from Our Queens
           </h2>
-          <p className="text-lg text-charcoal-600 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg text-charcoal-600 max-w-3xl mx-auto leading-relaxed flex items-center justify-center gap-2 flex-wrap">
             Real stories from real people who trusted us with their crowning
-            glory. Every review makes our hearts sparkle! ✨
+            glory. Every review makes our hearts sparkle!
+            <Sparkles className="inline-block text-pink-500" size={20} />
           </p>
         </motion.div>
 
@@ -278,10 +279,11 @@ export default function Testimonials() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
         >
-          <p className="text-charcoal-600 text-lg">
+          <p className="text-charcoal-600 text-lg flex items-center justify-center gap-2 flex-wrap">
             Want to share your experience?
-            <span className="ml-2 text-pink-600 font-semibold">
-              We&apos;d love to hear from you! 💖
+            <span className="ml-2 text-pink-600 font-semibold flex items-center gap-2">
+              We&apos;d love to hear from you!
+              <Heart className="text-pink-600 fill-pink-600" size={20} />
             </span>
           </p>
         </motion.div>

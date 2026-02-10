@@ -2,12 +2,13 @@
 
 import { motion } from 'framer-motion';
 import { Sparkles } from 'lucide-react';
+import { ReactNode } from 'react';
 
 interface ServiceCardProps {
   title: string;
   description: string;
   price: string;
-  icon?: string;
+  icon?: ReactNode;
 }
 
 export default function ServiceCard({ title, description, price, icon }: ServiceCardProps) {
@@ -57,7 +58,7 @@ export default function ServiceCard({ title, description, price, icon }: Service
             damping: 20
           }}
         >
-          <span className="text-3xl">{icon || '✨'}</span>
+          <div className="text-white">{icon || <Sparkles size={32} />}</div>
         </motion.div>
 
         {/* Service Title */}

@@ -4,6 +4,7 @@ import { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Button from "../components/Button";
+import { Phone, Mail, MapPin, Check, Sparkles } from "lucide-react";
 
 import dynamic from "next/dynamic";
 
@@ -65,8 +66,9 @@ export default function ContactPage() {
       <main className="min-h-screen pt-24 bg-cream-50">
         <section className="py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 className="text-3xl md:text-4xl font-serif font-semibold text-gray-900">
-              Get In Touch ✨
+            <h1 className="text-3xl md:text-4xl font-serif font-semibold text-gray-900 flex items-center justify-center gap-3">
+              Get In Touch
+              <Sparkles className="text-pink-500" size={32} />
             </h1>
             <p className="text-gray-600 max-w-2xl mx-auto mt-3">
               Questions, bookings, or consultations. We&apos;re here to help
@@ -90,7 +92,7 @@ export default function ContactPage() {
                 <div className="space-y-6">
                   <div className="flex items-start gap-4">
                     <div className="w-12 h-12 bg-linear-to-br from-blush-300 to-lilac-300 rounded-full flex items-center justify-center">
-                      📞
+                      <Phone className="text-blush-700" size={20} />
                     </div>
                     <div>
                       <div className="font-medium">Phone</div>
@@ -105,7 +107,7 @@ export default function ContactPage() {
 
                   <div className="flex items-start gap-4">
                     <div className="w-12 h-12 bg-linear-to-br from-lilac-300 to-rosegold-300 rounded-full flex items-center justify-center">
-                      📧
+                      <Mail className="text-purple-700" size={20} />
                     </div>
                     <div>
                       <div className="font-medium">Email</div>
@@ -120,7 +122,7 @@ export default function ContactPage() {
 
                   <div className="flex items-start gap-4">
                     <div className="w-12 h-12 bg-linear-to-br from-rosegold-300 to-blush-300 rounded-full flex items-center justify-center">
-                      📍
+                      <MapPin className="text-rose-700" size={20} />
                     </div>
                     <div>
                       <div className="font-medium">Location</div>
@@ -190,7 +192,7 @@ export default function ContactPage() {
                   {submitted ? (
                     <div className="text-center py-12">
                       <div className="w-16 h-16 bg-sage-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                        ✓
+                        <Check className="text-white" size={32} />
                       </div>
                       <h3 className="text-2xl font-serif font-medium text-gray-900 mb-2">
                         Message Sent
