@@ -12,6 +12,9 @@ export interface Provider {
   email: string;
   phone: string;
   timezone: string;
+  password?: string; // Optional for client-side, required in database
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export interface Booking {

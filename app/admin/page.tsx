@@ -1,96 +1,394 @@
 "use client";
 
-import Card from '../components/Card';
-import { useState } from 'react';
-import Link from 'next/link';
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import {
+  Calendar,
+  Sparkles,
+  Image as ImageIcon,
+  DollarSign,
+  TrendingUp,
+  Clock,
+  CheckCircle,
+  XCircle,
+  AlertCircle,
+} from "lucide-react";
+import {
+  LineChart,
+  Line,
+  PieChart,
+  Pie,
+  Cell,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 
 export default function AdminDashboard() {
-  const [query, setQuery] = useState('');
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [bookings, setBookings] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Fetch bookings from API
+    fetch('/api/bookings')
+      .then(res => res.json())
+      .then(data => {
+        if (data.bookings) {
+          setBookings(data.bookings);
+        }
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Error fetching bookings:', error);
+        setLoading(false);
+      });
+  }, []);
+
+  // Calculate stats
+  const todayBookings = bookings.filter(b => {
+    const bookingDate = new Date(b.startDateTime);
+    const today = new Date();
+    return bookingDate.toDateString() === today.toDateString();
+  }).length;
+
+  const pendingBookings = bookings.filter(b => b.status === 'PENDING').length;
+  const acceptedBookings = bookings.filter(b => b.status === 'ACCEPTED').length;
+  const totalRevenue = bookings
+    .filter(b => b.status === 'ACCEPTED')
+    .reduce((sum, b) => sum + (b.totalPrice || 0), 0);
 
   const stats = [
-    { label: "Today's Bookings", value: '12', icon: '📅', change: '+3' },
-    { label: 'Total Services', value: '24', icon: '✨', change: '2 categories' },
-    { label: 'Gallery Images', value: '48', icon: '🖼️', change: '8 this week' },
-    { label: 'Monthly Revenue', value: 'R18,500', icon: '💰', change: '+12%' },
+    {
+      label: "Today's Bookings",
+      value: todayBookings.toString(),
+      icon: Calendar,
+      change: '+3 from yesterday',
+      gradient: 'from-pink-500 to-rose-500',
+    },
+    {
+      label: "Pending Requests",
+      value: pendingBookings.toString(),
+      icon: Clock,
+      change: 'Awaiting response',
+      gradient: 'from-purple-500 to-pink-500',
+    },
+    {
+      label: "Confirmed Bookings",
+      value: acceptedBookings.toString(),
+      icon: CheckCircle,
+      change: '+12% this week',
+      gradient: 'from-rose-500 to-orange-500',
+    },
+    {
+      label: "Total Revenue",
+      value: `M${totalRevenue.toFixed(2)}`,
+      icon: DollarSign,
+      change: '+8.2% this month',
+      gradient: 'from-pink-600 to-purple-600',
+    },
   ];
 
-  const recent = [
-    { id: 1, name: 'Sarah Johnson', service: 'Hair Coloring', date: 'Today 10:00 AM', status: 'confirmed' },
-    { id: 2, name: 'Maria Garcia', service: 'Braiding', date: 'Today 2:00 PM', status: 'confirmed' },
-    { id: 3, name: 'Lisa Chen', service: 'Keratin Treatment', date: 'Tomorrow 11:00 AM', status: 'pending' },
+  // Chart data
+  const weeklyData = [
+    { name: 'Mon', bookings: 12, revenue: 3200 },
+    { name: 'Tue', bookings: 19, revenue: 4800 },
+    { name: 'Wed', bookings: 15, revenue: 3900 },
+    { name: 'Thu', bookings: 22, revenue: 5500 },
+    { name: 'Fri', bookings: 28, revenue: 7200 },
+    { name: 'Sat', bookings: 34, revenue: 8900 },
+    { name: 'Sun', bookings: 18, revenue: 4200 },
   ];
+
+  const statusData = [
+    { name: 'Accepted', value: acceptedBookings, color: '#10b981' },
+    { name: 'Pending', value: pendingBookings, color: '#f59e0b' },
+    { name: 'Rejected', value: bookings.filter(b => b.status === 'REJECTED').length, color: '#ef4444' },
+  ];
+
+  const recentBookings = bookings
+    .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+    .slice(0, 5);
 
   return (
     <div className="space-y-8">
-      <div>
-        <h2 className="text-3xl font-serif font-medium text-gray-900 mb-1">Welcome back</h2>
-        <p className="text-sm text-gray-600">Overview of your salon&apos;s activity.</p>
-      </div>
+      {/* Header */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <h2 className="text-3xl font-serif font-bold bg-linear-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent mb-2">
+          Welcome back! ✨
+        </h2>
+        <p className="text-charcoal-600">
+          Here&apos;s what&apos;s happening with your beauty parlour today.
+        </p>
+      </motion.div>
 
+      {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {stats.map((s, i) => (
-          <Card key={i} className="p-6">
-            <div className="flex items-start justify-between">
-              <div className="text-3xl">{s.icon}</div>
-              <div className="text-xs text-gray-500">{s.change}</div>
+        {stats.map((stat, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: i * 0.1 }}
+            className="glass border-2 border-pink-200 rounded-2xl p-6 hover:shadow-elevated transition-all duration-300"
+          >
+            <div className="flex items-start justify-between mb-4">
+              <div
+                className={`w-12 h-12 rounded-xl bg-linear-to-br ${stat.gradient} flex items-center justify-center shadow-lg`}
+              >
+                <stat.icon className="text-white" size={24} />
+              </div>
+              <span className="text-xs text-charcoal-500 bg-white px-2 py-1 rounded-full">
+                {stat.change}
+              </span>
             </div>
-            <div className="mt-4">
-              <p className="text-2xl font-bold text-gray-900">{s.value}</p>
-              <p className="text-sm text-gray-500">{s.label}</p>
-            </div>
-          </Card>
+            <p className="text-3xl font-bold text-charcoal-800 mb-1">
+              {stat.value}
+            </p>
+            <p className="text-sm text-charcoal-600">{stat.label}</p>
+          </motion.div>
         ))}
       </div>
 
+      {/* Charts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 space-y-4">
-          <div className="flex items-center justify-between">
-            <h3 className="text-xl font-serif">Recent Bookings</h3>
-            <Link href="/admin/bookings" className="text-sm text-sage-600">Manage →</Link>
-          </div>
-          <Card>
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead className="bg-cream-50">
-                  <tr>
-                    <th className="text-left px-4 py-3 text-xs text-gray-500 uppercase">Client</th>
-                    <th className="text-left px-4 py-3 text-xs text-gray-500 uppercase">Service</th>
-                    <th className="text-left px-4 py-3 text-xs text-gray-500 uppercase">Date</th>
-                    <th className="text-left px-4 py-3 text-xs text-gray-500 uppercase">Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {recent.map((r) => (
-                    <tr key={r.id} className="odd:bg-white even:bg-cream-50">
-                      <td className="px-4 py-3 text-sm font-medium">{r.name}</td>
-                      <td className="px-4 py-3 text-sm text-gray-600">{r.service}</td>
-                      <td className="px-4 py-3 text-sm text-gray-600">{r.date}</td>
-                      <td className="px-4 py-3">
-                        <span className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${
-                          r.status === 'confirmed' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'
-                        }`}>{r.status}</span>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </Card>
+        {/* Weekly Bookings Chart */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="lg:col-span-2 glass border-2 border-pink-200 rounded-2xl p-6"
+        >
+          <h3 className="text-xl font-serif font-bold text-charcoal-800 mb-6 flex items-center gap-2">
+            <TrendingUp className="text-pink-500" size={24} />
+            Weekly Performance
+          </h3>
+          <ResponsiveContainer width="100%" height={300}>
+            <LineChart data={weeklyData}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#f3e8ff" />
+              <XAxis dataKey="name" stroke="#6b7280" />
+              <YAxis stroke="#6b7280" />
+              <Tooltip
+                contentStyle={{
+                  backgroundColor: '#fff',
+                  border: '2px solid #fbcfe8',
+                  borderRadius: '12px',
+                }}
+              />
+              <Legend />
+              <Line
+                type="monotone"
+                dataKey="bookings"
+                stroke="#ec4899"
+                strokeWidth={3}
+                dot={{ fill: '#ec4899', r: 5 }}
+                name="Bookings"
+              />
+              <Line
+                type="monotone"
+                dataKey="revenue"
+                stroke="#a855f7"
+                strokeWidth={3}
+                dot={{ fill: '#a855f7', r: 5 }}
+                name="Revenue (M)"
+              />
+            </LineChart>
+          </ResponsiveContainer>
+        </motion.div>
+
+        {/* Status Distribution */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+          className="glass border-2 border-pink-200 rounded-2xl p-6"
+        >
+          <h3 className="text-xl font-serif font-bold text-charcoal-800 mb-6 flex items-center gap-2">
+            <AlertCircle className="text-purple-500" size={24} />
+            Booking Status
+          </h3>
+          <ResponsiveContainer width="100%" height={300}>
+            <PieChart>
+              <Pie
+                data={statusData}
+                cx="50%"
+                cy="50%"
+                labelLine={false}
+                label={({ name, percent }) =>
+                  `${name} ${((percent || 0) * 100).toFixed(0)}%`
+                }
+                outerRadius={80}
+                fill="#8884d8"
+                dataKey="value"
+              >
+                {statusData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={entry.color} />
+                ))}
+              </Pie>
+              <Tooltip />
+            </PieChart>
+          </ResponsiveContainer>
+        </motion.div>
+      </div>
+
+      {/* Recent Bookings Table */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.6 }}
+        className="glass border-2 border-pink-200 rounded-2xl p-6"
+      >
+        <div className="flex items-center justify-between mb-6">
+          <h3 className="text-xl font-serif font-bold text-charcoal-800 flex items-center gap-2">
+            <Calendar className="text-pink-500" size={24} />
+            Recent Bookings
+          </h3>
+          <Link
+            href="/admin/bookings"
+            className="text-sm text-pink-600 hover:text-pink-700 font-medium flex items-center gap-1"
+          >
+            View All →
+          </Link>
         </div>
 
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <h3 className="text-xl font-serif">Quick Actions</h3>
-            <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Quick search" className="rounded-full border border-gray-200 px-3 py-2 text-sm" />
+        {loading ? (
+          <div className="text-center py-12">
+            <div className="w-12 h-12 border-4 border-pink-200 border-t-pink-500 rounded-full animate-spin mx-auto mb-4" />
+            <p className="text-charcoal-600">Loading bookings...</p>
           </div>
-          <div className="grid grid-cols-2 gap-3">
-            <Link href="/admin/bookings" className="bg-white rounded-xl p-3 border border-gray-200 text-center hover:border-sage-500">New Booking</Link>
-            <Link href="/admin/services" className="bg-white rounded-xl p-3 border border-gray-200 text-center hover:border-sage-500">Add Service</Link>
-            <Link href="/admin/gallery" className="bg-white rounded-xl p-3 border border-gray-200 text-center hover:border-sage-500">Upload Image</Link>
-            <a href="#" className="bg-white rounded-xl p-3 border border-gray-200 text-center hover:border-sage-500">Reports</a>
+        ) : recentBookings.length === 0 ? (
+          <div className="text-center py-12">
+            <Calendar className="w-16 h-16 text-charcoal-300 mx-auto mb-4" />
+            <p className="text-charcoal-600">No bookings yet</p>
           </div>
-        </div>
-      </div>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="border-b-2 border-pink-200">
+                  <th className="text-left px-4 py-3 text-sm font-semibold text-charcoal-700">
+                    Client
+                  </th>
+                  <th className="text-left px-4 py-3 text-sm font-semibold text-charcoal-700">
+                    Service
+                  </th>
+                  <th className="text-left px-4 py-3 text-sm font-semibold text-charcoal-700">
+                    Date & Time
+                  </th>
+                  <th className="text-left px-4 py-3 text-sm font-semibold text-charcoal-700">
+                    Status
+                  </th>
+                  <th className="text-right px-4 py-3 text-sm font-semibold text-charcoal-700">
+                    Action
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {recentBookings.map((booking) => (
+                  <tr
+                    key={booking._id}
+                    className="border-b border-pink-100 hover:bg-pink-50/50 transition-colors"
+                  >
+                    <td className="px-4 py-4">
+                      <div>
+                        <p className="text-sm font-medium text-charcoal-800">
+                          {booking.clientName}
+                        </p>
+                        <p className="text-xs text-charcoal-500">
+                          {booking.clientEmail}
+                        </p>
+                      </div>
+                    </td>
+                    <td className="px-4 py-4 text-sm text-charcoal-600">
+                      {booking.serviceName || 'N/A'}
+                    </td>
+                    <td className="px-4 py-4 text-sm text-charcoal-600">
+                      {new Date(booking.startDateTime).toLocaleString()}
+                    </td>
+                    <td className="px-4 py-4">
+                      <span
+                        className={`inline-flex items-center gap-1 px-3 py-1 text-xs font-semibold rounded-full ${
+                          booking.status === 'ACCEPTED'
+                            ? 'bg-green-100 text-green-700'
+                            : booking.status === 'PENDING'
+                            ? 'bg-yellow-100 text-yellow-700'
+                            : 'bg-red-100 text-red-700'
+                        }`}
+                      >
+                        {booking.status === 'ACCEPTED' && (
+                          <CheckCircle size={14} />
+                        )}
+                        {booking.status === 'PENDING' && <Clock size={14} />}
+                        {booking.status === 'REJECTED' && <XCircle size={14} />}
+                        {booking.status}
+                      </span>
+                    </td>
+                    <td className="px-4 py-4 text-right">
+                      <Link
+                        href={`/admin/bookings/${booking._id}`}
+                        className="text-sm text-pink-600 hover:text-pink-700 font-medium"
+                      >
+                        View →
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </motion.div>
+
+      {/* Quick Actions */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.7 }}
+        className="grid grid-cols-2 md:grid-cols-4 gap-4"
+      >
+        <Link
+          href="/admin/bookings"
+          className="glass border-2 border-pink-200 rounded-xl p-6 text-center hover:shadow-elevated hover:border-pink-300 transition-all group"
+        >
+          <Calendar className="w-8 h-8 text-pink-500 mx-auto mb-2 group-hover:scale-110 transition-transform" />
+          <p className="text-sm font-medium text-charcoal-700">
+            Manage Bookings
+          </p>
+        </Link>
+        <Link
+          href="/admin/services"
+          className="glass border-2 border-pink-200 rounded-xl p-6 text-center hover:shadow-elevated hover:border-pink-300 transition-all group"
+        >
+          <Sparkles className="w-8 h-8 text-purple-500 mx-auto mb-2 group-hover:scale-110 transition-transform" />
+          <p className="text-sm font-medium text-charcoal-700">
+            Manage Services
+          </p>
+        </Link>
+        <Link
+          href="/admin/gallery"
+          className="glass border-2 border-pink-200 rounded-xl p-6 text-center hover:shadow-elevated hover:border-pink-300 transition-all group"
+        >
+          <ImageIcon className="w-8 h-8 text-rose-500 mx-auto mb-2 group-hover:scale-110 transition-transform" />
+          <p className="text-sm font-medium text-charcoal-700">
+            Update Gallery
+          </p>
+        </Link>
+        <a
+          href="#reports"
+          className="glass border-2 border-pink-200 rounded-xl p-6 text-center hover:shadow-elevated hover:border-pink-300 transition-all group"
+        >
+          <TrendingUp className="w-8 h-8 text-orange-500 mx-auto mb-2 group-hover:scale-110 transition-transform" />
+          <p className="text-sm font-medium text-charcoal-700">View Reports</p>
+        </a>
+      </motion.div>
     </div>
   );
 }
