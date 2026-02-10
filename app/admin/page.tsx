@@ -56,8 +56,62 @@ export default function AdminDashboard() {
     return bookingDate.toDateString() === today.toDateString();
   }).length;
 
+  const yesterdayBookings = bookings.filter(b => {
+    const bookingDate = new Date(b.startDateTime);
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    return bookingDate.toDateString() === yesterday.toDateString();
+  }).length;
+
   const pendingBookings = bookings.filter(b => b.status === 'PENDING').length;
   const acceptedBookings = bookings.filter(b => b.status === 'ACCEPTED').length;
+  
+  // Calculate week's and last week's bookings
+  const now = new Date();
+  const startOfWeek = new Date(now);
+  startOfWeek.setDate(now.getDate() - now.getDay());
+  startOfWeek.setHours(0, 0, 0, 0);
+  
+  const startOfLastWeek = new Date(startOfWeek);
+  startOfLastWeek.setDate(startOfWeek.getDate() - 7);
+  
+  const thisWeekBookings = bookings.filter(b => {
+    const date = new Date(b.startDateTime);
+    return date >= startOfWeek && b.status === 'ACCEPTED';
+  }).length;
+  
+  const lastWeekBookings = bookings.filter(b => {
+    const date = new Date(b.startDateTime);
+    return date >= startOfLastWeek && date < startOfWeek && b.status === 'ACCEPTED';
+  }).length;
+  
+  const weeklyChange = lastWeekBookings > 0 
+    ? (((thisWeekBookings - lastWeekBookings) / lastWeekBookings) * 100).toFixed(1)
+    : '0';
+  
+  // Calculate monthly revenue
+  const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+  const startOfLastMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+  const endOfLastMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+  
+  const thisMonthRevenue = bookings
+    .filter(b => {
+      const date = new Date(b.startDateTime);
+      return date >= startOfMonth && b.status === 'ACCEPTED';
+    })
+    .reduce((sum, b) => sum + (b.totalPrice || 0), 0);
+  
+  const lastMonthRevenue = bookings
+    .filter(b => {
+      const date = new Date(b.startDateTime);
+      return date >= startOfLastMonth && date <= endOfLastMonth && b.status === 'ACCEPTED';
+    })
+    .reduce((sum, b) => sum + (b.totalPrice || 0), 0);
+  
+  const monthlyChange = lastMonthRevenue > 0
+    ? (((thisMonthRevenue - lastMonthRevenue) / lastMonthRevenue) * 100).toFixed(1)
+    : '0';
+  
   const totalRevenue = bookings
     .filter(b => b.status === 'ACCEPTED')
     .reduce((sum, b) => sum + (b.totalPrice || 0), 0);
@@ -67,42 +121,67 @@ export default function AdminDashboard() {
       label: "Today's Bookings",
       value: todayBookings.toString(),
       icon: Calendar,
-      change: '+3 from yesterday',
+      change: todayBookings > yesterdayBookings 
+        ? `+${todayBookings - yesterdayBookings} from yesterday` 
+        : yesterdayBookings > todayBookings
+        ? `-${yesterdayBookings - todayBookings} from yesterday`
+        : 'Same as yesterday',
       gradient: 'from-pink-500 to-rose-500',
     },
     {
       label: "Pending Requests",
       value: pendingBookings.toString(),
       icon: Clock,
-      change: 'Awaiting response',
+      change: pendingBookings > 0 ? 'Awaiting response' : 'All clear',
       gradient: 'from-purple-500 to-pink-500',
     },
     {
       label: "Confirmed Bookings",
       value: acceptedBookings.toString(),
       icon: CheckCircle,
-      change: '+12% this week',
+      change: weeklyChange !== '0' 
+        ? `${Number(weeklyChange) > 0 ? '+' : ''}${weeklyChange}% this week`
+        : 'No change this week',
       gradient: 'from-rose-500 to-orange-500',
     },
     {
       label: "Total Revenue",
       value: `M${totalRevenue.toFixed(2)}`,
       icon: DollarSign,
-      change: '+8.2% this month',
+      change: monthlyChange !== '0'
+        ? `${Number(monthlyChange) > 0 ? '+' : ''}${monthlyChange}% this month`
+        : 'No change this month',
       gradient: 'from-pink-600 to-purple-600',
     },
   ];
 
-  // Chart data
-  const weeklyData = [
-    { name: 'Mon', bookings: 12, revenue: 3200 },
-    { name: 'Tue', bookings: 19, revenue: 4800 },
-    { name: 'Wed', bookings: 15, revenue: 3900 },
-    { name: 'Thu', bookings: 22, revenue: 5500 },
-    { name: 'Fri', bookings: 28, revenue: 7200 },
-    { name: 'Sat', bookings: 34, revenue: 8900 },
-    { name: 'Sun', bookings: 18, revenue: 4200 },
-  ];
+  // Calculate weekly data from real bookings
+  const weeklyData = (() => {
+    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const data = days.map(day => ({ name: day, bookings: 0, revenue: 0 }));
+    
+    bookings.forEach(booking => {
+      const date = new Date(booking.startDateTime);
+      if (date >= startOfWeek) {
+        const dayIndex = date.getDay();
+        data[dayIndex].bookings += 1;
+        if (booking.status === 'ACCEPTED') {
+          data[dayIndex].revenue += booking.totalPrice || 0;
+        }
+      }
+    });
+    
+    // Reorder to start from Monday
+    return [
+      data[1], // Mon
+      data[2], // Tue
+      data[3], // Wed
+      data[4], // Thu
+      data[5], // Fri
+      data[6], // Sat
+      data[0], // Sun
+    ];
+  })();
 
   const statusData = [
     { name: 'Accepted', value: acceptedBookings, color: '#10b981' },
@@ -122,8 +201,9 @@ export default function AdminDashboard() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h2 className="text-3xl font-serif font-bold bg-linear-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent mb-2">
-          Welcome back! ✨
+        <h2 className="text-3xl font-serif font-bold bg-linear-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent mb-2 flex items-center gap-2">
+          Welcome back!
+          <Sparkles className="text-pink-500" size={28} />
         </h2>
         <p className="text-charcoal-600">
           Here&apos;s what&apos;s happening with your beauty parlour today.
@@ -171,37 +251,47 @@ export default function AdminDashboard() {
             <TrendingUp className="text-pink-500" size={24} />
             Weekly Performance
           </h3>
-          <ResponsiveContainer width="100%" height={300}>
-            <LineChart data={weeklyData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#f3e8ff" />
-              <XAxis dataKey="name" stroke="#6b7280" />
-              <YAxis stroke="#6b7280" />
-              <Tooltip
-                contentStyle={{
-                  backgroundColor: '#fff',
-                  border: '2px solid #fbcfe8',
-                  borderRadius: '12px',
-                }}
-              />
-              <Legend />
-              <Line
-                type="monotone"
-                dataKey="bookings"
-                stroke="#ec4899"
-                strokeWidth={3}
-                dot={{ fill: '#ec4899', r: 5 }}
-                name="Bookings"
-              />
-              <Line
-                type="monotone"
-                dataKey="revenue"
-                stroke="#a855f7"
-                strokeWidth={3}
-                dot={{ fill: '#a855f7', r: 5 }}
-                name="Revenue (M)"
-              />
-            </LineChart>
-          </ResponsiveContainer>
+          {bookings.length === 0 ? (
+            <div className="flex flex-col items-center justify-center h-[300px] text-center">
+              <TrendingUp className="w-16 h-16 text-charcoal-300 mb-4" />
+              <p className="text-charcoal-600 font-medium mb-2">No data yet</p>
+              <p className="text-sm text-charcoal-500">
+                Weekly performance will appear once you have bookings
+              </p>
+            </div>
+          ) : (
+            <ResponsiveContainer width="100%" height={300}>
+              <LineChart data={weeklyData}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#f3e8ff" />
+                <XAxis dataKey="name" stroke="#6b7280" />
+                <YAxis stroke="#6b7280" />
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: '#fff',
+                    border: '2px solid #fbcfe8',
+                    borderRadius: '12px',
+                  }}
+                />
+                <Legend />
+                <Line
+                  type="monotone"
+                  dataKey="bookings"
+                  stroke="#ec4899"
+                  strokeWidth={3}
+                  dot={{ fill: '#ec4899', r: 5 }}
+                  name="Bookings"
+                />
+                <Line
+                  type="monotone"
+                  dataKey="revenue"
+                  stroke="#a855f7"
+                  strokeWidth={3}
+                  dot={{ fill: '#a855f7', r: 5 }}
+                  name="Revenue (M)"
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          )}
         </motion.div>
 
         {/* Status Distribution */}
@@ -215,27 +305,37 @@ export default function AdminDashboard() {
             <AlertCircle className="text-purple-500" size={24} />
             Booking Status
           </h3>
-          <ResponsiveContainer width="100%" height={300}>
-            <PieChart>
-              <Pie
-                data={statusData}
-                cx="50%"
-                cy="50%"
-                labelLine={false}
-                label={({ name, percent }) =>
-                  `${name} ${((percent || 0) * 100).toFixed(0)}%`
-                }
-                outerRadius={80}
-                fill="#8884d8"
-                dataKey="value"
-              >
-                {statusData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={entry.color} />
-                ))}
-              </Pie>
-              <Tooltip />
-            </PieChart>
-          </ResponsiveContainer>
+          {bookings.length === 0 ? (
+            <div className="flex flex-col items-center justify-center h-[300px] text-center">
+              <AlertCircle className="w-16 h-16 text-charcoal-300 mb-4" />
+              <p className="text-charcoal-600 font-medium mb-2">No bookings yet</p>
+              <p className="text-sm text-charcoal-500">
+                Status distribution will appear once you have bookings
+              </p>
+            </div>
+          ) : (
+            <ResponsiveContainer width="100%" height={300}>
+              <PieChart>
+                <Pie
+                  data={statusData}
+                  cx="50%"
+                  cy="50%"
+                  labelLine={false}
+                  label={({ name, percent }) =>
+                    `${name} ${((percent || 0) * 100).toFixed(0)}%`
+                  }
+                  outerRadius={80}
+                  fill="#8884d8"
+                  dataKey="value"
+                >
+                  {statusData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.color} />
+                  ))}
+                </Pie>
+                <Tooltip />
+              </PieChart>
+            </ResponsiveContainer>
+          )}
         </motion.div>
       </div>
 
