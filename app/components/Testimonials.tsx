@@ -1,8 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, ChevronUp, Sparkles, Heart, Star } from "lucide-react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 import Image from "next/image";
 import Lightbox from "./Lightbox";
 
@@ -53,11 +52,9 @@ const testimonials: Testimonial[] = [
 
 function TestimonialCard({
   testimonial,
-  index,
   onImageClick,
 }: {
   testimonial: Testimonial;
-  index: number;
   onImageClick: () => void;
 }) {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -67,112 +64,53 @@ function TestimonialCard({
   const needsTruncation = testimonial.content.length > 200;
 
   return (
-    <motion.div
-      className="relative glass border-2 border-pink-200 rounded-3xl p-6 sm:p-8 group overflow-hidden"
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ delay: index * 0.1 }}
-      whileHover={{
-        y: -8,
-        scale: 1.02,
-      }}
-    >
-      {/* Animated Background Gradient */}
-      <motion.div className="absolute inset-0 bg-linear-to-br from-pink-50 via-blush-50 to-purple-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-      {/* Glow Effect */}
-      <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 glow-pink" />
-
-      {/* Content */}
-      <div className="relative z-10">
-        {/* Profile Section */}
-        <div className="flex items-center gap-4 mb-6">
-          <motion.div
-            className="relative w-16 h-16 rounded-full overflow-hidden border-3 border-pink-300 shadow-lg cursor-pointer group/img"
-            whileHover={{ scale: 1.1, rotate: 5 }}
-            transition={{ type: "spring", stiffness: 260, damping: 20 }}
-            onClick={onImageClick}
-          >
-            <Image
-              src={`/${testimonial.image}`}
-              alt={testimonial.name}
-              fill
-              className="object-cover group-hover/img:brightness-110 transition-all"
-              sizes="64px"
-            />
-            {/* Click hint overlay */}
-            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center">
-              <span className="text-white text-xs">View</span>
-            </div>
-          </motion.div>
-
-          <div>
-            <h3 className="text-xl font-serif font-bold bg-linear-to-r from-pink-700 to-purple-700 bg-clip-text text-transparent">
-              {testimonial.name}
-            </h3>
-            <div className="flex gap-1 mt-1">
-              {[...Array(5)].map((_, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, scale: 0 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.1 * i }}
-                >
-                  <Star className="w-4 h-4 text-gold-500 fill-gold-500" />
-                </motion.div>
-              ))}
-            </div>
-          </div>
+    <div className="shrink-0 w-80 md:w-96 bg-white border-2 border-pink-200 rounded-2xl p-6 shadow-md hover:shadow-lg transition-shadow duration-300">
+      {/* Profile Section */}
+      <div className="flex items-center gap-4 mb-4">
+        <div
+          className="relative w-16 h-16 rounded-full overflow-hidden border-2 border-pink-300 cursor-pointer hover:scale-110 transition-transform duration-300"
+          onClick={onImageClick}
+        >
+          <Image
+            src={`/${testimonial.image}`}
+            alt={testimonial.name}
+            fill
+            className="object-cover"
+            sizes="64px"
+          />
         </div>
 
-        {/* Testimonial Content */}
-        <div className="relative">
-          <AnimatePresence mode="wait">
-            <motion.p
-              key={isExpanded ? "expanded" : "collapsed"}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="text-charcoal-600 text-base leading-relaxed whitespace-pre-wrap"
-            >
-              {isExpanded
-                ? testimonial.content
-                : `${truncatedContent}${needsTruncation ? "..." : ""}`}
-            </motion.p>
-          </AnimatePresence>
-
-          {/* Expand/Collapse Button */}
-          {needsTruncation && (
-            <motion.button
-              onClick={() => setIsExpanded(!isExpanded)}
-              className="mt-4 flex items-center gap-2 text-pink-600 hover:text-pink-700 font-semibold transition-colors group/btn"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <span>{isExpanded ? "Show less" : "Read more"}</span>
-              <motion.div
-                animate={{ rotate: isExpanded ? 180 : 0 }}
-                transition={{ duration: 0.3 }}
-              >
-                {isExpanded ? (
-                  <ChevronUp className="w-5 h-5 group-hover/btn:animate-bounce" />
-                ) : (
-                  <ChevronDown className="w-5 h-5 group-hover/btn:animate-bounce" />
-                )}
-              </motion.div>
-            </motion.button>
-          )}
-        </div>
-
-        {/* Decorative Hearts */}
-        <div className="absolute top-4 right-4 flex gap-1">
-          <Heart className="w-4 h-4 text-pink-400 fill-pink-200 animate-pulse" />
-          <Sparkles className="w-4 h-4 text-purple-400 animate-sparkle" />
+        <div>
+          <h4 className="font-bold text-gray-900 text-lg">{testimonial.name}</h4>
+          <p className="text-sm text-pink-600">Verified Client</p>
         </div>
       </div>
-    </motion.div>
+
+      {/* Testimonial Content */}
+      <div className="relative">
+        <p className="text-gray-700 text-sm leading-relaxed whitespace-pre-line">
+          {isExpanded ? testimonial.content : truncatedContent}
+          {!isExpanded && needsTruncation && "..."}
+        </p>
+
+        {needsTruncation && (
+          <button
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="mt-3 text-pink-600 hover:text-pink-700 text-sm font-semibold inline-flex items-center gap-1 transition-colors"
+          >
+            {isExpanded ? (
+              <>
+                Show Less <ChevronUp size={16} />
+              </>
+            ) : (
+              <>
+                Read More <ChevronDown size={16} />
+              </>
+            )}
+          </button>
+        )}
+      </div>
+    </div>
   );
 }
 
@@ -188,106 +126,31 @@ export default function Testimonials() {
   };
 
   return (
-    <section className="section-padding relative overflow-hidden">
-      {/* Background Decoration */}
-      <div className="absolute inset-0 bg-linear-to-b from-transparent via-purple-50 to-transparent opacity-50" />
-
-      {/* Floating Sparkles */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          className="absolute top-20 left-10"
-          animate={{
-            y: [0, -20, 0],
-            rotate: [0, 360],
-            scale: [1, 1.2, 1],
-          }}
-          transition={{
-            duration: 4,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        >
-          <Sparkles className="w-6 h-6 text-pink-300" />
-        </motion.div>
-        <motion.div
-          className="absolute top-40 right-20"
-          animate={{
-            y: [0, 20, 0],
-            rotate: [360, 0],
-            scale: [1, 1.3, 1],
-          }}
-          transition={{
-            duration: 5,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        >
-          <Heart className="w-6 h-6 text-purple-300 fill-purple-300" />
-        </motion.div>
-        <motion.div
-          className="absolute bottom-40 left-20"
-          animate={{
-            y: [0, -15, 0],
-            x: [0, 10, 0],
-            scale: [1, 1.1, 1],
-          }}
-          transition={{
-            duration: 3,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        >
-          <Star className="w-6 h-6 text-gold-400 fill-gold-400" />
-        </motion.div>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section id="testimonials" className="py-16 bg-pink-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold bg-linear-to-r from-pink-600 via-rose-500 to-purple-600 bg-clip-text text-transparent mb-6 flex items-center justify-center gap-3">
-            <Heart className="text-pink-500 fill-pink-500" size={48} />
-            Hear from Our Queens
+        <div className="text-center mb-12">
+          <h2 className="text-4xl font-serif font-bold text-gray-900 mb-4">
+            Client Testimonials
           </h2>
-          <p className="text-lg text-charcoal-600 max-w-3xl mx-auto leading-relaxed flex items-center justify-center gap-2 flex-wrap">
-            Real stories from real people who trusted us with their crowning
-            glory. Every review makes our hearts sparkle!
-            <Sparkles className="inline-block text-pink-500" size={20} />
+          <p className="text-lg text-gray-600">
+            Hear what our amazing clients have to say
           </p>
-        </motion.div>
-
-        {/* Testimonials Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {testimonials.map((testimonial, index) => (
-            <TestimonialCard
-              key={index}
-              testimonial={testimonial}
-              index={index}
-              onImageClick={() => openLightbox(index)}
-            />
-          ))}
         </div>
 
-        {/* Call to Action */}
-        <motion.div
-          className="text-center mt-12"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-        >
-          <p className="text-charcoal-600 text-lg flex items-center justify-center gap-2 flex-wrap">
-            Want to share your experience?
-            <span className="ml-2 text-pink-600 font-semibold flex items-center gap-2">
-              We&apos;d love to hear from you!
-              <Heart className="text-pink-600 fill-pink-600" size={20} />
-            </span>
-          </p>
-        </motion.div>
-      </div>
+        {/* Horizontal Scroll Container */}
+        <div className="overflow-x-auto scrollbar-hide pb-4">
+          <div className="flex gap-6" style={{ width: 'max-content' }}>
+            {testimonials.map((testimonial, index) => (
+              <TestimonialCard
+                key={index}
+                testimonial={testimonial}
+                onImageClick={() => openLightbox(index)}
+              />
+            ))}
+          </div>
+        </div>
+</div>
 
       {/* Lightbox */}
       {lightboxOpen && (
@@ -299,6 +162,16 @@ export default function Testimonials() {
           alt="Client photo"
         />
       )}
+
+      <style jsx>{`
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+        .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+      `}</style>
     </section>
   );
 }

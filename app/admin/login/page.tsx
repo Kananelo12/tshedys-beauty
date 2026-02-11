@@ -73,10 +73,10 @@ export default function AdminLogin() {
             >
               <div className="relative w-20 h-20">
                 <Image
-                  src="/logo.png"
+                  src="/logo.jpeg"
                   alt="Tshedy Beauty Logo"
                   fill
-                  className="object-contain"
+                  className="object-contain rounded-full border-4 border-white shadow-2xl"
                 />
               </div>
             </motion.div>

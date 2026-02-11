@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 interface PageProps {
   searchParams: Promise<{ status?: string }>;
 }
@@ -25,18 +27,18 @@ export default async function SuccessPage({ searchParams }: PageProps) {
           }
         </p>
         <div className="space-y-3">
-          <a
+          <Link
             href="/admin/bookings"
             className="block w-full bg-sage-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-sage-700 transition-colors"
           >
             View All Bookings
-          </a>
-          <a
+          </Link>
+          <Link
             href="/admin"
             className="block w-full bg-gray-100 text-gray-700 px-6 py-3 rounded-lg font-medium hover:bg-gray-200 transition-colors"
           >
             Back to Dashboard
-          </a>
+          </Link>
         </div>
       </div>
     </div>

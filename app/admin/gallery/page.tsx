@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ImageIcon, Upload, Trash2, Loader2 } from 'lucide-react';
+import Image from 'next/image';
 
 export default function AdminGalleryPage() {
   const [images, setImages] = useState<string[]>([]);
@@ -41,7 +42,7 @@ export default function AdminGalleryPage() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-[400px]">
+      <div className="flex items-center justify-center min-h-100">
         <div className="text-center">
           <Loader2 className="w-12 h-12 text-pink-500 animate-spin mx-auto mb-4" />
           <p className="text-charcoal-600">Loading gallery...</p>
@@ -57,7 +58,7 @@ export default function AdminGalleryPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          <h2 className="text-3xl font-serif font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent flex items-center gap-2">
+          <h2 className="text-3xl font-serif font-bold bg-linear-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent flex items-center gap-2">
             <ImageIcon className="text-pink-500" size={32} />
             Gallery
           </h2>
@@ -71,7 +72,7 @@ export default function AdminGalleryPage() {
           animate={{ opacity: 1, scale: 1 }}
           whileHover={{ scale: 1.05, y: -2 }}
           whileTap={{ scale: 0.95 }}
-          className="px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 to-rose-500 text-white font-semibold shadow-pink-glow hover:shadow-pink-glow-lg transition-all duration-300 flex items-center gap-2 cursor-pointer"
+          className="px-6 py-3 rounded-full bg-linear-to-r from-pink-500 to-rose-500 text-white font-semibold shadow-pink-glow hover:shadow-pink-glow-lg transition-all duration-300 flex items-center gap-2 cursor-pointer"
         >
           <Upload size={20} />
           Upload Images
@@ -98,7 +99,7 @@ export default function AdminGalleryPage() {
           <p className="text-charcoal-600 mb-6">
             Start building your gallery by uploading your first images
           </p>
-          <label className="px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 to-rose-500 text-white font-semibold shadow-pink-glow hover:shadow-pink-glow-lg transition-all duration-300 inline-flex items-center gap-2 cursor-pointer">
+          <label className="px-6 py-3 rounded-full bg-linear-to-r from-pink-500 to-rose-500 text-white font-semibold shadow-pink-glow hover:shadow-pink-glow-lg transition-all duration-300 inline-flex items-center gap-2 cursor-pointer">
             <Upload size={20} />
             Upload Your First Image
             <input
@@ -126,10 +127,12 @@ export default function AdminGalleryPage() {
                 className="relative group rounded-xl overflow-hidden bg-cream-50 border-2 border-pink-200 hover:shadow-elevated transition-all duration-300"
               >
                 <div className="aspect-square relative">
-                  <img
+                  <Image
                     src={src}
                     alt={`Gallery ${idx + 1}`}
-                    className="w-full h-full object-cover"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                 </div>
                 <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">

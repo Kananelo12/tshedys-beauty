@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
     const { serviceId, clientName, clientEmail, clientPhone, date, time, isHouseCall } = body;
 
     if (!serviceId || !clientName || !clientEmail || !clientPhone || !date || !time) {
-      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+      return NextResponse.json({ success: false, error: 'Missing required fields' }, { status: 400 });
     }
 
     const client = await clientPromise;
@@ -48,13 +48,13 @@ export async function POST(request: NextRequest) {
     // Get service
     const service = await db.collection('services').findOne({ _id: new ObjectId(serviceId) });
     if (!service) {
-      return NextResponse.json({ error: 'Service not found' }, { status: 404 });
+      return NextResponse.json({ success: false, error: 'Service not found' }, { status: 404 });
     }
 
     // Get provider (assume one)
     const provider = await db.collection('providers').findOne({});
     if (!provider) {
-      return NextResponse.json({ error: 'Provider not found' }, { status: 404 });
+      return NextResponse.json({ success: false, error: 'Provider not found' }, { status: 404 });
     }
 
     const startDateTime = toUTC(date, time);
@@ -70,7 +70,7 @@ export async function POST(request: NextRequest) {
     });
 
     if (conflict) {
-      return NextResponse.json({ error: 'Time slot not available' }, { status: 409 });
+      return NextResponse.json({ success: false, error: 'Time slot not available' }, { status: 409 });
     }
 
     // Create booking
@@ -97,9 +97,13 @@ export async function POST(request: NextRequest) {
     // Send notifications
     await sendBookingNotification(booking, service, provider);
 
-    return NextResponse.json({ bookingId: result.insertedId, message: 'Booking created, awaiting confirmation' });
+    return NextResponse.json({ 
+      success: true, 
+      bookingId: result.insertedId, 
+      message: 'Booking created, awaiting confirmation' 
+    });
   } catch (error) {
     console.error(error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    return NextResponse.json({ success: false, error: 'Internal server error' }, { status: 500 });
   }
 }

@@ -8,10 +8,10 @@ export async function GET() {
 
     const services = await db.collection('services').find({}).toArray();
 
-    return NextResponse.json({ services });
+    return NextResponse.json({ success: true, services });
   } catch (error) {
     console.error(error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    return NextResponse.json({ success: false, error: 'Internal server error' }, { status: 500 });
   }
 }
 

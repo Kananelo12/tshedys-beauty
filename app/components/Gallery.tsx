@@ -2,13 +2,19 @@
 'use client';
 
 import { useState } from 'react';
-import { motion } from 'framer-motion';
-import Link from 'next/link';
 import Lightbox from './Lightbox';
-import { Sparkles } from 'lucide-react';
 
 export default function Gallery() {
-  const urls = ['/CHRISTMAS Lunch 23144J.JPG','/CHRISTMAS Lunch 23155U.JPG','/CHRISTMAS Lunch 23177BQ.JPG','/CHRISTMAS Lunch 23229DQ.JPG','/CHRISTMAS Lunch 23248EJ.JPG','/CHRISTMAS Lunch 23270FF.JPG'];
+  const allImages = [
+    '/CHRISTMAS Lunch 23144J.JPG','/CHRISTMAS Lunch 23155U.JPG','/CHRISTMAS Lunch 23177BQ.JPG',
+    '/CHRISTMAS Lunch 23229DQ.JPG','/CHRISTMAS Lunch 23248EJ.JPG','/CHRISTMAS Lunch 23270FF.JPG',
+    '/CHRISTMAS Lunch 23136B.JPG','/CHRISTMAS Lunch 23137C.JPG','/CHRISTMAS Lunch 23138D.JPG',
+    '/CHRISTMAS Lunch 23150P.JPG','/CHRISTMAS Lunch 23151Q.JPG','/CHRISTMAS Lunch 23169BI.JPG'
+  ];
+  
+  // Split into two rows
+  const row1 = allImages.slice(0, 6);
+  const row2 = allImages.slice(6, 12);
   
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -19,84 +25,72 @@ export default function Gallery() {
   };
 
   return (
-    <section className="py-12 bg-white">
+    <section id="gallery" className="py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div 
-          className="text-center mb-8"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
-          <h3 className="text-2xl font-serif font-semibold text-gray-900">Our Photo Gallery</h3>
-          <p className="text-gray-600">Moments of style and care from our salon.</p>
-        </motion.div>
-
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          {urls.map((src, i) => (
-            <motion.div 
-              key={i} 
-              className="rounded-lg overflow-hidden group cursor-pointer relative"
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.4, delay: i * 0.1 }}
-              whileHover={{ scale: 1.05 }}
-              onClick={() => openLightbox(i)}
-            >
-              <img src={src} alt={`gallery-${i}`} className="w-full h-48 object-cover group-hover:brightness-110 transition-all duration-300" />
-              
-              {/* Hover Overlay */}
-              <div className="absolute inset-0 bg-linear-to-t from-pink-600/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
-                <span className="text-white font-semibold text-sm flex items-center gap-2">
-                  Click to view
-                  <Sparkles size={16} />
-                </span>
-              </div>
-            </motion.div>
-          ))}
+        <div className="text-center mb-12">
+          <h2 className="text-4xl font-serif font-bold text-gray-900 mb-4">Our Gallery</h2>
+          <p className="text-lg text-gray-600">Beautiful transformations from our salon</p>
         </div>
 
-        {/* View All Button */}
-        <motion.div 
-          className="text-center mt-10"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-        >
-          <Link 
-            href="/gallery" 
-            className="inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-white bg-linear-to-r from-pink-600 via-rose-500 to-purple-600 rounded-full hover:shadow-lg hover:scale-105 transition-all duration-300"
-          >
-            View All Gallery
-            <svg 
-              className="ml-2 w-5 h-5" 
-              fill="none" 
-              stroke="currentColor" 
-              viewBox="0 0 24 24"
-            >
-              <path 
-                strokeLinecap="round" 
-                strokeLinejoin="round" 
-                strokeWidth={2} 
-                d="M9 5l7 7-7 7" 
-              />
-            </svg>
-          </Link>
-        </motion.div>
+        {/* Row 1 - Horizontal Scroll */}
+        <div className="mb-6 overflow-x-auto scrollbar-hide">
+          <div className="flex gap-4 pb-4" style={{ width: 'max-content' }}>
+            {row1.map((src, i) => (
+              <div 
+                key={i} 
+                className="shrink-0 w-72 h-80 rounded-2xl overflow-hidden cursor-pointer hover:scale-105 transition-transform duration-300 shadow-md"
+                onClick={() => openLightbox(i)}
+              >
+                <img 
+                  src={src} 
+                  alt={`Gallery ${i + 1}`} 
+                  className="w-full h-full object-cover" 
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Row 2 - Horizontal Scroll */}
+        <div className="overflow-x-auto scrollbar-hide">
+          <div className="flex gap-4 pb-4" style={{ width: 'max-content' }}>
+            {row2.map((src, i) => (
+              <div 
+                key={i} 
+                className="shrink-0 w-72 h-80 rounded-2xl overflow-hidden cursor-pointer hover:scale-105 transition-transform duration-300 shadow-md"
+                onClick={() => openLightbox(i + 6)}
+              >
+                <img 
+                  src={src} 
+                  alt={`Gallery ${i + 7}`} 
+                  className="w-full h-full object-cover" 
+                />
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* Lightbox */}
       {lightboxOpen && (
         <Lightbox
-          images={urls}
+          images={allImages}
           currentIndex={currentImageIndex}
           onClose={() => setLightboxOpen(false)}
           onNavigate={setCurrentImageIndex}
           alt="Gallery image"
         />
       )}
+
+      <style jsx>{`
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+        .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+      `}</style>
     </section>
   );
 }

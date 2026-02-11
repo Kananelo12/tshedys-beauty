@@ -6,8 +6,7 @@ import About from './components/About';
 import Features from './components/Features';
 import Gallery from './components/Gallery';
 import Testimonials from './components/Testimonials';
-import ScrollReveal from './components/ScrollReveal';
-import { Scissors, Flower, Wind, Waves, UserRound, Flower2, Sparkles } from 'lucide-react';
+import { Scissors, Flower, Wind, Waves, UserRound, Flower2 } from 'lucide-react';
 
 export default function Home() {
   const featuredServices = [
@@ -52,96 +51,70 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen relative overflow-hidden">
+      <main className="min-h-screen">
         <Hero />
 
         {/* About Section */}
-        <ScrollReveal>
+        <section id="about">
           <About />
-        </ScrollReveal>
+        </section>
 
         {/* Features Section */}
-        <ScrollReveal delay={0.2}>
-          <Features />
-        </ScrollReveal>
+        <Features />
 
-        {/* Featured Services */}
-        <section className="section-padding relative">
-          {/* Background Decoration */}
-          <div className="absolute inset-0 bg-linear-to-b from-transparent via-pink-50 to-transparent opacity-50" />
-          
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <ScrollReveal>
-              <div className="text-center mb-16">
-                <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold bg-linear-to-r from-pink-600 via-rose-500 to-purple-600 bg-clip-text text-transparent mb-6 flex items-center justify-center gap-3">
-                  <Sparkles className="text-pink-500" size={48} />
-                  Our Magical Services
-                </h2>
-                <p className="text-lg text-charcoal-600 max-w-3xl mx-auto leading-relaxed">
-                  Discover our enchanting beauty treatments, crafted with care and a touch of magic to transform you into royalty.
-                </p>
-              </div>
-            </ScrollReveal>
+        {/* Services Section */}
+        <section id="services" className="py-16 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-6">
+                Our Services
+              </h2>
+              <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                Discover our beauty treatments, crafted with care to bring out your natural beauty.
+              </p>
+            </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {featuredServices.map((service, index) => (
-                <ScrollReveal key={index} delay={index * 0.1}>
-                  <ServiceCard {...service} />
-                </ScrollReveal>
+                <ServiceCard key={index} {...service} />
               ))}
             </div>
-
-            {/* View All Button */}
-            <ScrollReveal delay={0.4}>
-              <div className="text-center mt-12">
-                <a 
-                  href="/services" 
-                  className="inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-white bg-linear-to-r from-pink-600 via-rose-500 to-purple-600 rounded-full hover:shadow-lg hover:scale-105 transition-all duration-300"
-                >
-                  View All Services
-                  <svg 
-                    className="ml-2 w-5 h-5" 
-                    fill="none" 
-                    stroke="currentColor" 
-                    viewBox="0 0 24 24"
-                  >
-                    <path 
-                      strokeLinecap="round" 
-                      strokeLinejoin="round" 
-                      strokeWidth={2} 
-                      d="M9 5l7 7-7 7" 
-                    />
-                  </svg>
-                </a>
-              </div>
-            </ScrollReveal>
           </div>
         </section>
 
         {/* Gallery Section */}
-        <ScrollReveal>
-          <Gallery />
-        </ScrollReveal>
+        <Gallery />
 
         {/* Testimonials Section */}
-        <ScrollReveal>
-          <Testimonials />
-        </ScrollReveal>
+        <Testimonials />
 
-        {/* Pricing Section */}
-        {/* <ScrollReveal>
-          <Pricing />
-        </ScrollReveal> */}
-
-        {/* CTA Section */}
-        {/* <ScrollReveal>
-          <CTA />
-        </ScrollReveal> */}
-
-        {/* Blog Section */}
-        {/* <ScrollReveal>
-          <BlogList />
-        </ScrollReveal> */}
+        {/* Contact CTA Section */}
+        <section id="contact" className="py-16 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="bg-pink-50 rounded-3xl p-12 text-center">
+              <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-900 mb-4">
+                Ready to Transform Your Look?
+              </h2>
+              <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+                Book your appointment today and experience professional beauty services that bring out your confidence.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a 
+                  href="/book" 
+                  className="inline-block px-8 py-4 bg-pink-500 text-white font-bold rounded-full hover:bg-pink-600 transition-colors duration-300"
+                >
+                  Book Appointment
+                </a>
+                <a 
+                  href="tel:+26658809665" 
+                  className="inline-block px-8 py-4 border-2 border-pink-500 text-pink-600 font-bold rounded-full hover:bg-pink-50 transition-colors duration-300"
+                >
+                  Call Us: +266 58809665
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
       <Footer />
     </>
