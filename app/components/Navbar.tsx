@@ -39,7 +39,7 @@ export default function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-[72px]">
+        <div className="flex items-center justify-between h-18">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 shrink-0">
             <div className="relative w-11 h-11">
@@ -97,7 +97,7 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       <div
-        className={`lg:hidden fixed inset-0 top-[72px] bg-black z-40 transition-all duration-300 ${
+        className={`lg:hidden fixed inset-0 top-18 bg-black z-40 transition-all duration-300 ${
           isOpen
             ? "opacity-100 pointer-events-auto"
             : "opacity-0 pointer-events-none"

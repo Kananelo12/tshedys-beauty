@@ -1,8 +1,9 @@
 export interface Service {
   _id: string;
   name: string;
-  duration: number; // in minutes
+  duration?: number; // in minutes (optional)
   price: number;
+  category?: string;
   description: string;
 }
 
