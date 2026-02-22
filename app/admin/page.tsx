@@ -147,14 +147,14 @@ export default function AdminDashboard() {
         : yesterdayBookings > todayBookings
         ? `-${yesterdayBookings - todayBookings} from yesterday`
         : 'Same as yesterday',
-      gradient: 'from-pink-500 to-rose-500',
+      gradient: 'from-pink-500 to-pink-500',
     },
     {
       label: "Pending Requests",
       value: pendingBookings.toString(),
       icon: Clock,
       change: pendingBookings > 0 ? 'Awaiting response' : 'All clear',
-      gradient: 'from-purple-500 to-pink-500',
+      gradient: 'from-pink-500 to-pink-500',
     },
     {
       label: "Confirmed Bookings",
@@ -163,7 +163,7 @@ export default function AdminDashboard() {
       change: weeklyChange !== '0' 
         ? `${Number(weeklyChange) > 0 ? '+' : ''}${weeklyChange}% this week`
         : 'No change this week',
-      gradient: 'from-rose-500 to-orange-500',
+      gradient: 'from-pink-500 to-orange-500',
     },
     {
       label: "Total Revenue",
@@ -172,7 +172,7 @@ export default function AdminDashboard() {
       change: monthlyChange !== '0'
         ? `${Number(monthlyChange) > 0 ? '+' : ''}${monthlyChange}% this month`
         : 'No change this month',
-      gradient: 'from-pink-600 to-purple-600',
+      gradient: 'from-pink-600 to-pink-600',
     },
   ];
 
@@ -228,11 +228,11 @@ export default function AdminDashboard() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h2 className="text-3xl font-serif font-bold bg-linear-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent mb-2 flex items-center gap-2">
+        <h2 className="text-3xl font-serif font-bold bg-linear-to-r from-pink-600 to-pink-600 bg-clip-text text-transparent mb-2 flex items-center gap-2">
           Welcome back!
           <Sparkles className="text-pink-500" size={28} />
         </h2>
-        <p className="text-charcoal-600">
+        <p className="text-gray-600">
           Here&apos;s what&apos;s happening with your beauty parlour today.
         </p>
       </motion.div>
@@ -245,7 +245,7 @@ export default function AdminDashboard() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: i * 0.1 }}
-            className="glass border-2 border-pink-200 rounded-2xl p-6 hover:shadow-elevated transition-all duration-300"
+            className="glass border-2 border-pink-200 rounded-2xl p-6 hover:shadow-lg transition-all duration-300"
           >
             <div className="flex items-start justify-between mb-4">
               <div
@@ -253,14 +253,14 @@ export default function AdminDashboard() {
               >
                 <stat.icon className="text-white" size={24} />
               </div>
-              <span className="text-xs text-charcoal-500 bg-white px-2 py-1 rounded-full">
+              <span className="text-xs text-gray-500 bg-white px-2 py-1 rounded-full">
                 {stat.change}
               </span>
             </div>
-            <p className="text-3xl font-bold text-charcoal-800 mb-1">
+            <p className="text-3xl font-bold text-gray-900 mb-1">
               {stat.value}
             </p>
-            <p className="text-sm text-charcoal-600">{stat.label}</p>
+            <p className="text-sm text-gray-600">{stat.label}</p>
           </motion.div>
         ))}
       </div>
@@ -274,15 +274,15 @@ export default function AdminDashboard() {
           transition={{ duration: 0.5, delay: 0.4 }}
           className="lg:col-span-2 glass border-2 border-pink-200 rounded-2xl p-6"
         >
-          <h3 className="text-xl font-serif font-bold text-charcoal-800 mb-6 flex items-center gap-2">
+          <h3 className="text-xl font-serif font-bold text-gray-900 mb-6 flex items-center gap-2">
             <TrendingUp className="text-pink-500" size={24} />
             Weekly Performance
           </h3>
           {bookings.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-75 text-center">
-              <TrendingUp className="w-16 h-16 text-charcoal-300 mb-4" />
-              <p className="text-charcoal-600 font-medium mb-2">No data yet</p>
-              <p className="text-sm text-charcoal-500">
+              <TrendingUp className="w-16 h-16 text-gray-300 mb-4" />
+              <p className="text-gray-600 font-medium mb-2">No data yet</p>
+              <p className="text-sm text-gray-500">
                 Weekly performance will appear once you have bookings
               </p>
             </div>
@@ -328,15 +328,15 @@ export default function AdminDashboard() {
           transition={{ duration: 0.5, delay: 0.5 }}
           className="glass border-2 border-pink-200 rounded-2xl p-6"
         >
-          <h3 className="text-xl font-serif font-bold text-charcoal-800 mb-6 flex items-center gap-2">
-            <AlertCircle className="text-purple-500" size={24} />
+          <h3 className="text-xl font-serif font-bold text-gray-900 mb-6 flex items-center gap-2">
+            <AlertCircle className="text-pink-500" size={24} />
             Booking Status
           </h3>
           {bookings.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-75 text-center">
-              <AlertCircle className="w-16 h-16 text-charcoal-300 mb-4" />
-              <p className="text-charcoal-600 font-medium mb-2">No bookings yet</p>
-              <p className="text-sm text-charcoal-500">
+              <AlertCircle className="w-16 h-16 text-gray-300 mb-4" />
+              <p className="text-gray-600 font-medium mb-2">No bookings yet</p>
+              <p className="text-sm text-gray-500">
                 Status distribution will appear once you have bookings
               </p>
             </div>
@@ -382,7 +382,7 @@ export default function AdminDashboard() {
                   verticalAlign="bottom" 
                   height={36}
                   formatter={(value) => (
-                    <span className="text-sm text-charcoal-700">{value}</span>
+                    <span className="text-sm text-gray-700">{value}</span>
                   )}
                 />
               </PieChart>
@@ -399,7 +399,7 @@ export default function AdminDashboard() {
         className="glass border-2 border-pink-200 rounded-2xl p-6"
       >
         <div className="flex items-center justify-between mb-6">
-          <h3 className="text-xl font-serif font-bold text-charcoal-800 flex items-center gap-2">
+          <h3 className="text-xl font-serif font-bold text-gray-900 flex items-center gap-2">
             <Calendar className="text-pink-500" size={24} />
             Recent Bookings
           </h3>
@@ -414,31 +414,31 @@ export default function AdminDashboard() {
         {loading ? (
           <div className="text-center py-12">
             <div className="w-12 h-12 border-4 border-pink-200 border-t-pink-500 rounded-full animate-spin mx-auto mb-4" />
-            <p className="text-charcoal-600">Loading bookings...</p>
+            <p className="text-gray-600">Loading bookings...</p>
           </div>
         ) : recentBookings.length === 0 ? (
           <div className="text-center py-12">
-            <Calendar className="w-16 h-16 text-charcoal-300 mx-auto mb-4" />
-            <p className="text-charcoal-600">No bookings yet</p>
+            <Calendar className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+            <p className="text-gray-600">No bookings yet</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
                 <tr className="border-b-2 border-pink-200">
-                  <th className="text-left px-4 py-3 text-sm font-semibold text-charcoal-700">
+                  <th className="text-left px-4 py-3 text-sm font-semibold text-gray-700">
                     Client
                   </th>
-                  <th className="text-left px-4 py-3 text-sm font-semibold text-charcoal-700">
+                  <th className="text-left px-4 py-3 text-sm font-semibold text-gray-700">
                     Service
                   </th>
-                  <th className="text-left px-4 py-3 text-sm font-semibold text-charcoal-700">
+                  <th className="text-left px-4 py-3 text-sm font-semibold text-gray-700">
                     Date & Time
                   </th>
-                  <th className="text-left px-4 py-3 text-sm font-semibold text-charcoal-700">
+                  <th className="text-left px-4 py-3 text-sm font-semibold text-gray-700">
                     Status
                   </th>
-                  <th className="text-right px-4 py-3 text-sm font-semibold text-charcoal-700">
+                  <th className="text-right px-4 py-3 text-sm font-semibold text-gray-700">
                     Action
                   </th>
                 </tr>
@@ -451,18 +451,18 @@ export default function AdminDashboard() {
                   >
                     <td className="px-4 py-4">
                       <div>
-                        <p className="text-sm font-medium text-charcoal-800">
+                        <p className="text-sm font-medium text-gray-900">
                           {booking.clientName}
                         </p>
-                        <p className="text-xs text-charcoal-500">
+                        <p className="text-xs text-gray-500">
                           {booking.clientEmail}
                         </p>
                       </div>
                     </td>
-                    <td className="px-4 py-4 text-sm text-charcoal-600">
+                    <td className="px-4 py-4 text-sm text-gray-600">
                       {booking.service?.name || 'N/A'}
                     </td>
-                    <td className="px-4 py-4 text-sm text-charcoal-600">
+                    <td className="px-4 py-4 text-sm text-gray-600">
                       {new Date(booking.startDateTime).toLocaleString()}
                     </td>
                     <td className="px-4 py-4">
@@ -508,37 +508,37 @@ export default function AdminDashboard() {
       >
         <Link
           href="/admin/bookings"
-          className="glass border-2 border-pink-200 rounded-xl p-6 text-center hover:shadow-elevated hover:border-pink-300 transition-all group"
+          className="glass border-2 border-pink-200 rounded-xl p-6 text-center hover:shadow-lg hover:border-pink-300 transition-all group"
         >
           <Calendar className="w-8 h-8 text-pink-500 mx-auto mb-2 group-hover:scale-110 transition-transform" />
-          <p className="text-sm font-medium text-charcoal-700">
+          <p className="text-sm font-medium text-gray-700">
             Manage Bookings
           </p>
         </Link>
         <Link
           href="/admin/services"
-          className="glass border-2 border-pink-200 rounded-xl p-6 text-center hover:shadow-elevated hover:border-pink-300 transition-all group"
+          className="glass border-2 border-pink-200 rounded-xl p-6 text-center hover:shadow-lg hover:border-pink-300 transition-all group"
         >
-          <Sparkles className="w-8 h-8 text-purple-500 mx-auto mb-2 group-hover:scale-110 transition-transform" />
-          <p className="text-sm font-medium text-charcoal-700">
+          <Sparkles className="w-8 h-8 text-pink-500 mx-auto mb-2 group-hover:scale-110 transition-transform" />
+          <p className="text-sm font-medium text-gray-700">
             Manage Services
           </p>
         </Link>
         <Link
           href="/admin/gallery"
-          className="glass border-2 border-pink-200 rounded-xl p-6 text-center hover:shadow-elevated hover:border-pink-300 transition-all group"
+          className="glass border-2 border-pink-200 rounded-xl p-6 text-center hover:shadow-lg hover:border-pink-300 transition-all group"
         >
-          <ImageIcon className="w-8 h-8 text-rose-500 mx-auto mb-2 group-hover:scale-110 transition-transform" />
-          <p className="text-sm font-medium text-charcoal-700">
+          <ImageIcon className="w-8 h-8 text-pink-500 mx-auto mb-2 group-hover:scale-110 transition-transform" />
+          <p className="text-sm font-medium text-gray-700">
             Update Gallery
           </p>
         </Link>
         <a
           href="#reports"
-          className="glass border-2 border-pink-200 rounded-xl p-6 text-center hover:shadow-elevated hover:border-pink-300 transition-all group"
+          className="glass border-2 border-pink-200 rounded-xl p-6 text-center hover:shadow-lg hover:border-pink-300 transition-all group"
         >
           <TrendingUp className="w-8 h-8 text-orange-500 mx-auto mb-2 group-hover:scale-110 transition-transform" />
-          <p className="text-sm font-medium text-charcoal-700">View Reports</p>
+          <p className="text-sm font-medium text-gray-700">View Reports</p>
         </a>
       </motion.div>
     </div>

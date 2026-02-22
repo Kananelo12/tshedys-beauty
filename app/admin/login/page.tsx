@@ -47,12 +47,12 @@ export default function AdminLogin() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-pink-50 via-blush-50 to-purple-50 relative overflow-hidden">
+    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-pink-50 via-cream-50 to-pink-50 relative overflow-hidden">
       {/* Background Decoration */}
       <div className="absolute inset-0">
         <div className="absolute top-20 left-10 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-float" />
-        <div className="absolute bottom-20 right-10 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-float" style={{ animationDelay: "2s" }} />
-        <div className="absolute top-1/2 left-1/2 w-72 h-72 bg-rose-300 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-float" style={{ animationDelay: "4s" }} />
+        <div className="absolute bottom-20 right-10 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-float" style={{ animationDelay: "2s" }} />
+        <div className="absolute top-1/2 left-1/2 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-float" style={{ animationDelay: "4s" }} />
       </div>
 
       {/* Login Card */}
@@ -62,7 +62,7 @@ export default function AdminLogin() {
         transition={{ duration: 0.6 }}
         className="relative z-10 w-full max-w-md mx-4"
       >
-        <div className="glass border-2 border-pink-200 rounded-3xl p-8 shadow-elevated">
+        <div className="glass border-2 border-pink-200 rounded-3xl p-8 shadow-lg">
           {/* Logo & Title */}
           <div className="text-center mb-8">
             <motion.div
@@ -80,11 +80,11 @@ export default function AdminLogin() {
                 />
               </div>
             </motion.div>
-            <h1 className="text-3xl font-serif font-bold bg-linear-to-r from-pink-600 via-rose-500 to-purple-600 bg-clip-text text-transparent mb-2 flex items-center justify-center gap-2">
+            <h1 className="text-3xl font-serif font-bold bg-linear-to-r from-pink-600 via-pink-500 to-pink-600 bg-clip-text text-transparent mb-2 flex items-center justify-center gap-2">
               <Sparkles className="text-pink-500" size={28} />
               Admin Portal
             </h1>
-            <p className="text-charcoal-600">
+            <p className="text-gray-600">
               Sign in to manage your beauty empire
             </p>
           </div>
@@ -107,13 +107,13 @@ export default function AdminLogin() {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-charcoal-700 mb-2"
+                className="block text-sm font-medium text-gray-700 mb-2"
               >
                 Email Address
               </label>
               <div className="relative">
                 <Mail
-                  className="absolute left-4 top-1/2 -translate-y-1/2 text-charcoal-400"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
                   size={20}
                 />
                 <input
@@ -133,13 +133,13 @@ export default function AdminLogin() {
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-charcoal-700 mb-2"
+                className="block text-sm font-medium text-gray-700 mb-2"
               >
                 Password
               </label>
               <div className="relative">
                 <Lock
-                  className="absolute left-4 top-1/2 -translate-y-1/2 text-charcoal-400"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
                   size={20}
                 />
                 <input
@@ -155,7 +155,7 @@ export default function AdminLogin() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-charcoal-400 hover:text-charcoal-600 transition-colors"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
                   disabled={loading}
                 >
                   {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
@@ -169,7 +169,7 @@ export default function AdminLogin() {
               disabled={loading}
               whileHover={{ scale: loading ? 1 : 1.02 }}
               whileTap={{ scale: loading ? 1 : 0.98 }}
-              className="w-full py-3 px-6 bg-linear-to-r from-pink-500 via-rose-500 to-purple-600 text-white font-semibold rounded-xl shadow-pink-glow hover:shadow-pink-glow-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-2"
+              className="w-full py-3 px-6 bg-linear-to-r from-pink-500 via-pink-500 to-pink-600 text-white font-semibold rounded-xl shadow-md hover:shadow-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-2"
             >
               {loading ? (
                 <>
@@ -187,7 +187,7 @@ export default function AdminLogin() {
 
           {/* Footer */}
           <div className="mt-8 pt-6 border-t border-pink-200">
-            <p className="text-center text-sm text-charcoal-600">
+            <p className="text-center text-sm text-gray-600">
               <Link
                 href="/"
                 className="text-pink-600 hover:text-pink-700 font-medium transition-colors"
@@ -203,7 +203,7 @@ export default function AdminLogin() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.8 }}
-          className="text-center text-sm text-charcoal-600 mt-6"
+          className="text-center text-sm text-gray-600 mt-6"
         >
           Tshedy&apos;s Beauty Parlour © {new Date().getFullYear()}
         </motion.p>

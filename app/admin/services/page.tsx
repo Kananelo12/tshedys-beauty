@@ -166,7 +166,7 @@ export default function AdminServicesPage() {
       <div className="flex items-center justify-center min-h-[400px]">
         <div className="text-center">
           <Loader2 className="w-12 h-12 text-pink-500 animate-spin mx-auto mb-4" />
-          <p className="text-charcoal-600">Loading services...</p>
+          <p className="text-gray-600">Loading services...</p>
         </div>
       </div>
     );
@@ -179,11 +179,11 @@ export default function AdminServicesPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          <h2 className="text-3xl font-serif font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent flex items-center gap-2">
+          <h2 className="text-3xl font-serif font-bold bg-gradient-to-r from-pink-600 to-pink-600 bg-clip-text text-transparent flex items-center gap-2">
             <Sparkles className="text-pink-500" size={32} />
             Services
           </h2>
-          <p className="text-charcoal-600 mt-2">
+          <p className="text-gray-600 mt-2">
             Manage your beauty services and pricing
           </p>
         </motion.div>
@@ -194,7 +194,7 @@ export default function AdminServicesPage() {
           animate={{ opacity: 1, scale: 1 }}
           whileHover={{ scale: 1.05, y: -2 }}
           whileTap={{ scale: 0.95 }}
-          className="px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 to-rose-500 text-white font-semibold shadow-pink-glow hover:shadow-pink-glow-lg transition-all duration-300 flex items-center gap-2"
+          className="px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 to-pink-500 text-white font-semibold shadow-md hover:shadow-lg transition-all duration-300 flex items-center gap-2"
         >
           <Plus size={20} />
           Add Service
@@ -207,16 +207,16 @@ export default function AdminServicesPage() {
           animate={{ opacity: 1, y: 0 }}
           className="glass border-2 border-pink-200 rounded-2xl p-12 text-center"
         >
-          <Sparkles className="w-16 h-16 text-charcoal-300 mx-auto mb-4" />
-          <h3 className="text-xl font-semibold text-charcoal-800 mb-2">
+          <Sparkles className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+          <h3 className="text-xl font-semibold text-gray-900 mb-2">
             No services yet
           </h3>
-          <p className="text-charcoal-600 mb-6">
+          <p className="text-gray-600 mb-6">
             Start by adding your first beauty service
           </p>
           <button
             onClick={openCreateModal}
-            className="px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 to-rose-500 text-white font-semibold shadow-pink-glow hover:shadow-pink-glow-lg transition-all duration-300 inline-flex items-center gap-2"
+            className="px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 to-pink-500 text-white font-semibold shadow-md hover:shadow-lg transition-all duration-300 inline-flex items-center gap-2"
           >
             <Plus size={20} />
             Add Your First Service
@@ -230,22 +230,22 @@ export default function AdminServicesPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.05 }}
-              className="glass border-2 border-pink-200 rounded-2xl p-6 hover:shadow-elevated transition-all duration-300 group"
+              className="glass border-2 border-pink-200 rounded-2xl p-6 hover:shadow-lg transition-all duration-300 group"
             >
               <div className="flex items-start justify-between mb-4">
                 <div className="flex-1">
-                  <h3 className="text-lg font-semibold text-charcoal-800 mb-1">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-1">
                     {service.name}
                   </h3>
-                  <p className="text-sm text-charcoal-600 mb-2">
+                  <p className="text-sm text-gray-600 mb-2">
                     {service.category}
                   </p>
                   {service.description && (
-                    <p className="text-xs text-charcoal-500 mb-3 line-clamp-2">
+                    <p className="text-xs text-gray-500 mb-3 line-clamp-2">
                       {service.description}
                     </p>
                   )}
-                  <div className="flex items-center gap-4 text-sm text-charcoal-600">
+                  <div className="flex items-center gap-4 text-sm text-gray-600">
                     <span className="font-semibold text-pink-600">
                       M{service.price.toFixed(2)}
                     </span>
@@ -258,7 +258,7 @@ export default function AdminServicesPage() {
                 <div className="flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                   <button
                     onClick={() => openEditModal(service)}
-                    className="p-2 bg-gradient-to-r from-pink-100 to-purple-100 hover:from-pink-200 hover:to-purple-200 rounded-lg text-charcoal-700 transition-all"
+                    className="p-2 bg-gradient-to-r from-pink-100 to-pink-100 hover:from-pink-200 hover:to-pink-200 rounded-lg text-gray-700 transition-all"
                     title="Edit service"
                   >
                     <Edit size={16} />
@@ -292,17 +292,17 @@ export default function AdminServicesPage() {
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9, y: 20 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-white border-2 border-pink-200 rounded-2xl p-8 max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-elevated"
+              className="bg-white border-2 border-pink-200 rounded-2xl p-8 max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-lg"
             >
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-2xl font-serif font-bold text-charcoal-800">
+                <h3 className="text-2xl font-serif font-bold text-gray-900">
                   {editingService ? 'Edit Service' : 'Add New Service'}
                 </h3>
                 <button
                   onClick={closeModal}
                   className="p-2 hover:bg-pink-100 rounded-lg transition-colors"
                 >
-                  <X size={24} className="text-charcoal-600" />
+                  <X size={24} className="text-gray-600" />
                 </button>
               </div>
 
@@ -315,7 +315,7 @@ export default function AdminServicesPage() {
 
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-charcoal-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
                     Service Name *
                   </label>
                   <input
@@ -329,7 +329,7 @@ export default function AdminServicesPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-charcoal-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
                     Description
                   </label>
                   <textarea
@@ -342,7 +342,7 @@ export default function AdminServicesPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-charcoal-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
                     Category *
                   </label>
                   <select
@@ -361,7 +361,7 @@ export default function AdminServicesPage() {
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-charcoal-700 mb-2">
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
                       Price (M) *
                     </label>
                     <input
@@ -377,7 +377,7 @@ export default function AdminServicesPage() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-charcoal-700 mb-2">
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
                       Duration (min) *
                     </label>
                     <input
@@ -398,14 +398,14 @@ export default function AdminServicesPage() {
                     type="button"
                     onClick={closeModal}
                     disabled={submitting}
-                    className="flex-1 px-6 py-3 rounded-xl border-2 border-pink-200 text-charcoal-700 font-medium hover:bg-pink-50 transition-all disabled:opacity-50"
+                    className="flex-1 px-6 py-3 rounded-xl border-2 border-pink-200 text-gray-700 font-medium hover:bg-pink-50 transition-all disabled:opacity-50"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="flex-1 px-6 py-3 rounded-xl bg-gradient-to-r from-pink-500 to-rose-500 text-white font-semibold shadow-pink-glow hover:shadow-pink-glow-lg transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50"
+                    className="flex-1 px-6 py-3 rounded-xl bg-gradient-to-r from-pink-500 to-pink-500 text-white font-semibold shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50"
                   >
                     {submitting ? (
                       <>
@@ -441,16 +441,16 @@ export default function AdminServicesPage() {
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9, y: 20 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-white border-2 border-red-200 rounded-2xl p-8 max-w-md w-full shadow-elevated"
+              className="bg-white border-2 border-red-200 rounded-2xl p-8 max-w-md w-full shadow-lg"
             >
               <div className="text-center mb-6">
                 <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <AlertCircle className="text-red-600" size={32} />
                 </div>
-                <h3 className="text-2xl font-serif font-bold text-charcoal-800 mb-2">
+                <h3 className="text-2xl font-serif font-bold text-gray-900 mb-2">
                   Delete Service?
                 </h3>
-                <p className="text-charcoal-600">
+                <p className="text-gray-600">
                   Are you sure you want to delete <strong>{deletingService.name}</strong>? This action cannot be undone.
                 </p>
               </div>
@@ -459,7 +459,7 @@ export default function AdminServicesPage() {
                 <button
                   onClick={() => setShowDeleteConfirm(false)}
                   disabled={submitting}
-                  className="flex-1 px-6 py-3 rounded-xl border-2 border-pink-200 text-charcoal-700 font-medium hover:bg-pink-50 transition-all disabled:opacity-50"
+                  className="flex-1 px-6 py-3 rounded-xl border-2 border-pink-200 text-gray-700 font-medium hover:bg-pink-50 transition-all disabled:opacity-50"
                 >
                   Cancel
                 </button>

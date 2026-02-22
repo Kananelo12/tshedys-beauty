@@ -6,45 +6,48 @@ import About from './components/About';
 import Features from './components/Features';
 import Gallery from './components/Gallery';
 import Testimonials from './components/Testimonials';
+import CTA from './components/CTA';
 import { Scissors, Flower, Wind, Waves, UserRound, Flower2 } from 'lucide-react';
+import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 
 export default function Home() {
   const featuredServices = [
     {
       title: 'Knotless Braids',
-      description: 'Sleek protective braids without tension in various sizes - from small to jumbo.',
+      description: 'Sleek protective braids without tension — from small to jumbo sizes.',
       price: 'From M150',
-      icon: <Scissors size={32} />,
+      icon: <Scissors size={20} />,
     },
     {
       title: 'Boho Knotless',
       description: 'Trendy boho knotless braids with free-flowing curls for a bohemian vibe.',
       price: 'From M200',
-      icon: <Flower size={32} />,
+      icon: <Flower size={20} />,
     },
     {
       title: 'Twist Braids',
       description: 'Elegant twist braids offering versatile protective styling in multiple sizes.',
       price: 'From M80',
-      icon: <Wind size={32} />,
+      icon: <Wind size={20} />,
     },
     {
       title: 'Butterfly Locs',
-      description: 'Trendy butterfly locs with a textured, distressed finish for a unique style.',
+      description: 'Trendy butterfly locs with a textured, distressed finish for a unique look.',
       price: 'From M250',
-      icon: <Waves size={32} />,
+      icon: <Waves size={20} />,
     },
     {
       title: 'Bridal Makeup',
-      description: 'Professional bridal makeup for your perfect wedding day.',
+      description: 'Professional bridal makeup crafted for your perfect wedding day.',
       price: 'From M300',
-      icon: <UserRound size={32} />,
+      icon: <UserRound size={20} />,
     },
     {
       title: 'French Curls',
       description: 'Beautiful French curls for elegant, flowing waves in short or long styles.',
       price: 'From M200',
-      icon: <Flower2 size={32} />,
+      icon: <Flower2 size={20} />,
     },
   ];
 
@@ -63,21 +66,34 @@ export default function Home() {
         <Features />
 
         {/* Services Section */}
-        <section id="services" className="py-16 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-6">
+        <section id="services" className="py-20 sm:py-24 bg-white">
+          <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
+            <div className="text-center mb-14">
+              <p className="text-xs font-semibold tracking-[0.2em] uppercase text-gold-600 mb-3">
+                What We Offer
+              </p>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-4">
                 Our Services
               </h2>
-              <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                Discover our beauty treatments, crafted with care to bring out your natural beauty.
+              <p className="text-base text-gray-500 max-w-lg mx-auto">
+                Beauty treatments crafted with care to bring out your natural confidence
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {featuredServices.map((service, index) => (
                 <ServiceCard key={index} {...service} />
               ))}
+            </div>
+
+            <div className="text-center mt-10">
+              <Link
+                href="/services"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-pink-600 hover:text-pink-700 transition-colors group"
+              >
+                View All Services
+                <ArrowRight size={16} className="group-hover:translate-x-0.5 transition-transform" />
+              </Link>
             </div>
           </div>
         </section>
@@ -88,33 +104,8 @@ export default function Home() {
         {/* Testimonials Section */}
         <Testimonials />
 
-        {/* Contact CTA Section */}
-        <section id="contact" className="py-16 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="bg-pink-50 rounded-3xl p-12 text-center">
-              <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-900 mb-4">
-                Ready to Transform Your Look?
-              </h2>
-              <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-                Book your appointment today and experience professional beauty services that bring out your confidence.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <a 
-                  href="/book" 
-                  className="inline-block px-8 py-4 bg-pink-500 text-white font-bold rounded-full hover:bg-pink-600 transition-colors duration-300"
-                >
-                  Book Appointment
-                </a>
-                <a 
-                  href="tel:+26658809665" 
-                  className="inline-block px-8 py-4 border-2 border-pink-500 text-pink-600 font-bold rounded-full hover:bg-pink-50 transition-colors duration-300"
-                >
-                  Call Us: +266 58809665
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* CTA Section */}
+        <CTA />
       </main>
       <Footer />
     </>

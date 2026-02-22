@@ -70,28 +70,28 @@ export default async function ConfirmBookingPage({ params, searchParams }: PageP
 
           <div className="bg-cream-50 rounded-lg p-6 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="text-sage-600 text-xl">👤</div>
+              <div className="text-pink-500 text-xl">👤</div>
               <div>
                 <p className="text-sm text-gray-500">Client</p>
                 <p className="font-medium text-gray-900">{booking.clientName}</p>
               </div>
             </div>
             <div className="flex items-center gap-3">
-              <div className="text-sage-600 text-xl">💇‍♀️</div>
+              <div className="text-pink-500 text-xl">💇‍♀️</div>
               <div>
                 <p className="text-sm text-gray-500">Service</p>
                 <p className="font-medium text-gray-900">{service.name}</p>
               </div>
             </div>
             <div className="flex items-center gap-3">
-              <div className="text-sage-600 text-xl">📅</div>
+              <div className="text-pink-500 text-xl">📅</div>
               <div>
                 <p className="text-sm text-gray-500">Date & Time</p>
                 <p className="font-medium text-gray-900">{date} at {time}</p>
               </div>
             </div>
             <div className="flex items-center gap-3">
-              <div className="text-sage-600 text-xl">📊</div>
+              <div className="text-pink-500 text-xl">📊</div>
               <div>
                 <p className="text-sm text-gray-500">Status</p>
                 <span className={`inline-flex px-3 py-1 text-sm font-medium rounded-full ${
@@ -103,7 +103,7 @@ export default async function ConfirmBookingPage({ params, searchParams }: PageP
             </div>
             {booking.isHouseCall && (
               <div className="flex items-center gap-3">
-                <div className="text-sage-600 text-xl">🏠</div>
+                <div className="text-pink-500 text-xl">🏠</div>
                 <div>
                   <p className="text-sm text-gray-500">House Call</p>
                   <p className="font-medium text-gray-900">Yes (+M{booking.houseCallFee} + transport M{booking.transportCost})</p>
@@ -120,35 +120,35 @@ export default async function ConfirmBookingPage({ params, searchParams }: PageP
     <div className="min-h-screen bg-cream-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-xl shadow-lg p-8 max-w-lg w-full">
         <div className="text-center mb-6">
-          <div className="text-sage-600 text-6xl mb-4">📋</div>
+          <div className="text-pink-500 text-6xl mb-4">📋</div>
           <h1 className="text-3xl font-serif font-medium text-gray-900 mb-2">Review Booking Request</h1>
           <p className="text-gray-600">Please review the details and take action.</p>
         </div>
 
         <div className="bg-cream-50 rounded-lg p-6 space-y-4 mb-8">
           <div className="flex items-center gap-3">
-            <div className="text-sage-600 text-xl">👤</div>
+            <div className="text-pink-500 text-xl">👤</div>
             <div>
               <p className="text-sm text-gray-500">Client</p>
               <p className="font-medium text-gray-900">{booking.clientName}</p>
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <div className="text-sage-600 text-xl">💇‍♀️</div>
+            <div className="text-pink-500 text-xl">💇‍♀️</div>
             <div>
               <p className="text-sm text-gray-500">Service</p>
               <p className="font-medium text-gray-900">{service.name}</p>
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <div className="text-sage-600 text-xl">📅</div>
+            <div className="text-pink-500 text-xl">📅</div>
             <div>
               <p className="text-sm text-gray-500">Date & Time</p>
               <p className="font-medium text-gray-900">{date} at {time}</p>
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <div className="text-sage-600 text-xl">📊</div>
+            <div className="text-pink-500 text-xl">📊</div>
             <div>
               <p className="text-sm text-gray-500">Status</p>
               <span className="inline-flex px-3 py-1 text-sm font-medium rounded-full bg-yellow-100 text-yellow-700">
@@ -158,7 +158,7 @@ export default async function ConfirmBookingPage({ params, searchParams }: PageP
           </div>
           {booking.isHouseCall && (
             <div className="flex items-center gap-3">
-              <div className="text-sage-600 text-xl">🏠</div>
+              <div className="text-pink-500 text-xl">🏠</div>
               <div>
                 <p className="text-sm text-gray-500">House Call</p>
                 <p className="font-medium text-gray-900">Yes (+M{booking.houseCallFee} + transport M{booking.transportCost})</p>
@@ -170,7 +170,7 @@ export default async function ConfirmBookingPage({ params, searchParams }: PageP
         <div className="flex gap-4">
           <a
             href={`/api/bookings/${id}/confirm?token=${token}`}
-            className="flex-1 bg-sage-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-sage-700 transition-colors text-center flex items-center justify-center gap-2"
+            className="flex-1 bg-pink-500 text-white px-6 py-3 rounded-lg font-medium hover:bg-pink-600 transition-colors text-center flex items-center justify-center gap-2"
           >
             ✅ Accept Booking
           </a>

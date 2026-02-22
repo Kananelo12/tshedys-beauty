@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Calendar, Clock, Mail, Phone, User, Check } from "lucide-react";
+import { Calendar, Clock, Mail, Phone, User, Check, ArrowLeft } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
@@ -130,23 +130,24 @@ export default function BookingPage() {
     return (
       <>
         <Navbar />
-        <main className="min-h-screen pt-24 pb-16 bg-pink-50">
-          <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="bg-white rounded-3xl p-8 md:p-12 shadow-lg text-center">
-              <div className="w-20 h-20 bg-pink-500 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Check className="w-10 h-10 text-white" />
+        <main className="min-h-screen pt-[72px] pb-16 bg-cream-50 flex items-center">
+          <div className="max-w-lg mx-auto px-5 sm:px-6 w-full">
+            <div className="bg-white rounded-xl border border-gray-100 p-8 sm:p-10 text-center">
+              <div className="w-14 h-14 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-5">
+                <Check className="w-7 h-7 text-green-600" />
               </div>
-              <h1 className="text-3xl md:text-4xl font-serif font-bold text-gray-900 mb-4">
-                Booking Request Sent!
+              <h1 className="text-2xl sm:text-3xl font-serif font-bold text-gray-900 mb-3">
+                Booking Sent!
               </h1>
-              <p className="text-lg text-gray-600 mb-8">
+              <p className="text-gray-500 mb-8 text-sm leading-relaxed">
                 Thank you for booking with Tshedy Beauty. We&apos;ll confirm
                 your appointment via email or WhatsApp shortly.
               </p>
               <Link
                 href="/"
-                className="inline-block px-8 py-4 bg-pink-500 text-white font-bold rounded-full hover:bg-pink-600 transition-colors duration-300"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-pink-500 text-white text-sm font-semibold rounded-full hover:bg-pink-600 transition-colors"
               >
+                <ArrowLeft size={16} />
                 Back to Home
               </Link>
             </div>
@@ -160,28 +161,29 @@ export default function BookingPage() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen pt-24 pb-16 bg-pink-50">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-4">
+      <main className="min-h-screen pt-[72px] pb-16 bg-cream-50">
+        <div className="max-w-2xl mx-auto px-5 sm:px-6 py-12 sm:py-16">
+          {/* Header */}
+          <div className="text-center mb-10">
+            <p className="text-xs font-semibold tracking-[0.2em] uppercase text-gold-600 mb-3">
+              Book Now
+            </p>
+            <h1 className="text-3xl sm:text-4xl font-serif font-bold text-gray-900 mb-3">
               Book Your Appointment
             </h1>
-            <p className="text-lg text-gray-600">
-              Fill out the form below and we&apos;ll confirm your booking
-              shortly
+            <p className="text-gray-500 text-sm">
+              Fill out the form and we&apos;ll confirm your booking shortly
             </p>
           </div>
 
-          <div className="bg-white rounded-3xl p-8 md:p-12 shadow-lg">
-            <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Form Card */}
+          <div className="bg-white rounded-xl border border-gray-100 p-6 sm:p-8">
+            <form onSubmit={handleSubmit} className="space-y-5">
               {/* Name */}
               <div>
-                <label
-                  htmlFor="name"
-                  className="block text-sm font-semibold text-gray-700 mb-2"
-                >
-                  <User size={16} className="inline mr-2" />
-                  Full Name *
+                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1.5">
+                  <User size={14} className="inline mr-1.5 text-gray-400" />
+                  Full Name
                 </label>
                 <input
                   type="text"
@@ -190,19 +192,16 @@ export default function BookingPage() {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-pink-500 focus:outline-none transition-colors"
+                  className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:border-pink-400 focus:ring-1 focus:ring-pink-400 focus:outline-none transition-colors"
                   placeholder="Enter your full name"
                 />
               </div>
 
               {/* Phone */}
               <div>
-                <label
-                  htmlFor="phone"
-                  className="block text-sm font-semibold text-gray-700 mb-2"
-                >
-                  <Phone size={16} className="inline mr-2" />
-                  Phone Number *
+                <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1.5">
+                  <Phone size={14} className="inline mr-1.5 text-gray-400" />
+                  Phone Number
                 </label>
                 <input
                   type="tel"
@@ -211,19 +210,16 @@ export default function BookingPage() {
                   value={formData.phone}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-pink-500 focus:outline-none transition-colors"
+                  className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:border-pink-400 focus:ring-1 focus:ring-pink-400 focus:outline-none transition-colors"
                   placeholder="+266 XXXX XXXX"
                 />
               </div>
 
               {/* Email */}
               <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-semibold text-gray-700 mb-2"
-                >
-                  <Mail size={16} className="inline mr-2" />
-                  Email Address *
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1.5">
+                  <Mail size={14} className="inline mr-1.5 text-gray-400" />
+                  Email Address
                 </label>
                 <input
                   type="email"
@@ -232,21 +228,18 @@ export default function BookingPage() {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-pink-500 focus:outline-none transition-colors"
+                  className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:border-pink-400 focus:ring-1 focus:ring-pink-400 focus:outline-none transition-colors"
                   placeholder="your@email.com"
                 />
               </div>
 
-              {/* Service Selection */}
+              {/* Service */}
               <div>
-                <label
-                  htmlFor="serviceId"
-                  className="block text-sm font-semibold text-gray-700 mb-2"
-                >
-                  Service *
+                <label htmlFor="serviceId" className="block text-sm font-medium text-gray-700 mb-1.5">
+                  Service
                 </label>
                 {servicesError && (
-                  <div className="mb-2 p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700">
+                  <div className="mb-2 p-2.5 bg-red-50 border border-red-200 rounded-lg text-xs text-red-600">
                     {servicesError}
                   </div>
                 )}
@@ -257,12 +250,10 @@ export default function BookingPage() {
                   onChange={handleChange}
                   required
                   disabled={servicesLoading || services.length === 0}
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-pink-500 focus:outline-none transition-colors disabled:bg-gray-100 disabled:cursor-not-allowed"
+                  className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:border-pink-400 focus:ring-1 focus:ring-pink-400 focus:outline-none transition-colors disabled:bg-gray-50 disabled:cursor-not-allowed"
                 >
                   <option value="">
-                    {servicesLoading
-                      ? "Loading services..."
-                      : "Select a service"}
+                    {servicesLoading ? "Loading services..." : "Select a service"}
                   </option>
                   {services.map((service) => (
                     <option key={service._id} value={service._id}>
@@ -272,16 +263,12 @@ export default function BookingPage() {
                 </select>
               </div>
 
-              {/* Date & Time Row */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Preferred Date */}
+              {/* Date & Time */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label
-                    htmlFor="preferredDate"
-                    className="block text-sm font-semibold text-gray-700 mb-2"
-                  >
-                    <Calendar size={16} className="inline mr-2" />
-                    Preferred Date *
+                  <label htmlFor="preferredDate" className="block text-sm font-medium text-gray-700 mb-1.5">
+                    <Calendar size={14} className="inline mr-1.5 text-gray-400" />
+                    Date
                   </label>
                   <input
                     type="date"
@@ -291,18 +278,13 @@ export default function BookingPage() {
                     onChange={handleChange}
                     required
                     min={new Date().toISOString().split("T")[0]}
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-pink-500 focus:outline-none transition-colors"
+                    className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:border-pink-400 focus:ring-1 focus:ring-pink-400 focus:outline-none transition-colors"
                   />
                 </div>
-
-                {/* Preferred Time */}
                 <div>
-                  <label
-                    htmlFor="preferredTime"
-                    className="block text-sm font-semibold text-gray-700 mb-2"
-                  >
-                    <Clock size={16} className="inline mr-2" />
-                    Preferred Time *
+                  <label htmlFor="preferredTime" className="block text-sm font-medium text-gray-700 mb-1.5">
+                    <Clock size={14} className="inline mr-1.5 text-gray-400" />
+                    Time
                   </label>
                   <select
                     id="preferredTime"
@@ -310,54 +292,49 @@ export default function BookingPage() {
                     value={formData.preferredTime}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-pink-500 focus:outline-none transition-colors"
+                    className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:border-pink-400 focus:ring-1 focus:ring-pink-400 focus:outline-none transition-colors"
                   >
-                    <option value="">Select a time</option>
+                    <option value="">Select time</option>
                     {timeSlots.map((time) => (
-                      <option key={time} value={time}>
-                        {time}
-                      </option>
+                      <option key={time} value={time}>{time}</option>
                     ))}
                   </select>
                 </div>
               </div>
 
-              {/* Additional Notes */}
+              {/* Notes */}
               <div>
-                <label
-                  htmlFor="notes"
-                  className="block text-sm font-semibold text-gray-700 mb-2"
-                >
-                  Additional Notes (Optional)
+                <label htmlFor="notes" className="block text-sm font-medium text-gray-700 mb-1.5">
+                  Notes <span className="text-gray-400 font-normal">(optional)</span>
                 </label>
                 <textarea
                   id="notes"
                   name="notes"
                   value={formData.notes}
                   onChange={handleChange}
-                  rows={4}
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-pink-500 focus:outline-none transition-colors resize-none"
-                  placeholder="Any special requests or preferences..."
+                  rows={3}
+                  className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:border-pink-400 focus:ring-1 focus:ring-pink-400 focus:outline-none transition-colors resize-none"
+                  placeholder="Any special requests..."
                 />
               </div>
 
-              {/* Error Message */}
+              {/* Error */}
               {error && (
-                <div className="p-4 bg-red-50 border-2 border-red-200 rounded-xl text-red-700 text-sm">
+                <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-red-600 text-sm">
                   {error}
                 </div>
               )}
 
-              {/* Submit Button */}
+              {/* Submit */}
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-4 bg-pink-500 text-white font-bold rounded-full hover:bg-pink-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-300 text-lg"
+                className="w-full py-3 bg-pink-500 text-white text-sm font-semibold rounded-full hover:bg-pink-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 {loading ? "Submitting..." : "Book Appointment"}
               </button>
 
-              <p className="text-center text-sm text-gray-500">
+              <p className="text-center text-xs text-gray-400">
                 By submitting, you agree to receive booking confirmations via
                 email or WhatsApp
               </p>

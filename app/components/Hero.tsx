@@ -2,65 +2,62 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 export default function Hero() {
   return (
-    <section className="relative h-screen flex items-center pt-24 pb-12 bg-pink-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-16">
-          {/* Left content */}
-          <div className="w-full lg:w-1/2 text-center lg:text-left">
-            <div className="max-w-2xl mx-auto lg:mx-0">
-              {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white mb-6 border border-pink-200 shadow-sm">
-                <span className="text-sm font-semibold text-pink-600">
-                  Premium Beauty Services
-                </span>
-              </div>
+    <section className="relative min-h-screen flex items-end pb-16 pt-18 overflow-hidden bg-cream-100">
+      {/* Background Image */}
+      <div className="absolute inset-0">
+        <Image
+          src="/hero-banner.png"
+          alt="Tshedy Beauty"
+          fill
+          sizes="100vw"
+          className="object-contain"
+          priority
+        />
+        {/* Overlay for text readability */}
+        <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-r from-black/40 to-transparent" />
+      </div>
 
-              {/* Main Heading */}
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif font-bold leading-tight mb-6 text-gray-900">
-                Unleash Your
-                <br />
-                <span className="text-pink-500">Natural Beauty</span>
-              </h1>
+      {/* Content */}
+      <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 w-full">
+        <div className="max-w-xl">
+          {/* Overline */}
+          <p className="text-gold-400 text-xs font-semibold tracking-[0.2em] uppercase mb-4">
+            Premium Beauty Studio — Maseru
+          </p>
 
-              <p className="text-lg md:text-xl text-gray-700 mb-8 leading-relaxed">
-                Experience professional hair styling, braiding, and beauty treatments 
-                that bring out your confidence and natural glow.
-              </p>
+          {/* Heading */}
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-white leading-[1.05] mb-5">
+            Where Beauty
+            <br />
+            <span className="text-pink-300">Meets Grace</span>
+          </h1>
 
-              {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 items-center lg:items-start">
-                <Link href="/book" className="inline-block">
-                  <button className="px-8 py-4 rounded-full bg-pink-500 text-white font-bold text-lg hover:bg-pink-600 transition-colors duration-300 shadow-md">
-                    Book Appointment
-                  </button>
-                </Link>
+          {/* Subtext */}
+          <p className="text-base sm:text-lg text-white/70 leading-relaxed mb-8 max-w-md">
+            Expert hair styling, braiding, and beauty treatments — crafted with 
+            care to bring out your natural confidence.
+          </p>
 
-                <Link href="/#services" className="inline-block">
-                  <button className="px-8 py-4 rounded-full border-2 border-pink-500 text-pink-600 font-bold text-lg hover:bg-pink-50 transition-colors duration-300">
-                    View Services
-                  </button>
-                </Link>
-              </div>
-            </div>
-          </div>
-
-          {/* Right side - Image */}
-          <div className="w-full lg:w-1/2 flex justify-center items-center">
-            <div className="relative w-full max-w-lg lg:max-w-2xl top-12">
-              <div className="relative w-full h-150 sm:h-175 lg:h-200">
-                <Image
-                  src="/CHRISTMAS Lunch 23150P.png"
-                  alt="Professional beauty styling"
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 40vw"
-                  className="object-contain"
-                  priority
-                />
-              </div>
-            </div>
+          {/* CTAs */}
+          <div className="flex flex-col sm:flex-row gap-3">
+            <Link
+              href="/book"
+              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-pink-500 text-white text-sm font-semibold rounded-full hover:bg-pink-600 transition-colors duration-200 group"
+            >
+              Book Appointment
+              <ArrowRight size={16} className="group-hover:translate-x-0.5 transition-transform" />
+            </Link>
+            <Link
+              href="/#services"
+              className="inline-flex items-center justify-center px-7 py-3.5 border border-white/30 text-white text-sm font-semibold rounded-full hover:bg-white/10 transition-colors duration-200"
+            >
+              Explore Services
+            </Link>
           </div>
         </div>
       </div>

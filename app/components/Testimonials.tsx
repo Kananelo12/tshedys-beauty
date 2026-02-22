@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown, ChevronUp, Quote } from "lucide-react";
 import Image from "next/image";
 import Lightbox from "./Lightbox";
 
@@ -58,17 +58,38 @@ function TestimonialCard({
   onImageClick: () => void;
 }) {
   const [isExpanded, setIsExpanded] = useState(false);
-
-  // Truncate to approximately 4-5 lines (about 200 characters)
-  const truncatedContent = testimonial.content.slice(0, 200);
-  const needsTruncation = testimonial.content.length > 200;
+  const truncatedContent = testimonial.content.slice(0, 180);
+  const needsTruncation = testimonial.content.length > 180;
 
   return (
-    <div className="shrink-0 w-80 md:w-96 bg-white border-2 border-pink-200 rounded-2xl p-6 shadow-md hover:shadow-lg transition-shadow duration-300">
-      {/* Profile Section */}
-      <div className="flex items-center gap-4 mb-4">
+    <div className="bg-white rounded-xl border border-gray-100 p-6 flex flex-col h-full">
+      {/* Quote Icon */}
+      <Quote size={20} className="text-pink-200 mb-4 shrink-0" />
+
+      {/* Content */}
+      <div className="flex-1 mb-5">
+        <p className="text-gray-600 text-sm leading-relaxed whitespace-pre-line">
+          {isExpanded ? testimonial.content : truncatedContent}
+          {!isExpanded && needsTruncation && "..."}
+        </p>
+        {needsTruncation && (
+          <button
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="mt-2 text-pink-500 hover:text-pink-600 text-xs font-semibold inline-flex items-center gap-1 transition-colors"
+          >
+            {isExpanded ? (
+              <>Less <ChevronUp size={14} /></>
+            ) : (
+              <>More <ChevronDown size={14} /></>
+            )}
+          </button>
+        )}
+      </div>
+
+      {/* Author */}
+      <div className="flex items-center gap-3 pt-4 border-t border-gray-50">
         <div
-          className="relative w-16 h-16 rounded-full overflow-hidden border-2 border-pink-300 cursor-pointer hover:scale-110 transition-transform duration-300"
+          className="relative w-10 h-10 rounded-full overflow-hidden cursor-pointer shrink-0 ring-2 ring-pink-100"
           onClick={onImageClick}
         >
           <Image
@@ -76,39 +97,13 @@ function TestimonialCard({
             alt={testimonial.name}
             fill
             className="object-cover"
-            sizes="64px"
+            sizes="40px"
           />
         </div>
-
         <div>
-          <h4 className="font-bold text-gray-900 text-lg">{testimonial.name}</h4>
-          <p className="text-sm text-pink-600">Verified Client</p>
+          <h4 className="font-semibold text-gray-900 text-sm">{testimonial.name}</h4>
+          <p className="text-xs text-gray-400">Client</p>
         </div>
-      </div>
-
-      {/* Testimonial Content */}
-      <div className="relative">
-        <p className="text-gray-700 text-sm leading-relaxed whitespace-pre-line">
-          {isExpanded ? testimonial.content : truncatedContent}
-          {!isExpanded && needsTruncation && "..."}
-        </p>
-
-        {needsTruncation && (
-          <button
-            onClick={() => setIsExpanded(!isExpanded)}
-            className="mt-3 text-pink-600 hover:text-pink-700 text-sm font-semibold inline-flex items-center gap-1 transition-colors"
-          >
-            {isExpanded ? (
-              <>
-                Show Less <ChevronUp size={16} />
-              </>
-            ) : (
-              <>
-                Read More <ChevronDown size={16} />
-              </>
-            )}
-          </button>
-        )}
       </div>
     </div>
   );
@@ -126,31 +121,32 @@ export default function Testimonials() {
   };
 
   return (
-    <section id="testimonials" className="py-16 bg-pink-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="testimonials" className="py-20 sm:py-24 bg-white">
+      <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-serif font-bold text-gray-900 mb-4">
-            Client Testimonials
+        <div className="text-center mb-14">
+          <p className="text-xs font-semibold tracking-[0.2em] uppercase text-gold-600 mb-3">
+            Testimonials
+          </p>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-4">
+            What Our Clients Say
           </h2>
-          <p className="text-lg text-gray-600">
-            Hear what our amazing clients have to say
+          <p className="text-base text-gray-500 max-w-lg mx-auto">
+            Real stories from the women who trust us with their beauty
           </p>
         </div>
 
-        {/* Horizontal Scroll Container */}
-        <div className="overflow-x-auto scrollbar-hide pb-4">
-          <div className="flex gap-6" style={{ width: 'max-content' }}>
-            {testimonials.map((testimonial, index) => (
-              <TestimonialCard
-                key={index}
-                testimonial={testimonial}
-                onImageClick={() => openLightbox(index)}
-              />
-            ))}
-          </div>
+        {/* Grid Layout */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {testimonials.map((testimonial, index) => (
+            <TestimonialCard
+              key={index}
+              testimonial={testimonial}
+              onImageClick={() => openLightbox(index)}
+            />
+          ))}
         </div>
-</div>
+      </div>
 
       {/* Lightbox */}
       {lightboxOpen && (
@@ -162,16 +158,6 @@ export default function Testimonials() {
           alt="Client photo"
         />
       )}
-
-      <style jsx>{`
-        .scrollbar-hide::-webkit-scrollbar {
-          display: none;
-        }
-        .scrollbar-hide {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-      `}</style>
     </section>
   );
 }

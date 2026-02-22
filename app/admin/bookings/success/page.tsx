@@ -12,7 +12,7 @@ export default async function SuccessPage({ searchParams }: PageProps) {
   return (
     <div className="min-h-screen bg-cream-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-xl shadow-lg p-8 max-w-lg w-full text-center">
-        <div className={`text-6xl mb-4 ${isAccepted ? 'text-green-500' : isRejected ? 'text-red-500' : 'text-sage-600'}`}>
+        <div className={`text-6xl mb-4 ${isAccepted ? 'text-green-500' : isRejected ? 'text-red-500' : 'text-pink-500'}`}>
           {isAccepted ? '✅' : isRejected ? '❌' : '📋'}
         </div>
         <h1 className="text-3xl font-serif font-medium text-gray-900 mb-2">
@@ -29,7 +29,7 @@ export default async function SuccessPage({ searchParams }: PageProps) {
         <div className="space-y-3">
           <Link
             href="/admin/bookings"
-            className="block w-full bg-sage-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-sage-700 transition-colors"
+            className="block w-full bg-pink-500 text-white px-6 py-3 rounded-lg font-medium hover:bg-pink-600 transition-colors"
           >
             View All Bookings
           </Link>

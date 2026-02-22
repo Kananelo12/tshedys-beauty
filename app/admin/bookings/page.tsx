@@ -120,7 +120,7 @@ export default function AdminBookingsPage() {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-pink-200 border-t-pink-500 rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-charcoal-600">Loading bookings...</p>
+          <p className="text-gray-600">Loading bookings...</p>
         </div>
       </div>
     );
@@ -135,11 +135,11 @@ export default function AdminBookingsPage() {
         className="flex flex-col md:flex-row md:items-center md:justify-between gap-4"
       >
         <div>
-          <h2 className="text-3xl font-serif font-bold bg-linear-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent flex items-center gap-2">
+          <h2 className="text-3xl font-serif font-bold bg-linear-to-r from-pink-600 to-pink-600 bg-clip-text text-transparent flex items-center gap-2">
             <Calendar className="text-pink-500" size={32} />
             Bookings
           </h2>
-          <p className="text-charcoal-600 mt-1">Manage and review your appointments</p>
+          <p className="text-gray-600 mt-1">Manage and review your appointments</p>
         </div>
       </motion.div>
 
@@ -158,8 +158,8 @@ export default function AdminBookingsPage() {
         >
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-2xl font-bold text-charcoal-800">{bookings.length}</p>
-              <p className="text-sm text-charcoal-600">Total</p>
+              <p className="text-2xl font-bold text-gray-900">{bookings.length}</p>
+              <p className="text-sm text-gray-600">Total</p>
             </div>
             <Calendar className="text-pink-500" size={24} />
           </div>
@@ -173,8 +173,8 @@ export default function AdminBookingsPage() {
         >
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-2xl font-bold text-charcoal-800">{pendingCount}</p>
-              <p className="text-sm text-charcoal-600">Pending</p>
+              <p className="text-2xl font-bold text-gray-900">{pendingCount}</p>
+              <p className="text-sm text-gray-600">Pending</p>
             </div>
             <Clock className="text-yellow-500" size={24} />
           </div>
@@ -188,8 +188,8 @@ export default function AdminBookingsPage() {
         >
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-2xl font-bold text-charcoal-800">{acceptedCount}</p>
-              <p className="text-sm text-charcoal-600">Accepted</p>
+              <p className="text-2xl font-bold text-gray-900">{acceptedCount}</p>
+              <p className="text-sm text-gray-600">Accepted</p>
             </div>
             <CheckCircle className="text-green-500" size={24} />
           </div>
@@ -198,15 +198,15 @@ export default function AdminBookingsPage() {
         <button
           onClick={() => setFilter('today')}
           className={`glass rounded-xl p-4 border-2 transition-all ${
-            filter === 'today' ? 'border-purple-400 shadow-lg' : 'border-pink-200 hover:border-purple-300'
+            filter === 'today' ? 'border-pink-400 shadow-lg' : 'border-pink-200 hover:border-pink-300'
           }`}
         >
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-2xl font-bold text-charcoal-800">{todayCount}</p>
-              <p className="text-sm text-charcoal-600">Today</p>
+              <p className="text-2xl font-bold text-gray-900">{todayCount}</p>
+              <p className="text-sm text-gray-600">Today</p>
             </div>
-            <Sparkles className="text-purple-500" size={24} />
+            <Sparkles className="text-pink-500" size={24} />
           </div>
         </button>
       </motion.div>
@@ -220,7 +220,7 @@ export default function AdminBookingsPage() {
       >
         <div className="flex flex-col md:flex-row gap-3">
           <div className="flex-1 relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-charcoal-400" size={20} />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
             <input
               type="text"
               placeholder="Search by client name, email, or service..."
@@ -230,7 +230,7 @@ export default function AdminBookingsPage() {
             />
           </div>
           <div className="relative">
-            <Filter className="absolute left-3 top-1/2 -translate-y-1/2 text-charcoal-400" size={20} />
+            <Filter className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
             <select
               value={filter}
               onChange={(e) => setFilter(e.target.value)}
@@ -242,7 +242,7 @@ export default function AdminBookingsPage() {
               <option value="rejected">Rejected</option>
               <option value="today">Today</option>
             </select>
-            <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-charcoal-400 pointer-events-none" size={16} />
+            <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" size={16} />
           </div>
         </div>
       </motion.div>
@@ -255,9 +255,9 @@ export default function AdminBookingsPage() {
             animate={{ opacity: 1 }}
             className="glass border-2 border-pink-200 rounded-xl p-12 text-center"
           >
-            <Calendar className="w-16 h-16 text-charcoal-300 mx-auto mb-4" />
-            <h3 className="text-xl font-serif font-medium text-charcoal-700 mb-2">No bookings found</h3>
-            <p className="text-charcoal-500">
+            <Calendar className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+            <h3 className="text-xl font-serif font-medium text-gray-700 mb-2">No bookings found</h3>
+            <p className="text-gray-500">
               {searchTerm ? 'Try adjusting your search' : 'Bookings will appear here once customers make appointments'}
             </p>
           </motion.div>
@@ -292,15 +292,15 @@ export default function AdminBookingsPage() {
                           <div className={`w-12 h-12 rounded-full flex items-center justify-center text-white font-bold ${
                             isPending ? 'bg-linear-to-br from-yellow-400 to-orange-500' :
                             isAccepted ? 'bg-linear-to-br from-green-400 to-emerald-500' :
-                            'bg-linear-to-br from-red-400 to-rose-500'
+                            'bg-linear-to-br from-red-400 to-pink-500'
                           }`}>
                             {booking.clientName.charAt(0).toUpperCase()}
                           </div>
                           <div className="flex-1 min-w-0">
-                            <h3 className="text-lg font-semibold text-charcoal-800 truncate">
+                            <h3 className="text-lg font-semibold text-gray-900 truncate">
                               {booking.clientName}
                             </h3>
-                            <p className="text-sm text-charcoal-600 truncate flex items-center gap-1">
+                            <p className="text-sm text-gray-600 truncate flex items-center gap-1">
                               <Sparkles size={14} className="text-pink-500" />
                               {booking.service?.name || 'Unknown Service'}
                             </p>
@@ -308,16 +308,16 @@ export default function AdminBookingsPage() {
                         </div>
 
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-3 text-sm">
-                          <div className="flex items-center gap-2 text-charcoal-600">
+                          <div className="flex items-center gap-2 text-gray-600">
                             <Calendar size={16} className="text-pink-500" />
                             <span>{date}</span>
                           </div>
-                          <div className="flex items-center gap-2 text-charcoal-600">
-                            <Clock size={16} className="text-purple-500" />
+                          <div className="flex items-center gap-2 text-gray-600">
+                            <Clock size={16} className="text-pink-500" />
                             <span>{time}</span>
                           </div>
                           {booking.isHouseCall && (
-                            <div className="flex items-center gap-2 text-charcoal-600">
+                            <div className="flex items-center gap-2 text-gray-600">
                               <Home size={16} className="text-orange-500" />
                               <span>House Call</span>
                             </div>
@@ -352,7 +352,7 @@ export default function AdminBookingsPage() {
                               <button
                                 onClick={() => handleAction(booking._id, booking.actionToken, 'reject')}
                                 disabled={isProcessing}
-                                className="flex items-center gap-1 px-4 py-2 bg-linear-to-r from-red-500 to-rose-600 text-white text-sm font-medium rounded-lg hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="flex items-center gap-1 px-4 py-2 bg-linear-to-r from-red-500 to-red-600 text-white text-sm font-medium rounded-lg hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                               >
                                 <XCircle size={16} />
                                 Reject
@@ -382,16 +382,16 @@ export default function AdminBookingsPage() {
                         >
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div className="space-y-3">
-                              <h4 className="font-semibold text-charcoal-700 flex items-center gap-2">
+                              <h4 className="font-semibold text-gray-700 flex items-center gap-2">
                                 <User size={16} className="text-pink-500" />
                                 Contact Details
                               </h4>
                               <div className="space-y-2 text-sm">
-                                <div className="flex items-center gap-2 text-charcoal-600">
-                                  <Mail size={14} className="text-purple-500" />
+                                <div className="flex items-center gap-2 text-gray-600">
+                                  <Mail size={14} className="text-pink-500" />
                                   <span className="truncate">{booking.clientEmail}</span>
                                 </div>
-                                <div className="flex items-center gap-2 text-charcoal-600">
+                                <div className="flex items-center gap-2 text-gray-600">
                                   <Phone size={14} className="text-green-500" />
                                   <span>{booking.clientPhone}</span>
                                 </div>
@@ -399,27 +399,27 @@ export default function AdminBookingsPage() {
                             </div>
                             
                             <div className="space-y-3">
-                              <h4 className="font-semibold text-charcoal-700 flex items-center gap-2">
+                              <h4 className="font-semibold text-gray-700 flex items-center gap-2">
                                 <DollarSign size={16} className="text-pink-500" />
                                 Pricing Details
                               </h4>
                               <div className="space-y-2 text-sm">
                                 <div className="flex justify-between">
-                                  <span className="text-charcoal-600">Service Price:</span>
+                                  <span className="text-gray-600">Service Price:</span>
                                   <span className="font-medium">M{booking.service?.price || 0}</span>
                                 </div>
                                 {booking.isHouseCall && (
                                   <>
                                     <div className="flex justify-between">
-                                      <span className="text-charcoal-600">House Call Fee:</span>
+                                      <span className="text-gray-600">House Call Fee:</span>
                                       <span className="font-medium">M{booking.houseCallFee || 0}</span>
                                     </div>
                                     <div className="flex justify-between">
-                                      <span className="text-charcoal-600">Transport:</span>
+                                      <span className="text-gray-600">Transport:</span>
                                       <span className="font-medium">M{booking.transportCost || 0}</span>
                                     </div>
                                     <div className="flex justify-between pt-2 border-t border-pink-200">
-                                      <span className="font-semibold text-charcoal-700">Total:</span>
+                                      <span className="font-semibold text-gray-700">Total:</span>
                                       <span className="font-bold text-pink-600">
                                         M{(booking.service?.price || 0) + (booking.houseCallFee || 0) + (booking.transportCost || 0)}
                                       </span>

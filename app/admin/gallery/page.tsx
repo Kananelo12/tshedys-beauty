@@ -45,7 +45,7 @@ export default function AdminGalleryPage() {
       <div className="flex items-center justify-center min-h-100">
         <div className="text-center">
           <Loader2 className="w-12 h-12 text-pink-500 animate-spin mx-auto mb-4" />
-          <p className="text-charcoal-600">Loading gallery...</p>
+          <p className="text-gray-600">Loading gallery...</p>
         </div>
       </div>
     );
@@ -58,11 +58,11 @@ export default function AdminGalleryPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          <h2 className="text-3xl font-serif font-bold bg-linear-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent flex items-center gap-2">
+          <h2 className="text-3xl font-serif font-bold bg-linear-to-r from-pink-600 to-pink-600 bg-clip-text text-transparent flex items-center gap-2">
             <ImageIcon className="text-pink-500" size={32} />
             Gallery
           </h2>
-          <p className="text-charcoal-600 mt-2">
+          <p className="text-gray-600 mt-2">
             Showcase your beautiful work
           </p>
         </motion.div>
@@ -72,7 +72,7 @@ export default function AdminGalleryPage() {
           animate={{ opacity: 1, scale: 1 }}
           whileHover={{ scale: 1.05, y: -2 }}
           whileTap={{ scale: 0.95 }}
-          className="px-6 py-3 rounded-full bg-linear-to-r from-pink-500 to-rose-500 text-white font-semibold shadow-pink-glow hover:shadow-pink-glow-lg transition-all duration-300 flex items-center gap-2 cursor-pointer"
+          className="px-6 py-3 rounded-full bg-linear-to-r from-pink-500 to-pink-500 text-white font-semibold shadow-md hover:shadow-lg transition-all duration-300 flex items-center gap-2 cursor-pointer"
         >
           <Upload size={20} />
           Upload Images
@@ -92,14 +92,14 @@ export default function AdminGalleryPage() {
           animate={{ opacity: 1, y: 0 }}
           className="glass border-2 border-pink-200 rounded-2xl p-12 text-center"
         >
-          <ImageIcon className="w-16 h-16 text-charcoal-300 mx-auto mb-4" />
-          <h3 className="text-xl font-semibold text-charcoal-800 mb-2">
+          <ImageIcon className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+          <h3 className="text-xl font-semibold text-gray-900 mb-2">
             No images yet
           </h3>
-          <p className="text-charcoal-600 mb-6">
+          <p className="text-gray-600 mb-6">
             Start building your gallery by uploading your first images
           </p>
-          <label className="px-6 py-3 rounded-full bg-linear-to-r from-pink-500 to-rose-500 text-white font-semibold shadow-pink-glow hover:shadow-pink-glow-lg transition-all duration-300 inline-flex items-center gap-2 cursor-pointer">
+          <label className="px-6 py-3 rounded-full bg-linear-to-r from-pink-500 to-pink-500 text-white font-semibold shadow-md hover:shadow-lg transition-all duration-300 inline-flex items-center gap-2 cursor-pointer">
             <Upload size={20} />
             Upload Your First Image
             <input
@@ -124,7 +124,7 @@ export default function AdminGalleryPage() {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: idx * 0.05 }}
-                className="relative group rounded-xl overflow-hidden bg-cream-50 border-2 border-pink-200 hover:shadow-elevated transition-all duration-300"
+                className="relative group rounded-xl overflow-hidden bg-cream-50 border-2 border-pink-200 hover:shadow-lg transition-all duration-300"
               >
                 <div className="aspect-square relative">
                   <Image
@@ -151,7 +151,7 @@ export default function AdminGalleryPage() {
       )}
 
       <div className="glass border-2 border-pink-200 rounded-xl p-4">
-        <p className="text-sm text-charcoal-600">
+        <p className="text-sm text-gray-600">
           <strong>Note:</strong> Gallery images are currently stored in the public folder. 
           Upload functionality will be connected to cloud storage in a future update.
         </p>

@@ -75,10 +75,10 @@ export default async function BookingDetailsPage({ params }: PageProps) {
       <div className="glass border-2 border-pink-200 rounded-2xl p-6 md:p-8">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
           <div>
-            <h1 className="text-3xl font-serif font-bold bg-linear-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent mb-2">
+            <h1 className="text-3xl font-serif font-bold bg-linear-to-r from-pink-600 to-pink-600 bg-clip-text text-transparent mb-2">
               Booking Details
             </h1>
-            <p className="text-sm text-charcoal-500">ID: {booking._id.toString()}</p>
+            <p className="text-sm text-gray-500">ID: {booking._id.toString()}</p>
           </div>
           <span className={`inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-full self-start ${
             isAccepted ? 'bg-green-100 text-green-700' :
@@ -112,7 +112,7 @@ export default async function BookingDetailsPage({ params }: PageProps) {
               </a>
               <a
                 href={`/api/bookings/${id}/reject?token=${booking.actionToken}`}
-                className="flex items-center gap-2 px-4 py-2 bg-linear-to-r from-red-500 to-rose-600 text-white font-medium rounded-lg hover:shadow-lg transition-all"
+                className="flex items-center gap-2 px-4 py-2 bg-linear-to-r from-red-500 to-red-600 text-white font-medium rounded-lg hover:shadow-lg transition-all"
               >
                 <XCircle size={18} />
                 Reject
@@ -125,34 +125,34 @@ export default async function BookingDetailsPage({ params }: PageProps) {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Client Information */}
         <div className="glass border-2 border-pink-200 rounded-2xl p-6">
-          <h2 className="text-xl font-serif font-bold text-charcoal-800 mb-6 flex items-center gap-2">
+          <h2 className="text-xl font-serif font-bold text-gray-900 mb-6 flex items-center gap-2">
             <User className="text-pink-500" size={24} />
             Client Information
           </h2>
           <div className="space-y-4">
             <div className="flex items-center gap-4 p-4 bg-cream-50 rounded-lg">
-              <div className="w-12 h-12 rounded-full bg-linear-to-br from-pink-400 to-purple-500 flex items-center justify-center text-white font-bold text-xl">
+              <div className="w-12 h-12 rounded-full bg-linear-to-br from-pink-400 to-pink-500 flex items-center justify-center text-white font-bold text-xl">
                 {booking.clientName.charAt(0).toUpperCase()}
               </div>
               <div className="flex-1">
-                <p className="text-sm text-charcoal-500">Full Name</p>
-                <p className="font-semibold text-charcoal-800">{booking.clientName}</p>
+                <p className="text-sm text-gray-500">Full Name</p>
+                <p className="font-semibold text-gray-900">{booking.clientName}</p>
               </div>
             </div>
             
             <div className="flex items-start gap-3 p-4 bg-cream-50 rounded-lg">
-              <Mail className="text-purple-500 mt-0.5" size={20} />
+              <Mail className="text-pink-500 mt-0.5" size={20} />
               <div className="flex-1 min-w-0">
-                <p className="text-sm text-charcoal-500">Email Address</p>
-                <p className="font-medium text-charcoal-800 truncate">{booking.clientEmail}</p>
+                <p className="text-sm text-gray-500">Email Address</p>
+                <p className="font-medium text-gray-900 truncate">{booking.clientEmail}</p>
               </div>
             </div>
             
             <div className="flex items-start gap-3 p-4 bg-cream-50 rounded-lg">
               <Phone className="text-green-500 mt-0.5" size={20} />
               <div className="flex-1">
-                <p className="text-sm text-charcoal-500">Phone Number</p>
-                <p className="font-medium text-charcoal-800">{booking.clientPhone}</p>
+                <p className="text-sm text-gray-500">Phone Number</p>
+                <p className="font-medium text-gray-900">{booking.clientPhone}</p>
               </div>
             </div>
           </div>
@@ -160,16 +160,16 @@ export default async function BookingDetailsPage({ params }: PageProps) {
 
         {/* Service Details */}
         <div className="glass border-2 border-pink-200 rounded-2xl p-6">
-          <h2 className="text-xl font-serif font-bold text-charcoal-800 mb-6 flex items-center gap-2">
-            <Sparkles className="text-purple-500" size={24} />
+          <h2 className="text-xl font-serif font-bold text-gray-900 mb-6 flex items-center gap-2">
+            <Sparkles className="text-pink-500" size={24} />
             Service Details
           </h2>
           <div className="space-y-4">
-            <div className="p-4 bg-linear-to-br from-pink-50 to-purple-50 rounded-lg border-2 border-pink-200">
-              <p className="text-sm text-charcoal-500 mb-1">Service</p>
-              <p className="font-bold text-lg text-charcoal-800">{service.name}</p>
+            <div className="p-4 bg-linear-to-br from-pink-50 to-pink-50 rounded-lg border-2 border-pink-200">
+              <p className="text-sm text-gray-500 mb-1">Service</p>
+              <p className="font-bold text-lg text-gray-900">{service.name}</p>
               {service.category && (
-                <span className="inline-block mt-2 px-2 py-1 bg-white text-xs font-medium text-purple-600 rounded-full">
+                <span className="inline-block mt-2 px-2 py-1 bg-white text-xs font-medium text-pink-600 rounded-full">
                   {service.category}
                 </span>
               )}
@@ -178,17 +178,17 @@ export default async function BookingDetailsPage({ params }: PageProps) {
             <div className="flex items-start gap-3 p-4 bg-cream-50 rounded-lg">
               <Calendar className="text-pink-500 mt-0.5" size={20} />
               <div className="flex-1">
-                <p className="text-sm text-charcoal-500">Date</p>
-                <p className="font-semibold text-charcoal-800">{date}</p>
+                <p className="text-sm text-gray-500">Date</p>
+                <p className="font-semibold text-gray-900">{date}</p>
               </div>
             </div>
             
             <div className="flex items-start gap-3 p-4 bg-cream-50 rounded-lg">
               <Clock className="text-orange-500 mt-0.5" size={20} />
               <div className="flex-1">
-                <p className="text-sm text-charcoal-500">Time</p>
-                <p className="font-semibold text-charcoal-800">{time} - {endTime}</p>
-                <p className="text-xs text-charcoal-500 mt-1">{service.duration} minutes</p>
+                <p className="text-sm text-gray-500">Time</p>
+                <p className="font-semibold text-gray-900">{time} - {endTime}</p>
+                <p className="text-xs text-gray-500 mt-1">{service.duration} minutes</p>
               </div>
             </div>
             
@@ -208,29 +208,29 @@ export default async function BookingDetailsPage({ params }: PageProps) {
 
         {/* Provider Information */}
         <div className="glass border-2 border-pink-200 rounded-2xl p-6">
-          <h2 className="text-xl font-serif font-bold text-charcoal-800 mb-6 flex items-center gap-2">
-            <Building className="text-rose-500" size={24} />
+          <h2 className="text-xl font-serif font-bold text-gray-900 mb-6 flex items-center gap-2">
+            <Building className="text-pink-500" size={24} />
             Provider Information
           </h2>
           <div className="space-y-4">
-            <div className="p-4 bg-linear-to-br from-rose-50 to-pink-50 rounded-lg border-2 border-rose-200">
-              <p className="font-bold text-lg text-charcoal-800">{provider.name}</p>
-              <p className="text-sm text-charcoal-600">{provider.timezone}</p>
+            <div className="p-4 bg-linear-to-br from-pink-50 to-pink-50 rounded-lg border-2 border-pink-200">
+              <p className="font-bold text-lg text-gray-900">{provider.name}</p>
+              <p className="text-sm text-gray-600">{provider.timezone}</p>
             </div>
             
             <div className="flex items-start gap-3 p-4 bg-cream-50 rounded-lg">
-              <Mail className="text-purple-500 mt-0.5" size={20} />
+              <Mail className="text-pink-500 mt-0.5" size={20} />
               <div className="flex-1 min-w-0">
-                <p className="text-sm text-charcoal-500">Email</p>
-                <p className="font-medium text-charcoal-800 truncate">{provider.email}</p>
+                <p className="text-sm text-gray-500">Email</p>
+                <p className="font-medium text-gray-900 truncate">{provider.email}</p>
               </div>
             </div>
             
             <div className="flex items-start gap-3 p-4 bg-cream-50 rounded-lg">
               <Phone className="text-green-500 mt-0.5" size={20} />
               <div className="flex-1">
-                <p className="text-sm text-charcoal-500">Phone</p>
-                <p className="font-medium text-charcoal-800">{provider.phone}</p>
+                <p className="text-sm text-gray-500">Phone</p>
+                <p className="font-medium text-gray-900">{provider.phone}</p>
               </div>
             </div>
           </div>
@@ -238,7 +238,7 @@ export default async function BookingDetailsPage({ params }: PageProps) {
 
         {/* Pricing & Timeline */}
         <div className="glass border-2 border-pink-200 rounded-2xl p-6">
-          <h2 className="text-xl font-serif font-bold text-charcoal-800 mb-6 flex items-center gap-2">
+          <h2 className="text-xl font-serif font-bold text-gray-900 mb-6 flex items-center gap-2">
             <DollarSign className="text-green-500" size={24} />
             Pricing & Timeline
           </h2>
@@ -246,36 +246,36 @@ export default async function BookingDetailsPage({ params }: PageProps) {
           {/* Pricing */}
           <div className="mb-6 p-4 bg-green-50 border-2 border-green-200 rounded-lg space-y-2">
             <div className="flex justify-between text-sm">
-              <span className="text-charcoal-600">Service Price:</span>
-              <span className="font-semibold text-charcoal-800">M{service.price}</span>
+              <span className="text-gray-600">Service Price:</span>
+              <span className="font-semibold text-gray-900">M{service.price}</span>
             </div>
             {booking.isHouseCall && (
               <>
                 <div className="flex justify-between text-sm">
-                  <span className="text-charcoal-600">House Call Fee:</span>
-                  <span className="font-semibold text-charcoal-800">M{booking.houseCallFee}</span>
+                  <span className="text-gray-600">House Call Fee:</span>
+                  <span className="font-semibold text-gray-900">M{booking.houseCallFee}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-charcoal-600">Transport Cost:</span>
-                  <span className="font-semibold text-charcoal-800">M{booking.transportCost}</span>
+                  <span className="text-gray-600">Transport Cost:</span>
+                  <span className="font-semibold text-gray-900">M{booking.transportCost}</span>
                 </div>
               </>
             )}
             <div className="flex justify-between pt-2 border-t-2 border-green-300">
-              <span className="font-bold text-charcoal-800">Total Amount:</span>
+              <span className="font-bold text-gray-900">Total Amount:</span>
               <span className="font-bold text-xl text-green-700">M{totalPrice}</span>
             </div>
           </div>
 
           {/* Timeline */}
           <div className="space-y-3">
-            <h3 className="font-semibold text-charcoal-700 text-sm">Timeline</h3>
+            <h3 className="font-semibold text-gray-700 text-sm">Timeline</h3>
             
             <div className="flex items-start gap-3">
               <div className="w-2 h-2 rounded-full bg-blue-500 mt-2" />
               <div className="flex-1">
-                <p className="text-xs text-charcoal-500">Created</p>
-                <p className="text-sm font-medium text-charcoal-700">
+                <p className="text-xs text-gray-500">Created</p>
+                <p className="text-sm font-medium text-gray-700">
                   {new Date(booking.createdAt).toLocaleString()}
                 </p>
               </div>
@@ -285,8 +285,8 @@ export default async function BookingDetailsPage({ params }: PageProps) {
               <div className="flex items-start gap-3">
                 <div className={`w-2 h-2 rounded-full mt-2 ${isAccepted ? 'bg-green-500' : 'bg-red-500'}`} />
                 <div className="flex-1">
-                  <p className="text-xs text-charcoal-500">Action Taken</p>
-                  <p className="text-sm font-medium text-charcoal-700">
+                  <p className="text-xs text-gray-500">Action Taken</p>
+                  <p className="text-sm font-medium text-gray-700">
                     {new Date(booking.providerActionAt).toLocaleString()}
                   </p>
                 </div>
@@ -297,8 +297,8 @@ export default async function BookingDetailsPage({ params }: PageProps) {
               <div className="flex items-start gap-3">
                 <div className="w-2 h-2 rounded-full bg-yellow-500 mt-2" />
                 <div className="flex-1">
-                  <p className="text-xs text-charcoal-500">Expires</p>
-                  <p className="text-sm font-medium text-charcoal-700">
+                  <p className="text-xs text-gray-500">Expires</p>
+                  <p className="text-sm font-medium text-gray-700">
                     {new Date(booking.expiresAt).toLocaleString()}
                   </p>
                 </div>
