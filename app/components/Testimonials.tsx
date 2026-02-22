@@ -136,14 +136,15 @@ export default function Testimonials() {
           </p>
         </div>
 
-        {/* Grid Layout */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {/* Grid Layout — horizontal scroll on mobile, grid on sm+ */}
+        <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4 -mx-5 px-5 sm:mx-0 sm:px-0 sm:pb-0 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-5 sm:overflow-visible">
           {testimonials.map((testimonial, index) => (
-            <TestimonialCard
-              key={index}
-              testimonial={testimonial}
-              onImageClick={() => openLightbox(index)}
-            />
+            <div key={index} className="min-w-[80vw] snap-start sm:min-w-0">
+              <TestimonialCard
+                testimonial={testimonial}
+                onImageClick={() => openLightbox(index)}
+              />
+            </div>
           ))}
         </div>
       </div>
