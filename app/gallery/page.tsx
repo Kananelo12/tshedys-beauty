@@ -4,8 +4,8 @@ import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Lightbox from "../components/Lightbox";
-import { useState } from "react";
-import { ArrowRight } from "lucide-react";
+import { useState, useRef, useEffect, useCallback } from "react";
+import { ArrowRight, ArrowDown } from "lucide-react";
 
 const galleryItems = [
   { label: "Jumbo Braids", image: "/gallery/jumbo-braids.jpeg" },
@@ -28,76 +28,187 @@ const galleryItems = [
 export default function GalleryPage() {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [activeHeroSlide, setActiveHeroSlide] = useState(0);
+  const gridRef = useRef<HTMLElement>(null);
+  const heroScrollRef = useRef<HTMLDivElement>(null);
+  const heroCardRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  // Observe which hero slide is most visible on mobile
+  useEffect(() => {
+    const cards = heroCardRefs.current.filter(Boolean) as HTMLDivElement[];
+    if (!cards.length) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const idx = cards.indexOf(entry.target as HTMLDivElement);
+            if (idx !== -1) setActiveHeroSlide(idx);
+          }
+        });
+      },
+      { root: heroScrollRef.current, threshold: 0.6 }
+    );
+    cards.forEach((c) => observer.observe(c));
+    return () => observer.disconnect();
+  }, []);
+
+  const scrollToHeroSlide = useCallback((idx: number) => {
+    heroCardRefs.current[idx]?.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+      inline: "start",
+    });
+  }, []);
 
   const openLightbox = (index: number) => {
     setCurrentImageIndex(index);
     setLightboxOpen(true);
   };
 
+  const scrollToGrid = () => {
+    gridRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  // Split into hero feature (first 3) and the rest
+  const heroImages = galleryItems.slice(0, 3);
+  const restImages = galleryItems.slice(3);
+
   return (
     <>
-      <Navbar />
-      <main className="min-h-screen pt-18 bg-background">
-        {/* Header */}
-        <section className="pt-24 sm:pt-32 pb-16">
-          <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 text-center">
-            <p className="text-xs font-semibold tracking-[0.2em] uppercase text-pink-500 mb-4">
-              Our Portfolio
+      <Navbar hasDarkHero />
+      <main className="min-h-screen bg-foreground">
+        {/* ——— HERO: 3-image showcase ——— */}
+        <section className="relative h-[70vh] sm:h-screen overflow-hidden">
+          {/* Mobile: horizontal scroll | Desktop: 3-col grid */}
+          <div
+            ref={heroScrollRef}
+            className="flex sm:grid sm:grid-cols-3 h-full overflow-x-auto snap-x snap-mandatory sm:overflow-visible scrollbar-hide"
+          >
+            {heroImages.map((item, i) => (
+              <div
+                key={i}
+                ref={(el) => { heroCardRefs.current[i] = el; }}
+                className="relative min-w-[85vw] sm:min-w-0 overflow-hidden cursor-pointer group snap-start"
+                onClick={() => openLightbox(i)}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={item.image}
+                  alt={item.label}
+                  className="w-full h-full object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-black/30 group-hover:bg-black/50 transition-colors duration-500" />
+                {/* Label — always visible on mobile, hover on desktop */}
+                <div className="absolute bottom-0 inset-x-0 p-4 sm:p-8 sm:translate-y-4 sm:group-hover:translate-y-0 sm:opacity-0 sm:group-hover:opacity-100 transition-all duration-500">
+                  <p className="text-white text-sm sm:text-base font-medium">{item.label}</p>
+                  <Link
+                    href="/book"
+                    onClick={(e) => e.stopPropagation()}
+                    className="inline-block mt-1 text-xs text-white/60 hover:text-white font-medium transition-colors"
+                  >
+                    Book this style →
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Overlay content */}
+          <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none px-5">
+            <p className="text-[10px] sm:text-xs font-semibold tracking-[0.3em] uppercase text-white/50 mb-3 sm:mb-4">
+              Portfolio
             </p>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-medium text-foreground mb-4">
+            <h1 className="text-4xl sm:text-7xl lg:text-9xl font-serif font-medium text-white tracking-tight text-center">
               Gallery
             </h1>
-            <p className="text-foreground/50 max-w-md mx-auto text-base leading-relaxed">
-              A curated selection of our signature styles and transformations
-            </p>
           </div>
+
+          {/* Mobile dot indicators */}
+          <div className="absolute bottom-20 left-1/2 -translate-x-1/2 flex items-center gap-2 z-10 sm:hidden">
+            {heroImages.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => scrollToHeroSlide(i)}
+                className={`rounded-full transition-all duration-300 ${
+                  i === activeHeroSlide
+                    ? "w-6 h-2.5 bg-white"
+                    : "w-2.5 h-2.5 bg-white/40"
+                }`}
+              />
+            ))}
+          </div>
+
+          {/* Scroll prompt */}
+          <button
+            onClick={scrollToGrid}
+            className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/40 hover:text-white/70 transition-colors cursor-pointer z-10"
+          >
+            <span className="text-[10px] tracking-[0.2em] uppercase">Explore</span>
+            <ArrowDown size={16} className="animate-bounce" />
+          </button>
         </section>
 
-        {/* Gallery Grid */}
-        <section className="pb-20 sm:pb-28">
+        {/* ——— GRID: Asymmetric bento ——— */}
+        <section ref={gridRef} className="bg-background py-20 sm:py-28">
           <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5">
-              {galleryItems.map((item, i) => (
-                <div
-                  key={i}
-                  className="group relative aspect-3/4 rounded-2xl overflow-hidden cursor-pointer bg-cream-200"
-                  onClick={() => openLightbox(i)}
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={item.image}
-                    alt={item.label}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                  {/* Hover Overlay */}
-                  <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  {/* Hover Label */}
-                  <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5 translate-y-2 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500">
-                    <p className="text-white text-sm font-medium">
-                      {item.label}
-                    </p>
-                    <Link
-                      href="/book"
-                      onClick={(e) => e.stopPropagation()}
-                      className="inline-block mt-1 text-xs text-white/70 hover:text-white font-medium transition-colors"
-                    >
-                      Book this style →
-                    </Link>
+            {/* Section intro */}
+            <div className="flex items-center gap-4 mb-14">
+              <div className="h-px flex-1 bg-cream-200" />
+              <p className="text-xs font-semibold tracking-[0.25em] uppercase text-foreground/30">
+                {galleryItems.length} Styles
+              </p>
+              <div className="h-px flex-1 bg-cream-200" />
+            </div>
+
+            {/* Bento grid — intentionally asymmetric */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 auto-rows-[180px] sm:auto-rows-[260px] lg:auto-rows-[300px]">
+              {restImages.map((item, i) => {
+                // Asymmetric pattern — col-span-2 only on md+ to avoid breaking 2-col mobile
+                const spanClass =
+                  i === 0
+                    ? "md:col-span-2 md:row-span-2"
+                    : i === 3
+                      ? "md:col-span-2"
+                      : i === 5
+                        ? "md:col-span-2"
+                        : i === 7
+                          ? "md:row-span-2"
+                          : "";
+
+                return (
+                  <div
+                    key={i}
+                    className={`group relative rounded-2xl overflow-hidden cursor-pointer bg-cream-200 ${spanClass}`}
+                    onClick={() => openLightbox(i + 3)}
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={item.image}
+                      alt={item.label}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    {/* Dark gradient overlay — hover on desktop */}
+                    <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/0 to-transparent sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-500" />
+                    {/* Label — always visible on mobile, hover on desktop */}
+                    <div className="absolute bottom-0 inset-x-0 p-3 sm:p-5 sm:translate-y-3 sm:group-hover:translate-y-0 sm:opacity-0 sm:group-hover:opacity-100 transition-all duration-500 ease-out">
+                      <p className="text-white text-[11px] sm:text-sm font-medium mb-0.5">{item.label}</p>
+                      <Link
+                        href="/book"
+                        onClick={(e) => e.stopPropagation()}
+                        className="hidden sm:inline-block text-xs text-white/60 hover:text-white font-medium transition-colors"
+                      >
+                        Book this style →
+                      </Link>
+                    </div>
                   </div>
-                  {/* Always-visible label on mobile */}
-                  <div className="absolute bottom-0 left-0 right-0 p-3 bg-linear-to-t from-black/50 to-transparent sm:hidden">
-                    <p className="text-white text-xs font-medium">
-                      {item.label}
-                    </p>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </section>
 
-        {/* CTA */}
-        <section className="relative py-20 overflow-hidden">
+        {/* ——— CTA: full-bleed ——— */}
+        <section className="relative py-28 sm:py-36 overflow-hidden">
           <div className="absolute inset-0">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -105,20 +216,23 @@ export default function GalleryPage() {
               alt=""
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-black/55" />
+            <div className="absolute inset-0 bg-black/60" />
           </div>
-          <div className="relative max-w-xl mx-auto px-5 sm:px-8 text-center">
-            <h2 className="text-2xl sm:text-3xl font-serif font-medium mb-4 text-white">
-              Inspired by what you see?
+          <div className="relative max-w-2xl mx-auto px-5 sm:px-8 text-center">
+            <p className="text-[10px] font-semibold tracking-[0.3em] uppercase text-white/40 mb-4">
+              Ready?
+            </p>
+            <h2 className="text-2xl sm:text-4xl lg:text-5xl font-serif font-medium text-white mb-4 sm:mb-5">
+              Let&apos;s create your<br className="hidden sm:inline" /> next signature look
             </h2>
-            <p className="text-white/45 text-sm mb-8">
-              We&apos;ll help you recreate any of these looks with expert care.
+            <p className="text-white/40 text-sm mb-8 sm:mb-10 max-w-md mx-auto">
+              Every style in this gallery was crafted with love. Yours will be too.
             </p>
             <Link
               href="/book"
-              className="inline-flex items-center gap-2 px-7 py-3.5 bg-pink-500 text-white text-sm font-semibold rounded-full hover:bg-pink-600 transition-all group"
+              className="inline-flex items-center gap-2.5 px-8 py-4 bg-white text-foreground text-sm font-semibold rounded-full hover:bg-cream-100 transition-all group"
             >
-              Book Appointment
+              Book Your Appointment
               <ArrowRight
                 size={16}
                 className="group-hover:translate-x-0.5 transition-transform"

@@ -63,7 +63,7 @@ export default function Home() {
 
   return (
     <>
-      <Navbar hasDarkHero />
+      <Navbar />
       <main className="min-h-screen">
         <Hero />
 
