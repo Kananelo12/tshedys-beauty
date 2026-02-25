@@ -64,7 +64,7 @@ export default function ServicesGallery() {
               <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 translate-y-2 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
                 <p className="text-white text-sm font-semibold">{item.label}</p>
                 <Link
-                  href="/book"
+                  href={`/book?style=${encodeURIComponent(item.label)}`}
                   onClick={(e) => e.stopPropagation()}
                   className="inline-block mt-1.5 text-xs text-gold-400 hover:text-gold-300 font-medium transition-colors"
                 >
