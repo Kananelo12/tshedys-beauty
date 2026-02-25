@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { ChevronDown, ChevronUp, Quote } from "lucide-react";
+import { useState, useRef, useEffect, useCallback } from "react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 import Image from "next/image";
 import Lightbox from "./Lightbox";
 
@@ -62,34 +62,11 @@ function TestimonialCard({
   const needsTruncation = testimonial.content.length > 180;
 
   return (
-    <div className="bg-white rounded-xl border border-gray-100 p-6 flex flex-col h-full">
-      {/* Quote Icon */}
-      <Quote size={20} className="text-pink-200 mb-4 shrink-0" />
-
-      {/* Content */}
-      <div className="flex-1 mb-5">
-        <p className="text-gray-600 text-sm leading-relaxed whitespace-pre-line">
-          {isExpanded ? testimonial.content : truncatedContent}
-          {!isExpanded && needsTruncation && "..."}
-        </p>
-        {needsTruncation && (
-          <button
-            onClick={() => setIsExpanded(!isExpanded)}
-            className="mt-2 text-pink-500 hover:text-pink-600 text-xs font-semibold inline-flex items-center gap-1 transition-colors"
-          >
-            {isExpanded ? (
-              <>Less <ChevronUp size={14} /></>
-            ) : (
-              <>More <ChevronDown size={14} /></>
-            )}
-          </button>
-        )}
-      </div>
-
-      {/* Author */}
-      <div className="flex items-center gap-3 pt-4 border-t border-gray-50">
+    <div className="bg-white rounded-2xl border border-cream-200 p-6 sm:p-7 flex flex-col h-full hover:shadow-md transition-shadow duration-300">
+      {/* Author — top */}
+      <div className="flex items-center gap-3.5 mb-5">
         <div
-          className="relative w-10 h-10 rounded-full overflow-hidden cursor-pointer shrink-0 ring-2 ring-pink-100"
+          className="relative w-12 h-12 rounded-full overflow-hidden cursor-pointer shrink-0 ring-2 ring-pink-100"
           onClick={onImageClick}
         >
           <Image
@@ -97,14 +74,40 @@ function TestimonialCard({
             alt={testimonial.name}
             fill
             className="object-cover"
-            sizes="40px"
+            sizes="48px"
           />
         </div>
         <div>
-          <h4 className="font-semibold text-gray-900 text-sm">{testimonial.name}</h4>
-          <p className="text-xs text-gray-400">Client</p>
+          <h4 className="font-semibold text-foreground text-sm">{testimonial.name}</h4>
+          <p className="text-xs text-pink-400">Happy Client</p>
         </div>
       </div>
+
+      {/* Large Quote Mark */}
+      <div className="text-4xl font-serif text-pink-300 leading-none mb-2 select-none">&ldquo;</div>
+
+      {/* Content */}
+      <div className="flex-1">
+        <p className="text-foreground/60 text-sm leading-relaxed whitespace-pre-line">
+          {isExpanded ? testimonial.content : truncatedContent}
+          {!isExpanded && needsTruncation && "..."}
+        </p>
+        {needsTruncation && (
+          <button
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="mt-2.5 text-pink-500 hover:text-pink-600 text-xs font-semibold inline-flex items-center gap-1 transition-colors"
+          >
+            {isExpanded ? (
+              <>Less <ChevronUp size={14} /></>
+            ) : (
+              <>Read more <ChevronDown size={14} /></>
+            )}
+          </button>
+        )}
+      </div>
+
+      {/* Closing Quote */}
+      <div className="text-4xl font-serif text-pink-300 leading-none mt-3 text-right select-none">&rdquo;</div>
     </div>
   );
 }
@@ -112,6 +115,9 @@ function TestimonialCard({
 export default function Testimonials() {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const testimonialImages = testimonials.map((t) => `/${t.image}`);
 
@@ -120,31 +126,81 @@ export default function Testimonials() {
     setLightboxOpen(true);
   };
 
+  // Track which card is most visible
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (!container) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = cardRefs.current.indexOf(entry.target as HTMLDivElement);
+            if (index !== -1) setActiveIndex(index);
+          }
+        });
+      },
+      { root: container, threshold: 0.6 }
+    );
+
+    cardRefs.current.forEach((card) => {
+      if (card) observer.observe(card);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  const scrollToCard = useCallback((index: number) => {
+    const card = cardRefs.current[index];
+    if (card && scrollRef.current) {
+      const container = scrollRef.current;
+      const scrollLeft = card.offsetLeft - container.offsetLeft - 20;
+      container.scrollTo({ left: scrollLeft, behavior: "smooth" });
+    }
+  }, []);
+
   return (
-    <section id="testimonials" className="py-20 sm:py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
+    <section id="testimonials" className="py-24 sm:py-32 bg-cream-100">
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
         {/* Section Header */}
-        <div className="text-center mb-14">
-          <p className="text-xs font-semibold tracking-[0.2em] uppercase text-gold-600 mb-3">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-medium text-pink-500 mb-5">
             Testimonials
-          </p>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-4">
-            What Our Clients Say
           </h2>
-          <p className="text-base text-gray-500 max-w-lg mx-auto">
+          <p className="text-base text-foreground/50 max-w-md mx-auto leading-relaxed">
             Real stories from the women who trust us with their beauty
           </p>
         </div>
 
-        {/* Grid Layout — horizontal scroll on mobile, grid on sm+ */}
-        <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4 -mx-5 px-5 sm:mx-0 sm:px-0 sm:pb-0 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-5 sm:overflow-visible">
+        {/* Horizontal scroll on all screen sizes */}
+        <div ref={scrollRef} className="flex gap-5 overflow-x-auto snap-x snap-mandatory pb-4 -mx-5 px-5 scrollbar-hide">
           {testimonials.map((testimonial, index) => (
-            <div key={index} className="min-w-[80vw] snap-start sm:min-w-0">
+            <div
+              key={index}
+              ref={(el) => { cardRefs.current[index] = el; }}
+              className="w-[85vw] sm:w-100 min-w-[85vw] sm:min-w-100 snap-start shrink-0"
+            >
               <TestimonialCard
                 testimonial={testimonial}
                 onImageClick={() => openLightbox(index)}
               />
             </div>
+          ))}
+        </div>
+
+        {/* Dot Indicators */}
+        <div className="flex justify-center gap-2 mt-6">
+          {testimonials.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => scrollToCard(index)}
+              aria-label={`Go to testimonial ${index + 1}`}
+              className={`rounded-full transition-all duration-300 ${
+                activeIndex === index
+                  ? "w-6 h-2.5 bg-pink-500"
+                  : "w-2.5 h-2.5 bg-pink-200 hover:bg-pink-300"
+              }`}
+            />
           ))}
         </div>
       </div>

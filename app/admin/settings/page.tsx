@@ -178,52 +178,52 @@ export default function AdminSettingsPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-3xl font-serif font-medium text-gray-900">Settings</h2>
+        <h2 className="text-2xl font-serif font-medium text-foreground tracking-[-0.025em]">Settings</h2>
       </div>
 
       {/* Providers section */}
-      <div className="bg-white rounded-xl border border-gray-200">
-        <div className="flex items-center justify-between p-6 border-b border-gray-100">
+      <div className="bg-white rounded-2xl border border-[#EEECEA]">
+        <div className="flex items-center justify-between p-6 border-b border-[#EEECEA]">
           <div className="flex items-center gap-3">
-            <UserCog className="text-gray-500" size={20} />
+            <UserCog className="text-foreground/30" size={18} />
             <div>
-              <h3 className="font-medium text-gray-900">Providers</h3>
-              <p className="text-sm text-gray-500">
+              <h3 className="text-sm font-semibold text-foreground">Providers</h3>
+              <p className="text-xs text-foreground/35">
                 Manage provider accounts that can log in to the admin panel.
               </p>
             </div>
           </div>
           <button
             onClick={openCreate}
-            className="inline-flex items-center gap-2 rounded-full bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-800 transition-colors"
+            className="inline-flex items-center gap-2 rounded-xl bg-foreground px-4 py-2 text-sm font-medium text-white hover:bg-foreground/90 transition-colors"
           >
-            <Plus size={16} />
+            <Plus size={14} />
             Add Provider
           </button>
         </div>
 
         {/* Success banner */}
         {successMsg && (
-          <div className="mx-6 mt-4 rounded-lg bg-green-50 border border-green-200 px-4 py-3 text-sm text-green-800">
+          <div className="mx-6 mt-4 rounded-xl bg-emerald-50 border border-emerald-200 px-4 py-3 text-sm text-emerald-700">
             {successMsg}
           </div>
         )}
 
         {/* Error banner */}
         {error && !modalOpen && (
-          <div className="mx-6 mt-4 rounded-lg bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-800">
+          <div className="mx-6 mt-4 rounded-xl bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">
             {error}
           </div>
         )}
 
         {/* Provider list */}
-        <div className="divide-y divide-gray-100">
+        <div className="divide-y divide-[#EEECEA]">
           {loading ? (
             <div className="flex items-center justify-center py-12">
-              <Loader2 className="animate-spin text-gray-400" size={24} />
+              <Loader2 className="animate-spin text-foreground/20" size={20} />
             </div>
           ) : providers.length === 0 ? (
-            <div className="py-12 text-center text-sm text-gray-500">
+            <div className="py-12 text-center text-sm text-foreground/35">
               No providers found. Add one to get started.
             </div>
           ) : (
@@ -232,31 +232,31 @@ export default function AdminSettingsPage() {
               return (
                 <div
                   key={provider._id}
-                  className="flex items-center justify-between px-6 py-4 hover:bg-gray-50 transition-colors"
+                  className="flex items-center justify-between px-6 py-4 hover:bg-[#FAFAF8] transition-colors"
                 >
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2">
-                      <p className="font-medium text-gray-900 truncate">
+                      <p className="text-sm font-medium text-foreground truncate">
                         {provider.name}
                       </p>
                       {isSelf && (
-                        <span className="inline-flex items-center rounded-full bg-blue-50 px-2 py-0.5 text-xs font-medium text-blue-700 border border-blue-200">
+                        <span className="inline-flex items-center rounded-full bg-foreground/5 px-2 py-0.5 text-[11px] font-medium text-foreground/50 border border-[#EEECEA]">
                           You
                         </span>
                       )}
                     </div>
-                    <p className="text-sm text-gray-500 truncate">{provider.email}</p>
+                    <p className="text-xs text-foreground/35 truncate">{provider.email}</p>
                     {provider.phone && (
-                      <p className="text-sm text-gray-400">{provider.phone}</p>
+                      <p className="text-xs text-foreground/25">{provider.phone}</p>
                     )}
                   </div>
 
                   <div className="flex items-center gap-2 ml-4 shrink-0">
                     <button
                       onClick={() => openEdit(provider)}
-                      className="inline-flex items-center gap-1 rounded-lg border border-gray-200 px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-100 transition-colors"
+                      className="inline-flex items-center gap-1 rounded-lg border border-[#EEECEA] px-3 py-1.5 text-xs text-foreground/50 hover:bg-[#F5F4F2] transition-colors"
                     >
-                      <Pencil size={14} />
+                      <Pencil size={12} />
                       Edit
                     </button>
 
@@ -266,27 +266,27 @@ export default function AdminSettingsPage() {
                           <button
                             onClick={() => handleDelete(provider._id)}
                             disabled={deleting}
-                            className="inline-flex items-center gap-1 rounded-lg bg-red-600 px-3 py-1.5 text-sm text-white hover:bg-red-700 disabled:opacity-50 transition-colors"
+                            className="inline-flex items-center gap-1 rounded-lg bg-red-500 px-3 py-1.5 text-xs text-white hover:bg-red-600 disabled:opacity-50 transition-colors"
                           >
                             {deleting ? (
-                              <Loader2 size={14} className="animate-spin" />
+                              <Loader2 size={12} className="animate-spin" />
                             ) : (
                               'Confirm'
                             )}
                           </button>
                           <button
                             onClick={() => setDeleteConfirmId(null)}
-                            className="inline-flex items-center rounded-lg border border-gray-200 px-2 py-1.5 text-sm text-gray-500 hover:bg-gray-100 transition-colors"
+                            className="inline-flex items-center rounded-lg border border-[#EEECEA] px-2 py-1.5 text-xs text-foreground/40 hover:bg-[#F5F4F2] transition-colors"
                           >
-                            <X size={14} />
+                            <X size={12} />
                           </button>
                         </div>
                       ) : (
                         <button
                           onClick={() => setDeleteConfirmId(provider._id)}
-                          className="inline-flex items-center gap-1 rounded-lg border border-red-200 px-3 py-1.5 text-sm text-red-600 hover:bg-red-50 transition-colors"
+                          className="inline-flex items-center gap-1 rounded-lg border border-red-200 px-3 py-1.5 text-xs text-red-500 hover:bg-red-50 transition-colors"
                         >
-                          <Trash2 size={14} />
+                          <Trash2 size={12} />
                           Delete
                         </button>
                       ))}
@@ -302,78 +302,78 @@ export default function AdminSettingsPage() {
       {modalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
           <div
-            className="absolute inset-0 bg-black/40"
+            className="absolute inset-0 bg-black/30 backdrop-blur-sm"
             onClick={closeModal}
           />
-          <div className="relative w-full max-w-md bg-white rounded-xl shadow-xl p-6 mx-4">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-medium text-gray-900">
+          <div className="relative w-full max-w-md bg-white rounded-2xl shadow-xl border border-[#EEECEA] p-6 mx-4">
+            <div className="flex items-center justify-between mb-5">
+              <h3 className="text-lg font-serif font-medium text-foreground">
                 {editingId ? 'Edit Provider' : 'Add Provider'}
               </h3>
               <button
                 onClick={closeModal}
-                className="text-gray-400 hover:text-gray-600"
+                className="text-foreground/30 hover:text-foreground/60 transition-colors"
               >
-                <X size={20} />
+                <X size={18} />
               </button>
             </div>
 
             {error && (
-              <div className="mb-4 rounded-lg bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-800">
+              <div className="mb-4 rounded-xl bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">
                 {error}
               </div>
             )}
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Name <span className="text-red-500">*</span>
+                <label className="block text-xs font-semibold text-foreground/35 uppercase tracking-wider mb-1.5">
+                  Name <span className="text-red-400">*</span>
                 </label>
                 <input
                   type="text"
                   required
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900"
+                  className="w-full rounded-xl border border-[#EEECEA] bg-[#F5F4F2]/50 px-4 py-2.5 text-sm focus:outline-none focus:border-foreground/30 transition-colors"
                   placeholder="Full name"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Email <span className="text-red-500">*</span>
+                <label className="block text-xs font-semibold text-foreground/35 uppercase tracking-wider mb-1.5">
+                  Email <span className="text-red-400">*</span>
                 </label>
                 <input
                   type="email"
                   required
                   value={form.email}
                   onChange={(e) => setForm({ ...form, email: e.target.value })}
-                  className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900"
+                  className="w-full rounded-xl border border-[#EEECEA] bg-[#F5F4F2]/50 px-4 py-2.5 text-sm focus:outline-none focus:border-foreground/30 transition-colors"
                   placeholder="provider@example.com"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-xs font-semibold text-foreground/35 uppercase tracking-wider mb-1.5">
                   Phone
                 </label>
                 <input
                   type="tel"
                   value={form.phone}
                   onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                  className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900"
+                  className="w-full rounded-xl border border-[#EEECEA] bg-[#F5F4F2]/50 px-4 py-2.5 text-sm focus:outline-none focus:border-foreground/30 transition-colors"
                   placeholder="+266..."
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-xs font-semibold text-foreground/35 uppercase tracking-wider mb-1.5">
                   Timezone
                 </label>
                 <select
                   value={form.timezone}
                   onChange={(e) => setForm({ ...form, timezone: e.target.value })}
-                  className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900"
+                  className="w-full rounded-xl border border-[#EEECEA] bg-[#F5F4F2]/50 px-4 py-2.5 text-sm focus:outline-none focus:border-foreground/30 transition-colors"
                 >
                   <option value="Africa/Maseru">Africa/Maseru</option>
                   <option value="Africa/Johannesburg">Africa/Johannesburg</option>
@@ -382,19 +382,19 @@ export default function AdminSettingsPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-xs font-semibold text-foreground/35 uppercase tracking-wider mb-1.5">
                   Password{' '}
                   {editingId ? (
-                    <span className="text-gray-400 font-normal">(leave blank to keep current)</span>
+                    <span className="text-foreground/25 font-normal normal-case tracking-normal">(leave blank to keep current)</span>
                   ) : (
-                    <span className="text-red-500">*</span>
+                    <span className="text-red-400">*</span>
                   )}
                 </label>
                 <input
                   type="password"
                   value={form.password}
                   onChange={(e) => setForm({ ...form, password: e.target.value })}
-                  className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900"
+                  className="w-full rounded-xl border border-[#EEECEA] bg-[#F5F4F2]/50 px-4 py-2.5 text-sm focus:outline-none focus:border-foreground/30 transition-colors"
                   placeholder={editingId ? '••••••••' : 'Set a strong password'}
                   required={!editingId}
                 />
@@ -404,14 +404,14 @@ export default function AdminSettingsPage() {
                 <button
                   type="button"
                   onClick={closeModal}
-                  className="rounded-lg border border-gray-200 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+                  className="rounded-xl border border-[#EEECEA] px-4 py-2 text-sm font-medium text-foreground/50 hover:bg-[#F5F4F2] transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={saving}
-                  className="inline-flex items-center gap-2 rounded-lg bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-800 disabled:opacity-50 transition-colors"
+                  className="inline-flex items-center gap-2 rounded-xl bg-foreground px-4 py-2 text-sm font-medium text-white hover:bg-foreground/90 disabled:opacity-50 transition-colors"
                 >
                   {saving && <Loader2 size={14} className="animate-spin" />}
                   {editingId ? 'Save Changes' : 'Create Provider'}

@@ -5,38 +5,38 @@ html {
 }
 
 :root {
-  --background: #FFFAF7;
-  --foreground: #1A1A1A;
+  --background: #FFFBF8;
+  --foreground: #2C2C2C;
 
-  /* Refined Soft Pink */
-  --color-pink-50: #FFF5F6;
-  --color-pink-100: #FFE8EB;
-  --color-pink-200: #FDD5DA;
-  --color-pink-300: #F9B0BA;
-  --color-pink-400: #F08A9A;
-  --color-pink-500: #E0657A;
-  --color-pink-600: #C94D63;
-  --color-pink-700: #A93B4F;
-  --color-pink-800: #862E3E;
-  --color-pink-900: #6B2433;
+  /* Deep Maroon / Burgundy */
+  --color-pink-50: #FDF5F5;
+  --color-pink-100: #F3E0E2;
+  --color-pink-200: #E8C4C9;
+  --color-pink-300: #D49DA5;
+  --color-pink-400: #A85060;
+  --color-pink-500: #7B2332;
+  --color-pink-600: #6A1D2B;
+  --color-pink-700: #571823;
+  --color-pink-800: #44131C;
+  --color-pink-900: #310E15;
 
   /* Warm Cream */
-  --color-cream-50: #FFFDF9;
-  --color-cream-100: #FFF9F0;
-  --color-cream-200: #FFF3E3;
-  --color-cream-300: #FFE8CC;
+  --color-cream-50: #FFFCF9;
+  --color-cream-100: #F5EDE6;
+  --color-cream-200: #EDE2D9;
+  --color-cream-300: #E0D3C7;
 
-  /* Premium Gold */
-  --color-gold-50: #FFFBEB;
-  --color-gold-100: #FEF3C7;
-  --color-gold-200: #FDE68A;
-  --color-gold-300: #FCD34D;
-  --color-gold-400: #FBBF24;
-  --color-gold-500: #D4A04A;
-  --color-gold-600: #B8862F;
-  --color-gold-700: #92681E;
-  --color-gold-800: #6B4B14;
-  --color-gold-900: #45300D;
+  /* Muted Gold */
+  --color-gold-50: #FDFBF3;
+  --color-gold-100: #FAF4DE;
+  --color-gold-200: #F2E5B5;
+  --color-gold-300: #E5D08A;
+  --color-gold-400: #D4B85C;
+  --color-gold-500: #C0A044;
+  --color-gold-600: #A68836;
+  --color-gold-700: #876C28;
+  --color-gold-800: #67511D;
+  --color-gold-900: #483814;
 }
 
 @theme {
@@ -79,7 +79,7 @@ html {
 
 @layer base {
   * {
-    border-color: #E7E5E4;
+    border-color: #E8E5E0;
   }
 
   body {
@@ -93,15 +93,15 @@ html {
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-serif);
-    font-weight: 600;
-    color: #1C1917;
-    letter-spacing: -0.02em;
-    line-height: 1.15;
+    font-weight: 500;
+    color: #2C2C2C;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
   }
 
   ::selection {
-    background-color: var(--color-pink-200);
-    color: var(--color-pink-900);
+    background-color: var(--color-pink-100);
+    color: var(--color-pink-800);
   }
 }
 
@@ -114,7 +114,6 @@ html {
     scrollbar-width: none;
   }
 
-  /* For admin layout compatibility */
   .glass-dark {
     background: rgba(0, 0, 0, 0.85);
     backdrop-filter: blur(20px);
@@ -122,9 +121,9 @@ html {
   }
 
   .glass {
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
   }
 }
 
@@ -133,11 +132,11 @@ html {
   width: 100%;
   max-width: 400px;
   background: #fff;
-  border: 1px solid #E7E5E4;
+  border: 1px solid #E8E5E0;
   border-radius: 16px;
   font-family: inherit;
   line-height: 1.125em;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.04);
 }
 
 .react-calendar button {
@@ -161,7 +160,7 @@ html {
   background: none;
   font-size: 16px;
   margin-top: 8px;
-  color: #1C1917;
+  color: #2C2C2C;
   font-weight: 600;
 }
 

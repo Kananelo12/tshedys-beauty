@@ -213,22 +213,22 @@ export default function BookingPage() {
     return (
       <>
         <Navbar />
-        <main className="min-h-screen pt-18 pb-16 bg-cream-50 flex items-center">
-          <div className="max-w-lg mx-auto px-5 sm:px-6 w-full">
-            <div className="bg-white rounded-xl border border-gray-100 p-8 sm:p-10 text-center">
+        <main className="min-h-screen pt-18 pb-16 bg-background flex items-center">
+          <div className="max-w-lg mx-auto px-5 sm:px-8 w-full">
+            <div className="bg-white rounded-2xl border border-cream-200 p-8 sm:p-10 text-center">
               <div className="w-14 h-14 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-5">
                 <Check className="w-7 h-7 text-green-600" />
               </div>
-              <h1 className="text-2xl sm:text-3xl font-serif font-bold text-gray-900 mb-3">
+              <h1 className="text-2xl sm:text-3xl font-serif font-medium text-foreground mb-3">
                 Booking Sent!
               </h1>
-              <p className="text-gray-500 mb-8 text-sm leading-relaxed">
+              <p className="text-foreground/50 mb-8 text-sm leading-relaxed">
                 Thank you for booking with Tshedy Beauty. We&apos;ll confirm
                 your appointment via email shortly.
               </p>
               <Link
                 href="/"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-pink-500 text-white text-sm font-semibold rounded-full hover:bg-pink-600 transition-colors"
+                className="inline-flex items-center gap-2 px-7 py-3.5 bg-foreground text-white text-sm font-semibold rounded-full hover:bg-foreground/90 transition-all"
               >
                 <ArrowLeft size={16} />
                 Back to Home
@@ -244,64 +244,64 @@ export default function BookingPage() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen pt-18 pb-16 bg-cream-50">
-        <div className="max-w-2xl mx-auto px-5 sm:px-6 py-12 sm:py-16">
+      <main className="min-h-screen pt-18 pb-16 bg-background">
+        <div className="max-w-2xl mx-auto px-5 sm:px-8 py-16 sm:py-24">
           {/* Header */}
-          <div className="text-center mb-10">
-            <p className="text-xs font-semibold tracking-[0.2em] uppercase text-gold-600 mb-3">
+          <div className="text-center mb-12">
+            <p className="text-xs font-semibold tracking-[0.2em] uppercase text-pink-500 mb-4">
               Book Now
             </p>
-            <h1 className="text-3xl sm:text-4xl font-serif font-bold text-gray-900 mb-3">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-medium text-foreground mb-4">
               Book Your Appointment
             </h1>
-            <p className="text-gray-500 text-sm">
+            <p className="text-foreground/50 text-sm">
               Fill out the form and we&apos;ll confirm your booking shortly
             </p>
           </div>
 
           {/* Form Card */}
-          <div className="bg-white rounded-xl border border-gray-100 p-6 sm:p-8">
+          <div className="bg-white rounded-2xl border border-cream-200 p-6 sm:p-8 lg:p-10">
             <form onSubmit={handleSubmit} className="space-y-5">
-              {/* Name */}
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1.5">
-                  <User size={14} className="inline mr-1.5 text-gray-400" />
-                  Full Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:border-pink-400 focus:ring-1 focus:ring-pink-400 focus:outline-none transition-colors"
-                  placeholder="Enter your full name"
-                />
-              </div>
-
-              {/* Phone */}
-              <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1.5">
-                  <Phone size={14} className="inline mr-1.5 text-gray-400" />
-                  Phone Number
-                </label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:border-pink-400 focus:ring-1 focus:ring-pink-400 focus:outline-none transition-colors"
-                  placeholder="+266 XXXX XXXX"
-                />
+              {/* Name & Phone row */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <div>
+                  <label htmlFor="name" className="block text-xs font-semibold text-foreground/70 mb-2 uppercase tracking-wide">
+                    <User size={13} className="inline mr-1.5 text-foreground/30" />
+                    Full Name
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 border border-cream-200 bg-cream-100/50 rounded-xl text-sm focus:border-pink-400 focus:ring-1 focus:ring-pink-400 focus:bg-white focus:outline-none transition-all"
+                    placeholder="Enter your full name"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="phone" className="block text-xs font-semibold text-foreground/70 mb-2 uppercase tracking-wide">
+                    <Phone size={13} className="inline mr-1.5 text-foreground/30" />
+                    Phone Number
+                  </label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 border border-cream-200 bg-cream-100/50 rounded-xl text-sm focus:border-pink-400 focus:ring-1 focus:ring-pink-400 focus:bg-white focus:outline-none transition-all"
+                    placeholder="+266 XXXX XXXX"
+                  />
+                </div>
               </div>
 
               {/* Email */}
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1.5">
-                  <Mail size={14} className="inline mr-1.5 text-gray-400" />
+                <label htmlFor="email" className="block text-xs font-semibold text-foreground/70 mb-2 uppercase tracking-wide">
+                  <Mail size={13} className="inline mr-1.5 text-foreground/30" />
                   Email Address
                 </label>
                 <input
@@ -311,18 +311,18 @@ export default function BookingPage() {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:border-pink-400 focus:ring-1 focus:ring-pink-400 focus:outline-none transition-colors"
+                  className="w-full px-4 py-3 border border-cream-200 bg-cream-100/50 rounded-xl text-sm focus:border-pink-400 focus:ring-1 focus:ring-pink-400 focus:bg-white focus:outline-none transition-all"
                   placeholder="your@email.com"
                 />
               </div>
 
               {/* Service */}
               <div>
-                <label htmlFor="serviceId" className="block text-sm font-medium text-gray-700 mb-1.5">
+                <label htmlFor="serviceId" className="block text-xs font-semibold text-foreground/70 mb-2 uppercase tracking-wide">
                   Service
                 </label>
                 {servicesError && (
-                  <div className="mb-2 p-2.5 bg-red-50 border border-red-200 rounded-lg text-xs text-red-600">
+                  <div className="mb-2 p-2.5 bg-red-50 border border-red-200 rounded-xl text-xs text-red-600">
                     {servicesError}
                   </div>
                 )}
@@ -333,7 +333,7 @@ export default function BookingPage() {
                   onChange={handleChange}
                   required
                   disabled={servicesLoading || services.length === 0}
-                  className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:border-pink-400 focus:ring-1 focus:ring-pink-400 focus:outline-none transition-colors disabled:bg-gray-50 disabled:cursor-not-allowed"
+                  className="w-full px-4 py-3 border border-cream-200 bg-cream-100/50 rounded-xl text-sm focus:border-pink-400 focus:ring-1 focus:ring-pink-400 focus:bg-white focus:outline-none transition-all disabled:bg-cream-100 disabled:cursor-not-allowed"
                 >
                   <option value="">
                     {servicesLoading ? "Loading services..." : "Select a service"}
@@ -347,10 +347,10 @@ export default function BookingPage() {
               </div>
 
               {/* Date & Time */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
-                  <label htmlFor="preferredDate" className="block text-sm font-medium text-gray-700 mb-1.5">
-                    <Calendar size={14} className="inline mr-1.5 text-gray-400" />
+                  <label htmlFor="preferredDate" className="block text-xs font-semibold text-foreground/70 mb-2 uppercase tracking-wide">
+                    <Calendar size={13} className="inline mr-1.5 text-foreground/30" />
                     Date
                   </label>
                   <input
@@ -361,25 +361,25 @@ export default function BookingPage() {
                     onChange={handleChange}
                     required
                     min={new Date().toISOString().split("T")[0]}
-                    className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:border-pink-400 focus:ring-1 focus:ring-pink-400 focus:outline-none transition-colors"
+                    className="w-full px-4 py-3 border border-cream-200 bg-cream-100/50 rounded-xl text-sm focus:border-pink-400 focus:ring-1 focus:ring-pink-400 focus:bg-white focus:outline-none transition-all"
                   />
                   {formData.preferredDate && (
-                    <p className={`mt-1 text-xs ${
+                    <p className={`mt-1.5 text-xs ${
                       !isDayAvailable(new Date(formData.preferredDate + "T12:00:00"))
                         ? "text-red-500"
-                        : "text-gray-400"
+                        : "text-foreground/35"
                     }`}>
                       {getSelectedDayHint()}
                     </p>
                   )}
                 </div>
                 <div>
-                  <label htmlFor="preferredTime" className="block text-sm font-medium text-gray-700 mb-1.5">
-                    <Clock size={14} className="inline mr-1.5 text-gray-400" />
+                  <label htmlFor="preferredTime" className="block text-xs font-semibold text-foreground/70 mb-2 uppercase tracking-wide">
+                    <Clock size={13} className="inline mr-1.5 text-foreground/30" />
                     Time
                   </label>
                   {slotsLoading ? (
-                    <div className="flex items-center gap-2 px-4 py-2.5 border border-gray-200 rounded-lg text-sm text-gray-400">
+                    <div className="flex items-center gap-2 px-4 py-3 border border-cream-200 rounded-xl text-sm text-foreground/35">
                       <Loader2 size={14} className="animate-spin" />
                       Loading available times...
                     </div>
@@ -391,7 +391,7 @@ export default function BookingPage() {
                       onChange={handleChange}
                       required
                       disabled={!formData.preferredDate || availableSlots.length === 0}
-                      className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:border-pink-400 focus:ring-1 focus:ring-pink-400 focus:outline-none transition-colors disabled:bg-gray-50 disabled:cursor-not-allowed"
+                      className="w-full px-4 py-3 border border-cream-200 bg-cream-100/50 rounded-xl text-sm focus:border-pink-400 focus:ring-1 focus:ring-pink-400 focus:bg-white focus:outline-none transition-all disabled:bg-cream-100 disabled:cursor-not-allowed"
                     >
                       <option value="">
                         {!formData.preferredDate
@@ -406,15 +406,15 @@ export default function BookingPage() {
                     </select>
                   )}
                   {slotsError && (
-                    <p className="mt-1 text-xs text-red-500">{slotsError}</p>
+                    <p className="mt-1.5 text-xs text-red-500">{slotsError}</p>
                   )}
                 </div>
               </div>
 
               {/* Notes */}
               <div>
-                <label htmlFor="notes" className="block text-sm font-medium text-gray-700 mb-1.5">
-                  Notes <span className="text-gray-400 font-normal">(optional)</span>
+                <label htmlFor="notes" className="block text-xs font-semibold text-foreground/70 mb-2 uppercase tracking-wide">
+                  Notes <span className="text-foreground/30 font-normal normal-case">(optional)</span>
                 </label>
                 <textarea
                   id="notes"
@@ -422,14 +422,14 @@ export default function BookingPage() {
                   value={formData.notes}
                   onChange={handleChange}
                   rows={3}
-                  className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:border-pink-400 focus:ring-1 focus:ring-pink-400 focus:outline-none transition-colors resize-none"
+                  className="w-full px-4 py-3 border border-cream-200 bg-cream-100/50 rounded-xl text-sm focus:border-pink-400 focus:ring-1 focus:ring-pink-400 focus:bg-white focus:outline-none transition-all resize-none"
                   placeholder="Any special requests..."
                 />
               </div>
 
               {/* Error */}
               {error && (
-                <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-red-600 text-sm">
+                <div className="p-3.5 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm">
                   {error}
                 </div>
               )}
@@ -438,12 +438,12 @@ export default function BookingPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-3 bg-pink-500 text-white text-sm font-semibold rounded-full hover:bg-pink-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="w-full py-3.5 bg-foreground text-white text-sm font-semibold rounded-full hover:bg-foreground/90 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
               >
                 {loading ? "Submitting..." : "Book Appointment"}
               </button>
 
-              <p className="text-center text-xs text-gray-400">
+              <p className="text-center text-xs text-foreground/30">
                 By submitting, you agree to receive booking confirmations via
                 email.
               </p>

@@ -15,7 +15,6 @@ import {
   Search,
   Filter,
   ChevronDown,
-  Sparkles,
   Home,
   DollarSign,
 } from 'lucide-react';
@@ -41,6 +40,11 @@ interface Booking {
   transportCost?: number;
   totalPrice?: number;
 }
+
+const fadeIn = {
+  initial: { opacity: 0, y: 12 },
+  animate: { opacity: 1, y: 0 },
+};
 
 export default function AdminBookingsPage() {
   const [filter, setFilter] = useState('all');
@@ -72,7 +76,6 @@ export default function AdminBookingsPage() {
     try {
       const response = await fetch(`/api/bookings/${bookingId}/${action}?token=${token}`);
       if (response.ok) {
-        // Refresh bookings
         fetchBookings();
       } else {
         alert(`Failed to ${action} booking`);
@@ -86,7 +89,6 @@ export default function AdminBookingsPage() {
   };
 
   const filteredBookings = bookings.filter(booking => {
-    // Apply status filter
     if (filter === 'pending' && booking.status !== 'PENDING') return false;
     if (filter === 'accepted' && booking.status !== 'ACCEPTED') return false;
     if (filter === 'rejected' && booking.status !== 'REJECTED') return false;
@@ -95,7 +97,6 @@ export default function AdminBookingsPage() {
       if (new Date(booking.startDateTime).toDateString() !== today) return false;
     }
     
-    // Apply search filter
     if (searchTerm) {
       const search = searchTerm.toLowerCase();
       return (
@@ -119,8 +120,8 @@ export default function AdminBookingsPage() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <div className="w-16 h-16 border-4 border-pink-200 border-t-pink-500 rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-gray-600">Loading bookings...</p>
+          <div className="w-8 h-8 border-2 border-[#EEECEA] border-t-foreground rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-sm text-foreground/40">Loading bookings...</p>
         </div>
       </div>
     );
@@ -130,111 +131,88 @@ export default function AdminBookingsPage() {
     <div className="space-y-6">
       {/* Header */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        {...fadeIn}
+        transition={{ duration: 0.4 }}
         className="flex flex-col md:flex-row md:items-center md:justify-between gap-4"
       >
         <div>
-          <h2 className="text-3xl font-serif font-bold bg-linear-to-r from-pink-600 to-pink-600 bg-clip-text text-transparent flex items-center gap-2">
-            <Calendar className="text-pink-500" size={32} />
+          <h2 className="text-2xl font-serif font-medium text-foreground tracking-[-0.025em]">
             Bookings
           </h2>
-          <p className="text-gray-600 mt-1">Manage and review your appointments</p>
+          <p className="text-sm text-foreground/40 mt-1">Manage and review your appointments</p>
         </div>
       </motion.div>
 
       {/* Stats Cards */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
-        className="grid grid-cols-1 md:grid-cols-4 gap-4"
+        {...fadeIn}
+        transition={{ duration: 0.4, delay: 0.05 }}
+        className="grid grid-cols-2 md:grid-cols-4 gap-3"
       >
         <button
           onClick={() => setFilter('all')}
-          className={`glass rounded-xl p-4 border-2 transition-all ${
-            filter === 'all' ? 'border-pink-400 shadow-lg' : 'border-pink-200 hover:border-pink-300'
+          className={`bg-white rounded-xl p-4 border transition-all text-left ${
+            filter === 'all' ? 'border-foreground shadow-sm' : 'border-[#EEECEA] hover:border-foreground/20'
           }`}
         >
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-2xl font-bold text-gray-900">{bookings.length}</p>
-              <p className="text-sm text-gray-600">Total</p>
-            </div>
-            <Calendar className="text-pink-500" size={24} />
-          </div>
+          <p className="text-2xl font-semibold text-foreground">{bookings.length}</p>
+          <p className="text-xs text-foreground/35 mt-0.5">Total</p>
         </button>
 
         <button
           onClick={() => setFilter('pending')}
-          className={`glass rounded-xl p-4 border-2 transition-all ${
-            filter === 'pending' ? 'border-gold-400 shadow-lg' : 'border-pink-200 hover:border-gold-300'
+          className={`bg-white rounded-xl p-4 border transition-all text-left ${
+            filter === 'pending' ? 'border-amber-400 shadow-sm' : 'border-[#EEECEA] hover:border-amber-200'
           }`}
         >
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-2xl font-bold text-gray-900">{pendingCount}</p>
-              <p className="text-sm text-gray-600">Pending</p>
-            </div>
-            <Clock className="text-gold-500" size={24} />
-          </div>
+          <p className="text-2xl font-semibold text-foreground">{pendingCount}</p>
+          <p className="text-xs text-foreground/35 mt-0.5">Pending</p>
         </button>
 
         <button
           onClick={() => setFilter('accepted')}
-          className={`glass rounded-xl p-4 border-2 transition-all ${
-            filter === 'accepted' ? 'border-pink-400 shadow-lg' : 'border-pink-200 hover:border-pink-300'
+          className={`bg-white rounded-xl p-4 border transition-all text-left ${
+            filter === 'accepted' ? 'border-emerald-400 shadow-sm' : 'border-[#EEECEA] hover:border-emerald-200'
           }`}
         >
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-2xl font-bold text-gray-900">{acceptedCount}</p>
-              <p className="text-sm text-gray-600">Accepted</p>
-            </div>
-            <CheckCircle className="text-pink-500" size={24} />
-          </div>
+          <p className="text-2xl font-semibold text-foreground">{acceptedCount}</p>
+          <p className="text-xs text-foreground/35 mt-0.5">Accepted</p>
         </button>
 
         <button
           onClick={() => setFilter('today')}
-          className={`glass rounded-xl p-4 border-2 transition-all ${
-            filter === 'today' ? 'border-pink-400 shadow-lg' : 'border-pink-200 hover:border-pink-300'
+          className={`bg-white rounded-xl p-4 border transition-all text-left ${
+            filter === 'today' ? 'border-foreground shadow-sm' : 'border-[#EEECEA] hover:border-foreground/20'
           }`}
         >
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-2xl font-bold text-gray-900">{todayCount}</p>
-              <p className="text-sm text-gray-600">Today</p>
-            </div>
-            <Sparkles className="text-pink-500" size={24} />
-          </div>
+          <p className="text-2xl font-semibold text-foreground">{todayCount}</p>
+          <p className="text-xs text-foreground/35 mt-0.5">Today</p>
         </button>
       </motion.div>
 
       {/* Search and Filter */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
-        className="glass border-2 border-pink-200 rounded-xl p-4"
+        {...fadeIn}
+        transition={{ duration: 0.4, delay: 0.1 }}
+        className="bg-white border border-[#EEECEA] rounded-xl p-4"
       >
         <div className="flex flex-col md:flex-row gap-3">
           <div className="flex-1 relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-foreground/25" size={18} />
             <input
               type="text"
               placeholder="Search by client name, email, or service..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-pink-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-300 bg-white"
+              className="w-full pl-10 pr-4 py-2.5 border border-[#EEECEA] rounded-xl text-sm focus:outline-none focus:border-foreground/30 bg-[#F5F4F2]/50 transition-colors"
             />
           </div>
           <div className="relative">
-            <Filter className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
+            <Filter className="absolute left-3 top-1/2 -translate-y-1/2 text-foreground/25" size={16} />
             <select
               value={filter}
               onChange={(e) => setFilter(e.target.value)}
-              className="pl-10 pr-8 py-2 border border-pink-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-300 bg-white appearance-none"
+              className="pl-10 pr-8 py-2.5 border border-[#EEECEA] rounded-xl text-sm focus:outline-none focus:border-foreground/30 bg-[#F5F4F2]/50 appearance-none transition-colors"
             >
               <option value="all">All Bookings</option>
               <option value="pending">Pending</option>
@@ -242,22 +220,21 @@ export default function AdminBookingsPage() {
               <option value="rejected">Rejected</option>
               <option value="today">Today</option>
             </select>
-            <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" size={16} />
+            <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-foreground/25 pointer-events-none" size={14} />
           </div>
         </div>
       </motion.div>
 
       {/* Bookings List */}
-      <div className="space-y-4">
+      <div className="space-y-3">
         {filteredBookings.length === 0 ? (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="glass border-2 border-pink-200 rounded-xl p-12 text-center"
+            {...fadeIn}
+            className="bg-white border border-[#EEECEA] rounded-xl p-12 text-center"
           >
-            <Calendar className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-            <h3 className="text-xl font-serif font-medium text-gray-700 mb-2">No bookings found</h3>
-            <p className="text-gray-500">
+            <Calendar className="w-12 h-12 text-foreground/10 mx-auto mb-4" />
+            <h3 className="text-base font-medium text-foreground mb-1">No bookings found</h3>
+            <p className="text-sm text-foreground/35">
               {searchTerm ? 'Try adjusting your search' : 'Bookings will appear here once customers make appointments'}
             </p>
           </motion.div>
@@ -274,51 +251,46 @@ export default function AdminBookingsPage() {
               return (
                 <motion.div
                   key={booking._id}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ delay: index * 0.05 }}
-                  className={`glass border-2 rounded-xl overflow-hidden transition-all ${
-                    isPending ? 'border-gold-300' : 
-                    isAccepted ? 'border-pink-300' : 
-                    isRejected ? 'border-gray-300' : 'border-pink-200'
-                  }`}
+                  exit={{ opacity: 0, scale: 0.98 }}
+                  transition={{ delay: index * 0.03 }}
+                  className="bg-white border border-[#EEECEA] rounded-xl overflow-hidden transition-all hover:shadow-sm"
                 >
-                  <div className="p-4 md:p-6">
+                  <div className="p-4 md:p-5">
                     <div className="flex flex-col md:flex-row md:items-center gap-4">
                       {/* Client Info */}
                       <div className="flex-1 min-w-0">
                         <div className="flex items-start gap-3 mb-3">
-                          <div className={`w-12 h-12 rounded-full flex items-center justify-center text-white font-bold ${
-                            isPending ? 'bg-linear-to-br from-gold-400 to-gold-500' :
-                            isAccepted ? 'bg-linear-to-br from-pink-400 to-pink-500' :
-                            'bg-linear-to-br from-gray-400 to-gray-500'
+                          <div className={`w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-bold ${
+                            isPending ? 'bg-amber-400' :
+                            isAccepted ? 'bg-foreground' :
+                            'bg-foreground/20'
                           }`}>
                             {booking.clientName.charAt(0).toUpperCase()}
                           </div>
                           <div className="flex-1 min-w-0">
-                            <h3 className="text-lg font-semibold text-gray-900 truncate">
+                            <h3 className="text-sm font-semibold text-foreground truncate">
                               {booking.clientName}
                             </h3>
-                            <p className="text-sm text-gray-600 truncate flex items-center gap-1">
-                              <Sparkles size={14} className="text-pink-500" />
+                            <p className="text-xs text-foreground/40 truncate">
                               {booking.service?.name || 'Unknown Service'}
                             </p>
                           </div>
                         </div>
 
-                        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 text-sm">
-                          <div className="flex items-center gap-2 text-gray-600">
-                            <Calendar size={16} className="text-pink-500" />
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 text-xs">
+                          <div className="flex items-center gap-1.5 text-foreground/40">
+                            <Calendar size={13} />
                             <span>{date}</span>
                           </div>
-                          <div className="flex items-center gap-2 text-gray-600">
-                            <Clock size={16} className="text-pink-500" />
+                          <div className="flex items-center gap-1.5 text-foreground/40">
+                            <Clock size={13} />
                             <span>{time}</span>
                           </div>
                           {booking.isHouseCall && (
-                            <div className="flex items-center gap-2 text-gray-600">
-                              <Home size={16} className="text-gold-600" />
+                            <div className="flex items-center gap-1.5 text-foreground/40">
+                              <Home size={13} />
                               <span>House Call</span>
                             </div>
                           )}
@@ -327,14 +299,14 @@ export default function AdminBookingsPage() {
 
                       {/* Status & Actions */}
                       <div className="flex flex-col items-end gap-3">
-                        <span className={`inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold rounded-full ${
-                          isAccepted ? 'bg-pink-100 text-pink-700' :
-                          isPending ? 'bg-gold-100 text-gold-700' :
-                          'bg-gray-100 text-gray-600'
+                        <span className={`inline-flex items-center gap-1 px-2.5 py-1 text-[11px] font-semibold rounded-full ${
+                          isAccepted ? 'bg-emerald-50 text-emerald-600' :
+                          isPending ? 'bg-amber-50 text-amber-600' :
+                          'bg-[#F5F4F2] text-foreground/40'
                         }`}>
-                          {isAccepted && <CheckCircle size={14} />}
-                          {isPending && <Clock size={14} />}
-                          {isRejected && <XCircle size={14} />}
+                          {isAccepted && <CheckCircle size={12} />}
+                          {isPending && <Clock size={12} />}
+                          {isRejected && <XCircle size={12} />}
                           {booking.status}
                         </span>
 
@@ -344,27 +316,27 @@ export default function AdminBookingsPage() {
                               <button
                                 onClick={() => handleAction(booking._id, booking.actionToken, 'confirm')}
                                 disabled={isProcessing}
-                                className="flex items-center gap-1 px-4 py-2 bg-pink-500 hover:bg-pink-600 text-white text-sm font-medium rounded-lg hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="flex items-center gap-1 px-3.5 py-2 bg-foreground hover:bg-foreground/90 text-white text-xs font-medium rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                               >
-                                <CheckCircle size={16} />
+                                <CheckCircle size={14} />
                                 Accept
                               </button>
                               <button
                                 onClick={() => handleAction(booking._id, booking.actionToken, 'reject')}
                                 disabled={isProcessing}
-                                className="flex items-center gap-1 px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white text-sm font-medium rounded-lg hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="flex items-center gap-1 px-3.5 py-2 bg-[#F5F4F2] hover:bg-[#EEECEA] text-foreground/60 text-xs font-medium rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                               >
-                                <XCircle size={16} />
+                                <XCircle size={14} />
                                 Reject
                               </button>
                             </>
                           )}
                           <button
                             onClick={() => setExpandedId(isExpanded ? null : booking._id)}
-                            className="flex items-center gap-1 px-4 py-2 bg-white border-2 border-pink-300 text-pink-600 text-sm font-medium rounded-lg hover:bg-pink-50 transition-all"
+                            className="flex items-center gap-1 px-3.5 py-2 bg-white border border-[#EEECEA] text-foreground/50 text-xs font-medium rounded-lg hover:border-foreground/20 transition-all"
                           >
                             {isExpanded ? 'Less' : 'More'}
-                            <ChevronDown size={16} className={`transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
+                            <ChevronDown size={14} className={`transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
                           </button>
                         </div>
                       </div>
@@ -378,49 +350,49 @@ export default function AdminBookingsPage() {
                           animate={{ height: 'auto', opacity: 1 }}
                           exit={{ height: 0, opacity: 0 }}
                           transition={{ duration: 0.2 }}
-                          className="mt-4 pt-4 border-t-2 border-pink-200"
+                          className="mt-4 pt-4 border-t border-[#EEECEA]"
                         >
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div className="space-y-3">
-                              <h4 className="font-semibold text-gray-700 flex items-center gap-2">
-                                <User size={16} className="text-pink-500" />
+                              <h4 className="text-xs font-semibold text-foreground/35 uppercase tracking-wider flex items-center gap-1.5">
+                                <User size={13} />
                                 Contact Details
                               </h4>
                               <div className="space-y-2 text-sm">
-                                <div className="flex items-center gap-2 text-gray-600">
-                                  <Mail size={14} className="text-pink-500" />
+                                <div className="flex items-center gap-2 text-foreground/50">
+                                  <Mail size={13} />
                                   <span className="truncate">{booking.clientEmail}</span>
                                 </div>
-                                <div className="flex items-center gap-2 text-gray-600">
-                                  <Phone size={14} className="text-pink-500" />
+                                <div className="flex items-center gap-2 text-foreground/50">
+                                  <Phone size={13} />
                                   <span>{booking.clientPhone}</span>
                                 </div>
                               </div>
                             </div>
                             
                             <div className="space-y-3">
-                              <h4 className="font-semibold text-gray-700 flex items-center gap-2">
-                                <DollarSign size={16} className="text-pink-500" />
+                              <h4 className="text-xs font-semibold text-foreground/35 uppercase tracking-wider flex items-center gap-1.5">
+                                <DollarSign size={13} />
                                 Pricing Details
                               </h4>
                               <div className="space-y-2 text-sm">
                                 <div className="flex justify-between">
-                                  <span className="text-gray-600">Service Price:</span>
-                                  <span className="font-medium">M{booking.service?.price || 0}</span>
+                                  <span className="text-foreground/40">Service Price:</span>
+                                  <span className="font-medium text-foreground">M{booking.service?.price || 0}</span>
                                 </div>
                                 {booking.isHouseCall && (
                                   <>
                                     <div className="flex justify-between">
-                                      <span className="text-gray-600">House Call Fee:</span>
-                                      <span className="font-medium">M{booking.houseCallFee || 0}</span>
+                                      <span className="text-foreground/40">House Call Fee:</span>
+                                      <span className="font-medium text-foreground">M{booking.houseCallFee || 0}</span>
                                     </div>
                                     <div className="flex justify-between">
-                                      <span className="text-gray-600">Transport:</span>
-                                      <span className="font-medium">M{booking.transportCost || 0}</span>
+                                      <span className="text-foreground/40">Transport:</span>
+                                      <span className="font-medium text-foreground">M{booking.transportCost || 0}</span>
                                     </div>
-                                    <div className="flex justify-between pt-2 border-t border-pink-200">
-                                      <span className="font-semibold text-gray-700">Total:</span>
-                                      <span className="font-bold text-pink-600">
+                                    <div className="flex justify-between pt-2 border-t border-[#EEECEA]">
+                                      <span className="font-semibold text-foreground">Total:</span>
+                                      <span className="font-bold text-foreground">
                                         M{(booking.service?.price || 0) + (booking.houseCallFee || 0) + (booking.transportCost || 0)}
                                       </span>
                                     </div>
@@ -430,10 +402,10 @@ export default function AdminBookingsPage() {
                             </div>
                           </div>
 
-                          <div className="mt-4 pt-4 border-t-2 border-pink-200">
+                          <div className="mt-4 pt-4 border-t border-[#EEECEA]">
                             <Link
                               href={`/admin/bookings/${booking._id}`}
-                              className="inline-flex items-center gap-2 text-sm text-pink-600 hover:text-pink-700 font-medium"
+                              className="text-xs text-foreground/40 hover:text-foreground font-medium transition-colors"
                             >
                               View Full Details →
                             </Link>
