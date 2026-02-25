@@ -4,7 +4,7 @@ import { useState, FormEvent } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Mail, Lock, Sparkles, AlertCircle, Eye, EyeOff } from "lucide-react";
+import { Mail, Lock, AlertCircle, Eye, EyeOff, ArrowLeft } from "lucide-react";
 
 export default function AdminLogin() {
   const [email, setEmail] = useState("");
@@ -47,45 +47,38 @@ export default function AdminLogin() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-pink-50 via-cream-50 to-pink-50 relative overflow-hidden">
-      {/* Background Decoration */}
-      <div className="absolute inset-0">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-float" />
-        <div className="absolute bottom-20 right-10 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-float" style={{ animationDelay: "2s" }} />
-        <div className="absolute top-1/2 left-1/2 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-float" style={{ animationDelay: "4s" }} />
-      </div>
+    <div className="min-h-screen flex items-center justify-center bg-background relative overflow-hidden">
+      {/* Subtle background pattern */}
+      <div className="absolute inset-0 opacity-[0.015]" style={{
+        backgroundImage: 'linear-gradient(rgba(0,0,0,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,.1) 1px, transparent 1px)',
+        backgroundSize: '64px 64px',
+      }} />
 
       {/* Login Card */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
+        transition={{ duration: 0.5 }}
         className="relative z-10 w-full max-w-md mx-4"
       >
-        <div className="glass border-2 border-pink-200 rounded-3xl p-8 shadow-lg">
+        <div className="bg-white border border-cream-200 rounded-2xl p-8 sm:p-10">
           {/* Logo & Title */}
           <div className="text-center mb-8">
-            <motion.div
-              className="flex justify-center mb-4"
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-            >
-              <div className="relative w-20 h-20">
+            <div className="flex justify-center mb-5">
+              <div className="relative w-16 h-16">
                 <Image
                   src="/logo.jpeg"
                   alt="Tshedy Beauty Logo"
                   fill
-                  className="object-contain rounded-full border-4 border-white shadow-2xl"
+                  className="object-contain rounded-full"
                 />
               </div>
-            </motion.div>
-            <h1 className="text-3xl font-serif font-bold bg-linear-to-r from-pink-600 via-pink-500 to-pink-600 bg-clip-text text-transparent mb-2 flex items-center justify-center gap-2">
-              <Sparkles className="text-pink-500" size={28} />
+            </div>
+            <h1 className="text-2xl font-serif font-medium text-foreground mb-1">
               Admin Portal
             </h1>
-            <p className="text-gray-600">
-              Sign in to manage your beauty empire
+            <p className="text-foreground/40 text-sm">
+              Sign in to manage your beauty business
             </p>
           </div>
 
@@ -94,27 +87,27 @@ export default function AdminLogin() {
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl flex items-start gap-3"
+              className="mb-6 p-3.5 bg-red-50 border border-red-200 rounded-xl flex items-start gap-3"
             >
-              <AlertCircle className="text-red-500 shrink-0 mt-0.5" size={20} />
+              <AlertCircle className="text-red-500 shrink-0 mt-0.5" size={18} />
               <p className="text-red-700 text-sm">{error}</p>
             </motion.div>
           )}
 
           {/* Login Form */}
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-5">
             {/* Email Field */}
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-gray-700 mb-2"
+                className="block text-xs font-semibold text-foreground/70 mb-2 uppercase tracking-wide"
               >
                 Email Address
               </label>
               <div className="relative">
                 <Mail
-                  className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
-                  size={20}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 text-foreground/30"
+                  size={18}
                 />
                 <input
                   id="email"
@@ -123,7 +116,7 @@ export default function AdminLogin() {
                   onChange={(e) => setEmail(e.target.value)}
                   required
                   disabled={loading}
-                  className="w-full pl-12 pr-4 py-3 rounded-xl border-2 border-pink-200 focus:border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-500/50 transition-all disabled:bg-gray-100 disabled:cursor-not-allowed"
+                  className="w-full pl-11 pr-4 py-3 rounded-xl border border-cream-200 bg-cream-100/50 focus:border-foreground focus:ring-1 focus:ring-foreground/10 focus:bg-white focus:outline-none transition-all text-sm disabled:bg-cream-100 disabled:cursor-not-allowed"
                   placeholder="admin@tshedybeauty.com"
                 />
               </div>
@@ -133,14 +126,14 @@ export default function AdminLogin() {
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-gray-700 mb-2"
+                className="block text-xs font-semibold text-foreground/70 mb-2 uppercase tracking-wide"
               >
                 Password
               </label>
               <div className="relative">
                 <Lock
-                  className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
-                  size={20}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 text-foreground/30"
+                  size={18}
                 />
                 <input
                   id="password"
@@ -149,64 +142,55 @@ export default function AdminLogin() {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                   disabled={loading}
-                  className="w-full pl-12 pr-12 py-3 rounded-xl border-2 border-pink-200 focus:border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-500/50 transition-all disabled:bg-gray-100 disabled:cursor-not-allowed"
+                  className="w-full pl-11 pr-12 py-3 rounded-xl border border-cream-200 bg-cream-100/50 focus:border-foreground focus:ring-1 focus:ring-foreground/10 focus:bg-white focus:outline-none transition-all text-sm disabled:bg-cream-100 disabled:cursor-not-allowed"
                   placeholder="••••••••"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-foreground/30 hover:text-foreground/60 transition-colors"
                   disabled={loading}
                 >
-                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                 </button>
               </div>
             </div>
 
             {/* Submit Button */}
-            <motion.button
+            <button
               type="submit"
               disabled={loading}
-              whileHover={{ scale: loading ? 1 : 1.02 }}
-              whileTap={{ scale: loading ? 1 : 0.98 }}
-              className="w-full py-3 px-6 bg-linear-to-r from-pink-500 via-pink-500 to-pink-600 text-white font-semibold rounded-xl shadow-md hover:shadow-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-2"
+              className="w-full py-3.5 bg-foreground text-white font-semibold text-sm rounded-full hover:bg-foreground/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
               {loading ? (
                 <>
-                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
                   <span>Signing in...</span>
                 </>
               ) : (
-                <>
-                  <Sparkles size={20} />
-                  <span>Sign In</span>
-                </>
+                <span>Sign In</span>
               )}
-            </motion.button>
+            </button>
           </form>
 
           {/* Footer */}
-          <div className="mt-8 pt-6 border-t border-pink-200">
-            <p className="text-center text-sm text-gray-600">
+          <div className="mt-8 pt-6 border-t border-cream-200">
+            <p className="text-center text-sm">
               <Link
                 href="/"
-                className="text-pink-600 hover:text-pink-700 font-medium transition-colors"
+                className="text-foreground/40 hover:text-foreground/70 font-medium transition-colors inline-flex items-center gap-1.5"
               >
-                ← Back to Website
+                <ArrowLeft size={14} />
+                Back to Website
               </Link>
             </p>
           </div>
         </div>
 
         {/* Additional Info */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.8 }}
-          className="text-center text-sm text-gray-600 mt-6"
-        >
+        <p className="text-center text-xs text-foreground/25 mt-6">
           Tshedy&apos;s Beauty Parlour © {new Date().getFullYear()}
-        </motion.p>
+        </p>
       </motion.div>
     </div>
   );

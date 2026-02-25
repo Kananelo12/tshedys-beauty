@@ -37,55 +37,55 @@ export default function GalleryPage() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen pt-18 bg-cream-50">
+      <main className="min-h-screen pt-18 bg-background">
         {/* Header */}
-        <section className="py-14 sm:py-16">
-          <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 text-center">
-            <p className="text-xs font-semibold tracking-[0.2em] uppercase text-gold-600 mb-3">
+        <section className="pt-24 sm:pt-32 pb-16">
+          <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 text-center">
+            <p className="text-xs font-semibold tracking-[0.2em] uppercase text-pink-500 mb-4">
               Our Portfolio
             </p>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-3">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-medium text-foreground mb-4">
               Gallery
             </h1>
-            <p className="text-gray-500 max-w-lg mx-auto text-sm sm:text-base">
+            <p className="text-foreground/50 max-w-md mx-auto text-base leading-relaxed">
               A curated selection of our signature styles and transformations
             </p>
           </div>
         </section>
 
         {/* Gallery Grid */}
-        <section className="pb-14 sm:pb-20">
-          <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+        <section className="pb-20 sm:pb-28">
+          <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5">
               {galleryItems.map((item, i) => (
                 <div
                   key={i}
-                  className="group relative aspect-3/4 rounded-xl overflow-hidden cursor-pointer bg-gray-100"
+                  className="group relative aspect-3/4 rounded-2xl overflow-hidden cursor-pointer bg-cream-200"
                   onClick={() => openLightbox(i)}
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={item.image}
                     alt={item.label}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                   {/* Hover Overlay */}
-                  <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   {/* Hover Label */}
-                  <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 translate-y-2 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                    <p className="text-white text-sm font-semibold">
+                  <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5 translate-y-2 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500">
+                    <p className="text-white text-sm font-medium">
                       {item.label}
                     </p>
                     <Link
                       href="/book"
                       onClick={(e) => e.stopPropagation()}
-                      className="inline-block mt-1.5 text-xs text-gold-400 hover:text-gold-300 font-medium transition-colors"
+                      className="inline-block mt-1 text-xs text-white/70 hover:text-white font-medium transition-colors"
                     >
                       Book this style →
                     </Link>
                   </div>
                   {/* Always-visible label on mobile */}
-                  <div className="absolute bottom-0 left-0 right-0 p-2.5 bg-linear-to-t from-black/50 to-transparent sm:hidden">
+                  <div className="absolute bottom-0 left-0 right-0 p-3 bg-linear-to-t from-black/50 to-transparent sm:hidden">
                     <p className="text-white text-xs font-medium">
                       {item.label}
                     </p>
@@ -97,17 +97,26 @@ export default function GalleryPage() {
         </section>
 
         {/* CTA */}
-        <section className="py-14 bg-black text-white">
-          <div className="max-w-xl mx-auto px-5 sm:px-6 text-center">
-            <h2 className="text-2xl sm:text-3xl font-serif font-bold mb-3">
+        <section className="relative py-20 overflow-hidden">
+          <div className="absolute inset-0">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/CHRISTMAS Lunch 23258ET.JPG"
+              alt=""
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-black/55" />
+          </div>
+          <div className="relative max-w-xl mx-auto px-5 sm:px-8 text-center">
+            <h2 className="text-2xl sm:text-3xl font-serif font-medium mb-4 text-white">
               Inspired by what you see?
             </h2>
-            <p className="text-white/60 text-sm mb-7">
+            <p className="text-white/45 text-sm mb-8">
               We&apos;ll help you recreate any of these looks with expert care.
             </p>
             <Link
               href="/book"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-pink-500 text-white text-sm font-semibold rounded-full hover:bg-pink-600 transition-colors group"
+              className="inline-flex items-center gap-2 px-7 py-3.5 bg-pink-500 text-white text-sm font-semibold rounded-full hover:bg-pink-600 transition-all group"
             >
               Book Appointment
               <ArrowRight

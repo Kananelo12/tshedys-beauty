@@ -12,6 +12,8 @@ import {
   CheckCircle,
   XCircle,
   AlertCircle,
+  ArrowUpRight,
+  ArrowDownRight,
 } from "lucide-react";
 import {
   LineChart,
@@ -27,13 +29,17 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
+const fadeIn = {
+  initial: { opacity: 0, y: 12 },
+  animate: { opacity: 1, y: 0 },
+};
+
 export default function AdminDashboard() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [bookings, setBookings] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Fetch bookings from API
     fetch("/api/bookings")
       .then((res) => res.json())
       .then((data) => {
@@ -69,7 +75,6 @@ export default function AdminDashboard() {
     (b) => b.status === "ACCEPTED",
   ).length;
 
-  // Calculate week's and last week's bookings
   const now = new Date();
   const startOfWeek = new Date(now);
   startOfWeek.setDate(now.getDate() - now.getDay());
@@ -102,7 +107,6 @@ export default function AdminDashboard() {
         ).toFixed(1)
       : "0";
 
-  // Calculate monthly revenue
   const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
   const startOfLastMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
   const endOfLastMonth = new Date(now.getFullYear(), now.getMonth(), 0);
@@ -165,24 +169,24 @@ export default function AdminDashboard() {
           : yesterdayBookings > todayBookings
             ? `-${yesterdayBookings - todayBookings} from yesterday`
             : "Same as yesterday",
-      gradient: "from-pink-500 to-pink-500",
+      up: todayBookings >= yesterdayBookings,
     },
     {
       label: "Pending Requests",
       value: pendingBookings.toString(),
       icon: Clock,
       change: pendingBookings > 0 ? "Awaiting response" : "All clear",
-      gradient: "from-pink-500 to-pink-500",
+      up: false,
     },
     {
-      label: "Confirmed Bookings",
+      label: "Confirmed",
       value: acceptedBookings.toString(),
       icon: CheckCircle,
       change:
         weeklyChange !== "0"
           ? `${Number(weeklyChange) > 0 ? "+" : ""}${weeklyChange}% this week`
           : "No change this week",
-      gradient: "from-pink-500 to-pink-500",
+      up: Number(weeklyChange) >= 0,
     },
     {
       label: "Total Revenue",
@@ -192,7 +196,7 @@ export default function AdminDashboard() {
         monthlyChange !== "0"
           ? `${Number(monthlyChange) > 0 ? "+" : ""}${monthlyChange}% this month`
           : "No change this month",
-      gradient: "from-pink-600 to-pink-600",
+      up: Number(monthlyChange) >= 0,
     },
   ];
 
@@ -202,9 +206,8 @@ export default function AdminDashboard() {
     const data = days.map((day) => ({ name: day, bookings: 0, revenue: 0 }));
 
     bookings.forEach((booking) => {
-      // Convert UTC date to Lesotho timezone (UTC+2)
       const utcDate = new Date(booking.startDateTime);
-      const localDate = new Date(utcDate.getTime() + 2 * 60 * 60 * 1000); // Add 2 hours for UTC+2
+      const localDate = new Date(utcDate.getTime() + 2 * 60 * 60 * 1000);
 
       if (localDate >= startOfWeek) {
         const dayIndex = localDate.getDay();
@@ -218,25 +221,16 @@ export default function AdminDashboard() {
       }
     });
 
-    // Reorder to start from Monday
-    return [
-      data[1], // Mon
-      data[2], // Tue
-      data[3], // Wed
-      data[4], // Thu
-      data[5], // Fri
-      data[6], // Sat
-      data[0], // Sun
-    ];
+    return [data[1], data[2], data[3], data[4], data[5], data[6], data[0]];
   })();
 
   const statusData = [
-    { name: "Accepted", value: acceptedBookings, color: "#E0657A" },
-    { name: "Pending", value: pendingBookings, color: "#D4A04A" },
+    { name: "Accepted", value: acceptedBookings, color: "#2C2C2C" },
+    { name: "Pending", value: pendingBookings, color: "#D4576E" },
     {
       name: "Rejected",
       value: bookings.filter((b) => b.status === "REJECTED").length,
-      color: "#9CA3AF",
+      color: "#CCCAC4",
     },
   ];
 
@@ -248,99 +242,102 @@ export default function AdminDashboard() {
     .slice(0, 5);
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <h2 className="text-3xl font-serif font-bold bg-linear-to-r from-pink-600 to-pink-600 bg-clip-text text-transparent mb-2 flex items-center gap-2">
-          Welcome back!
-          <Sparkles className="text-pink-500" size={28} />
+      <motion.div {...fadeIn} transition={{ duration: 0.4 }}>
+        <h2 className="text-2xl font-serif font-medium text-foreground tracking-[-0.025em]">
+          Welcome back
         </h2>
-        <p className="text-gray-600">
+        <p className="text-sm text-foreground/40 mt-1">
           Here&apos;s what&apos;s happening with your beauty parlour today.
         </p>
       </motion.div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {stats.map((stat, i) => (
           <motion.div
             key={i}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: i * 0.1 }}
-            className="glass border-2 border-pink-200 rounded-2xl p-6 hover:shadow-lg transition-all duration-300"
+            {...fadeIn}
+            transition={{ duration: 0.4, delay: i * 0.05 }}
+            className="bg-white border border-[#EEECEA] rounded-2xl p-5 hover:shadow-sm transition-all duration-300"
           >
-            <div className="flex items-start justify-between mb-4">
-              <div
-                className={`w-12 h-12 rounded-xl bg-linear-to-br ${stat.gradient} flex items-center justify-center shadow-lg`}
-              >
-                <stat.icon className="text-white" size={24} />
+            <div className="flex items-center justify-between mb-4">
+              <div className="w-10 h-10 rounded-xl bg-[#F5F4F2] flex items-center justify-center">
+                <stat.icon className="text-foreground/50" size={18} />
               </div>
-              <span className="text-xs text-gray-500 bg-white px-2 py-1 rounded-full">
-                {stat.change}
-              </span>
+              {stat.change && (
+                <span className="flex items-center gap-0.5 text-[11px] text-foreground/35">
+                  {stat.up ? (
+                    <ArrowUpRight size={12} className="text-emerald-500" />
+                  ) : (
+                    <ArrowDownRight size={12} className="text-foreground/25" />
+                  )}
+                </span>
+              )}
             </div>
-            <p className="text-3xl font-bold text-gray-900 mb-1">
+            <p className="text-2xl font-semibold text-foreground tracking-tight">
               {stat.value}
             </p>
-            <p className="text-sm text-gray-600">{stat.label}</p>
+            <p className="text-xs text-foreground/35 mt-1">{stat.label}</p>
+            <p className="text-[11px] text-foreground/25 mt-0.5">
+              {stat.change}
+            </p>
           </motion.div>
         ))}
       </div>
 
       {/* Charts Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {/* Weekly Bookings Chart */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="lg:col-span-2 glass border-2 border-pink-200 rounded-2xl p-6"
+          {...fadeIn}
+          transition={{ duration: 0.4, delay: 0.2 }}
+          className="lg:col-span-2 bg-white border border-[#EEECEA] rounded-2xl p-6"
         >
-          <h3 className="text-xl font-serif font-bold text-gray-900 mb-6 flex items-center gap-2">
-            <TrendingUp className="text-pink-500" size={24} />
-            Weekly Performance
-          </h3>
+          <div className="flex items-center justify-between mb-6">
+            <h3 className="text-sm font-semibold text-foreground">
+              Weekly Performance
+            </h3>
+            <TrendingUp className="text-foreground/25" size={16} />
+          </div>
           {bookings.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-75 text-center">
-              <TrendingUp className="w-16 h-16 text-gray-300 mb-4" />
-              <p className="text-gray-600 font-medium mb-2">No data yet</p>
-              <p className="text-sm text-gray-500">
+              <TrendingUp className="w-12 h-12 text-foreground/10 mb-4" />
+              <p className="text-sm text-foreground/50 font-medium mb-1">No data yet</p>
+              <p className="text-xs text-foreground/30">
                 Weekly performance will appear once you have bookings
               </p>
             </div>
           ) : (
             <ResponsiveContainer width="100%" height={300}>
               <LineChart data={weeklyData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#FDD5DA" />
-                <XAxis dataKey="name" stroke="#6b7280" />
-                <YAxis stroke="#6b7280" />
+                <CartesianGrid strokeDasharray="3 3" stroke="#F0EFED" />
+                <XAxis dataKey="name" stroke="#AEACA6" fontSize={12} />
+                <YAxis stroke="#AEACA6" fontSize={12} />
                 <Tooltip
                   contentStyle={{
                     backgroundColor: "#fff",
-                    border: "2px solid #FDD5DA",
+                    border: "1px solid #EEECEA",
                     borderRadius: "12px",
+                    fontSize: "13px",
                   }}
                 />
                 <Legend />
                 <Line
                   type="monotone"
                   dataKey="bookings"
-                  stroke="#E0657A"
-                  strokeWidth={3}
-                  dot={{ fill: "#E0657A", r: 5 }}
+                  stroke="#2C2C2C"
+                  strokeWidth={2}
+                  dot={{ fill: "#2C2C2C", r: 4 }}
                   name="Bookings"
                 />
                 <Line
                   type="monotone"
                   dataKey="revenue"
-                  stroke="#D4A04A"
-                  strokeWidth={3}
-                  dot={{ fill: "#D4A04A", r: 5 }}
+                  stroke="#D4576E"
+                  strokeWidth={2}
+                  dot={{ fill: "#D4576E", r: 4 }}
                   name="Revenue (M)"
                 />
               </LineChart>
@@ -350,20 +347,21 @@ export default function AdminDashboard() {
 
         {/* Status Distribution */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-          className="glass border-2 border-pink-200 rounded-2xl p-6"
+          {...fadeIn}
+          transition={{ duration: 0.4, delay: 0.25 }}
+          className="bg-white border border-[#EEECEA] rounded-2xl p-6"
         >
-          <h3 className="text-xl font-serif font-bold text-gray-900 mb-6 flex items-center gap-2">
-            <AlertCircle className="text-pink-500" size={24} />
-            Booking Status
-          </h3>
+          <div className="flex items-center justify-between mb-6">
+            <h3 className="text-sm font-semibold text-foreground">
+              Booking Status
+            </h3>
+            <AlertCircle className="text-foreground/25" size={16} />
+          </div>
           {bookings.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-75 text-center">
-              <AlertCircle className="w-16 h-16 text-gray-300 mb-4" />
-              <p className="text-gray-600 font-medium mb-2">No bookings yet</p>
-              <p className="text-sm text-gray-500">
+              <AlertCircle className="w-12 h-12 text-foreground/10 mb-4" />
+              <p className="text-sm text-foreground/50 font-medium mb-1">No bookings yet</p>
+              <p className="text-xs text-foreground/30">
                 Status distribution will appear once you have bookings
               </p>
             </div>
@@ -377,27 +375,25 @@ export default function AdminDashboard() {
                   labelLine={false}
                   label={({ cx, cy, midAngle, outerRadius, percent }) => {
                     if (!midAngle || !percent) return null;
-
                     const RADIAN = Math.PI / 180;
                     const radius = outerRadius + 25;
                     const x = cx + radius * Math.cos(-midAngle * RADIAN);
                     const y = cy + radius * Math.sin(-midAngle * RADIAN);
-
                     return (
                       <text
                         x={x}
                         y={y}
-                        fill="#374151"
+                        fill="#2C2C2C"
                         textAnchor={x > cx ? "start" : "end"}
                         dominantBaseline="central"
-                        className="text-sm font-semibold"
+                        className="text-xs font-medium"
                       >
                         {`${(percent * 100).toFixed(0)}%`}
                       </text>
                     );
                   }}
                   outerRadius={90}
-                  fill="#E0657A"
+                  fill="#2C2C2C"
                   dataKey="value"
                 >
                   {statusData.map((entry, index) => (
@@ -409,7 +405,7 @@ export default function AdminDashboard() {
                   verticalAlign="bottom"
                   height={36}
                   formatter={(value) => (
-                    <span className="text-sm text-gray-700">{value}</span>
+                    <span className="text-xs text-foreground/60">{value}</span>
                   )}
                 />
               </PieChart>
@@ -420,19 +416,17 @@ export default function AdminDashboard() {
 
       {/* Recent Bookings Table */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.6 }}
-        className="glass border-2 border-pink-200 rounded-2xl p-6"
+        {...fadeIn}
+        transition={{ duration: 0.4, delay: 0.3 }}
+        className="bg-white border border-[#EEECEA] rounded-2xl p-6"
       >
         <div className="flex items-center justify-between mb-6">
-          <h3 className="text-xl font-serif font-bold text-gray-900 flex items-center gap-2">
-            <Calendar className="text-pink-500" size={24} />
+          <h3 className="text-sm font-semibold text-foreground">
             Recent Bookings
           </h3>
           <Link
             href="/admin/bookings"
-            className="text-sm text-pink-600 hover:text-pink-700 font-medium flex items-center gap-1"
+            className="text-xs text-foreground/40 hover:text-foreground font-medium transition-colors"
           >
             View All →
           </Link>
@@ -440,32 +434,32 @@ export default function AdminDashboard() {
 
         {loading ? (
           <div className="text-center py-12">
-            <div className="w-12 h-12 border-4 border-pink-200 border-t-pink-500 rounded-full animate-spin mx-auto mb-4" />
-            <p className="text-gray-600">Loading bookings...</p>
+            <div className="w-8 h-8 border-2 border-[#EEECEA] border-t-foreground rounded-full animate-spin mx-auto mb-4" />
+            <p className="text-sm text-foreground/40">Loading bookings...</p>
           </div>
         ) : recentBookings.length === 0 ? (
           <div className="text-center py-12">
-            <Calendar className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-            <p className="text-gray-600">No bookings yet</p>
+            <Calendar className="w-12 h-12 text-foreground/10 mx-auto mb-4" />
+            <p className="text-sm text-foreground/40">No bookings yet</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b-2 border-pink-200">
-                  <th className="text-left px-4 py-3 text-sm font-semibold text-gray-700">
+                <tr className="border-b border-[#EEECEA]">
+                  <th className="text-left px-4 py-3 text-[11px] font-semibold text-foreground/35 uppercase tracking-wider">
                     Client
                   </th>
-                  <th className="text-left px-4 py-3 text-sm font-semibold text-gray-700">
+                  <th className="text-left px-4 py-3 text-[11px] font-semibold text-foreground/35 uppercase tracking-wider">
                     Service
                   </th>
-                  <th className="text-left px-4 py-3 text-sm font-semibold text-gray-700">
+                  <th className="text-left px-4 py-3 text-[11px] font-semibold text-foreground/35 uppercase tracking-wider">
                     Date & Time
                   </th>
-                  <th className="text-left px-4 py-3 text-sm font-semibold text-gray-700">
+                  <th className="text-left px-4 py-3 text-[11px] font-semibold text-foreground/35 uppercase tracking-wider">
                     Status
                   </th>
-                  <th className="text-right px-4 py-3 text-sm font-semibold text-gray-700">
+                  <th className="text-right px-4 py-3 text-[11px] font-semibold text-foreground/35 uppercase tracking-wider">
                     Action
                   </th>
                 </tr>
@@ -474,46 +468,46 @@ export default function AdminDashboard() {
                 {recentBookings.map((booking) => (
                   <tr
                     key={booking._id}
-                    className="border-b border-pink-100 hover:bg-pink-50/50 transition-colors"
+                    className="border-b border-[#F5F4F2] hover:bg-[#FAFAF8] transition-colors"
                   >
                     <td className="px-4 py-4">
                       <div>
-                        <p className="text-sm font-medium text-gray-900">
+                        <p className="text-sm font-medium text-foreground">
                           {booking.clientName}
                         </p>
-                        <p className="text-xs text-gray-500">
+                        <p className="text-xs text-foreground/30">
                           {booking.clientEmail}
                         </p>
                       </div>
                     </td>
-                    <td className="px-4 py-4 text-sm text-gray-600">
+                    <td className="px-4 py-4 text-sm text-foreground/60">
                       {booking.service?.name || "N/A"}
                     </td>
-                    <td className="px-4 py-4 text-sm text-gray-600">
+                    <td className="px-4 py-4 text-sm text-foreground/60">
                       {new Date(booking.startDateTime).toLocaleString()}
                     </td>
                     <td className="px-4 py-4">
                       <span
-                        className={`inline-flex items-center gap-1 px-3 py-1 text-xs font-semibold rounded-full ${
+                        className={`inline-flex items-center gap-1 px-2.5 py-1 text-[11px] font-semibold rounded-full ${
                           booking.status === "ACCEPTED"
-                            ? "bg-pink-100 text-pink-700"
+                            ? "bg-emerald-50 text-emerald-600"
                             : booking.status === "PENDING"
-                              ? "bg-gold-100 text-gold-700"
-                              : "bg-gray-100 text-gray-600"
+                              ? "bg-amber-50 text-amber-600"
+                              : "bg-[#F5F4F2] text-foreground/40"
                         }`}
                       >
                         {booking.status === "ACCEPTED" && (
-                          <CheckCircle size={14} />
+                          <CheckCircle size={12} />
                         )}
-                        {booking.status === "PENDING" && <Clock size={14} />}
-                        {booking.status === "REJECTED" && <XCircle size={14} />}
+                        {booking.status === "PENDING" && <Clock size={12} />}
+                        {booking.status === "REJECTED" && <XCircle size={12} />}
                         {booking.status}
                       </span>
                     </td>
                     <td className="px-4 py-4 text-right">
                       <Link
                         href={`/admin/bookings/${booking._id}`}
-                        className="text-sm text-pink-600 hover:text-pink-700 font-medium"
+                        className="text-xs text-foreground/40 hover:text-foreground font-medium transition-colors"
                       >
                         View →
                       </Link>
@@ -528,32 +522,34 @@ export default function AdminDashboard() {
 
       {/* Quick Actions */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.7 }}
-        className="grid grid-cols-2 md:grid-cols-4 gap-4"
+        {...fadeIn}
+        transition={{ duration: 0.4, delay: 0.35 }}
+        className="grid grid-cols-3 gap-4"
       >
         <Link
           href="/admin/bookings"
-          className="glass border-2 border-pink-200 rounded-xl p-6 text-center hover:shadow-lg hover:border-pink-300 transition-all group"
+          className="bg-white border border-[#EEECEA] rounded-2xl p-5 hover:shadow-sm hover:border-foreground/10 transition-all group"
         >
-          <Calendar className="w-8 h-8 text-pink-500 mx-auto mb-2 group-hover:scale-110 transition-transform" />
-          <p className="text-sm font-medium text-gray-700">Manage Bookings</p>
+          <Calendar className="w-5 h-5 text-foreground/30 mb-3 group-hover:text-foreground transition-colors" />
+          <p className="text-sm font-medium text-foreground">Manage Bookings</p>
+          <p className="text-xs text-foreground/30 mt-0.5">View & manage all appointments</p>
         </Link>
         <Link
           href="/admin/services"
-          className="glass border-2 border-pink-200 rounded-xl p-6 text-center hover:shadow-lg hover:border-pink-300 transition-all group"
+          className="bg-white border border-[#EEECEA] rounded-2xl p-5 hover:shadow-sm hover:border-foreground/10 transition-all group"
         >
-          <Sparkles className="w-8 h-8 text-pink-500 mx-auto mb-2 group-hover:scale-110 transition-transform" />
-          <p className="text-sm font-medium text-gray-700">Manage Services</p>
+          <Sparkles className="w-5 h-5 text-foreground/30 mb-3 group-hover:text-foreground transition-colors" />
+          <p className="text-sm font-medium text-foreground">Manage Services</p>
+          <p className="text-xs text-foreground/30 mt-0.5">Add, edit or remove services</p>
         </Link>
-        <a
-          href="#reports"
-          className="glass border-2 border-pink-200 rounded-xl p-6 text-center hover:shadow-lg hover:border-pink-300 transition-all group"
+        <Link
+          href="/admin/settings"
+          className="bg-white border border-[#EEECEA] rounded-2xl p-5 hover:shadow-sm hover:border-foreground/10 transition-all group"
         >
-          <TrendingUp className="w-8 h-8 text-pink-500 mx-auto mb-2 group-hover:scale-110 transition-transform" />
-          <p className="text-sm font-medium text-gray-700">View Reports</p>
-        </a>
+          <TrendingUp className="w-5 h-5 text-foreground/30 mb-3 group-hover:text-foreground transition-colors" />
+          <p className="text-sm font-medium text-foreground">Settings</p>
+          <p className="text-xs text-foreground/30 mt-0.5">Configure providers & preferences</p>
+        </Link>
       </motion.div>
     </div>
   );

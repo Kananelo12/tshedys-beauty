@@ -59,44 +59,44 @@ export default function Contact() {
   };
 
   return (
-    <div className="bg-cream-50">
+    <div className="bg-background">
       {/* Header */}
-      <div className="py-14 sm:py-16">
-        <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 text-center">
-          <p className="text-xs font-semibold tracking-[0.2em] uppercase text-gold-600 mb-3">
+      <div className="pt-24 sm:pt-32 pb-16">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 text-center">
+          <p className="text-xs font-semibold tracking-[0.2em] uppercase text-pink-500 mb-4">
             Reach Out
           </p>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-3">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-medium text-foreground mb-4">
             Get In Touch
           </h2>
-          <p className="text-gray-500 max-w-lg mx-auto text-sm sm:text-base">
-            Questions, bookings, or consultations, we&apos;re here to help you
+          <p className="text-foreground/50 max-w-md mx-auto text-base leading-relaxed">
+            Questions, bookings, or consultations — we&apos;re here to help you
             look and feel amazing.
           </p>
         </div>
       </div>
 
       {/* Contact Grid */}
-      <div className="pb-14">
-        <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14">
-            {/* Left — Info */}
-            <div>
-              <h3 className="text-xl font-serif font-semibold text-gray-900 mb-2">
+      <div className="pb-24">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16">
+            {/* Left — Info (2/5) */}
+            <div className="lg:col-span-2">
+              <h3 className="text-lg font-serif font-medium text-foreground mb-2">
                 Contact Information
               </h3>
-              <p className="text-gray-500 text-sm mb-8">
+              <p className="text-foreground/40 text-sm mb-10 leading-relaxed">
                 Call, email, or visit us. We welcome walk-ins and scheduled
                 appointments.
               </p>
 
-              <div className="space-y-5">
+              <div className="space-y-6">
                 <div className="flex items-start gap-4">
-                  <div className="w-11 h-11 bg-pink-50 rounded-xl flex items-center justify-center shrink-0">
-                    <Phone className="text-pink-500" size={18} />
+                  <div className="w-10 h-10 bg-cream-200 rounded-xl flex items-center justify-center shrink-0">
+                    <Phone className="text-foreground/60" size={16} />
                   </div>
                   <div>
-                    <div className="text-sm font-medium text-gray-900">
+                    <div className="text-sm font-medium text-foreground mb-0.5">
                       Phone
                     </div>
                     <a
@@ -109,11 +109,11 @@ export default function Contact() {
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="w-11 h-11 bg-pink-50 rounded-xl flex items-center justify-center shrink-0">
-                    <Mail className="text-pink-500" size={18} />
+                  <div className="w-10 h-10 bg-cream-200 rounded-xl flex items-center justify-center shrink-0">
+                    <Mail className="text-foreground/60" size={16} />
                   </div>
                   <div>
-                    <div className="text-sm font-medium text-gray-900">
+                    <div className="text-sm font-medium text-foreground mb-0.5">
                       Email
                     </div>
                     <a
@@ -126,14 +126,14 @@ export default function Contact() {
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="w-11 h-11 bg-pink-50 rounded-xl flex items-center justify-center shrink-0">
-                    <MapPin className="text-pink-500" size={18} />
+                  <div className="w-10 h-10 bg-cream-200 rounded-xl flex items-center justify-center shrink-0">
+                    <MapPin className="text-foreground/60" size={16} />
                   </div>
                   <div>
-                    <div className="text-sm font-medium text-gray-900">
+                    <div className="text-sm font-medium text-foreground mb-0.5">
                       Location
                     </div>
-                    <div className="text-sm text-gray-500">
+                    <div className="text-sm text-foreground/50">
                       Room 4, Olympic Building
                       <br />
                       Maseru, Lesotho
@@ -143,8 +143,8 @@ export default function Contact() {
               </div>
 
               {/* Social Links */}
-              <div className="pt-6 mt-6 border-t border-gray-100">
-                <div className="text-sm font-medium text-gray-900 mb-3">
+              <div className="pt-8 mt-8 border-t border-cream-200">
+                <div className="text-xs font-semibold tracking-wide uppercase text-foreground/40 mb-4">
                   Follow Us
                 </div>
                 <div className="flex gap-3">
@@ -153,7 +153,7 @@ export default function Contact() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="Instagram"
-                    className="w-10 h-10 border border-gray-200 rounded-full flex items-center justify-center text-gray-600 hover:border-pink-300 hover:text-pink-500 transition-colors"
+                    className="w-10 h-10 border border-cream-200 rounded-full flex items-center justify-center text-foreground/40 hover:border-pink-300 hover:text-pink-500 transition-all duration-300"
                   >
                     <svg
                       className="w-4 h-4"
@@ -168,7 +168,7 @@ export default function Contact() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="TikTok"
-                    className="w-10 h-10 border border-gray-200 rounded-full flex items-center justify-center text-gray-600 hover:border-pink-300 hover:text-pink-500 transition-colors"
+                    className="w-10 h-10 border border-cream-200 rounded-full flex items-center justify-center text-foreground/40 hover:border-pink-300 hover:text-pink-500 transition-all duration-300"
                   >
                     <svg
                       className="w-4 h-4"
@@ -183,7 +183,7 @@ export default function Contact() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="Facebook"
-                    className="w-10 h-10 border border-gray-200 rounded-full flex items-center justify-center text-gray-600 hover:border-pink-300 hover:text-pink-500 transition-colors"
+                    className="w-10 h-10 border border-cream-200 rounded-full flex items-center justify-center text-foreground/40 hover:border-pink-300 hover:text-pink-500 transition-all duration-300"
                   >
                     <svg
                       className="w-4 h-4"
@@ -197,76 +197,78 @@ export default function Contact() {
               </div>
             </div>
 
-            {/* Right — Form */}
-            <div>
-              <div className="bg-white rounded-xl p-6 sm:p-8 border border-gray-100 shadow-soft">
+            {/* Right — Form (3/5) */}
+            <div className="lg:col-span-3">
+              <div className="bg-white rounded-2xl p-6 sm:p-8 lg:p-10 border border-cream-200">
                 {submitted ? (
-                  <div className="text-center py-10">
-                    <div className="w-14 h-14 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <div className="text-center py-12">
+                    <div className="w-14 h-14 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-5">
                       <Check className="text-green-600" size={24} />
                     </div>
-                    <h3 className="text-xl font-serif font-semibold text-gray-900 mb-2">
+                    <h3 className="text-xl font-serif font-medium text-foreground mb-2">
                       Message Sent
                     </h3>
-                    <p className="text-gray-500 text-sm mb-6">
+                    <p className="text-foreground/50 text-sm mb-7">
                       Thanks for reaching out. We&apos;ll reply soon.
                     </p>
                     <button
                       onClick={() => setSubmitted(false)}
-                      className="px-5 py-2.5 bg-pink-500 text-white text-sm font-semibold rounded-full hover:bg-pink-600 transition-colors"
+                      className="px-6 py-2.5 bg-foreground text-white text-sm font-semibold rounded-full hover:bg-foreground/90 transition-colors"
                     >
                       Send Another
                     </button>
                   </div>
                 ) : (
-                  <form onSubmit={handleSubmit} className="space-y-4">
+                  <form onSubmit={handleSubmit} className="space-y-5">
                     {error && (
-                      <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
+                      <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-sm">
                         {error}
                       </div>
                     )}
 
-                    <div>
-                      <label
-                        htmlFor="contact-name"
-                        className="block text-sm font-medium text-gray-700 mb-1"
-                      >
-                        Name
-                      </label>
-                      <input
-                        id="contact-name"
-                        name="name"
-                        required
-                        value={formData.name}
-                        onChange={handleChange}
-                        disabled={loading}
-                        className="block w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm focus:border-pink-400 focus:ring-1 focus:ring-pink-400 outline-none transition-colors disabled:bg-gray-50 disabled:cursor-not-allowed"
-                      />
-                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                      <div>
+                        <label
+                          htmlFor="contact-name"
+                          className="block text-xs font-semibold text-foreground/70 mb-2 uppercase tracking-wide"
+                        >
+                          Name
+                        </label>
+                        <input
+                          id="contact-name"
+                          name="name"
+                          required
+                          value={formData.name}
+                          onChange={handleChange}
+                          disabled={loading}
+                          className="block w-full rounded-xl border border-cream-200 bg-cream-100/50 px-4 py-3 text-sm focus:border-pink-400 focus:ring-1 focus:ring-pink-400 focus:bg-white outline-none transition-all disabled:bg-cream-100 disabled:cursor-not-allowed"
+                        />
+                      </div>
 
-                    <div>
-                      <label
-                        htmlFor="contact-email"
-                        className="block text-sm font-medium text-gray-700 mb-1"
-                      >
-                        Email
-                      </label>
-                      <input
-                        id="contact-email"
-                        type="email"
-                        name="email"
-                        required
-                        value={formData.email}
-                        onChange={handleChange}
-                        disabled={loading}
-                        className="block w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm focus:border-pink-400 focus:ring-1 focus:ring-pink-400 outline-none transition-colors disabled:bg-gray-50 disabled:cursor-not-allowed"
-                      />
+                      <div>
+                        <label
+                          htmlFor="contact-email"
+                          className="block text-xs font-semibold text-foreground/70 mb-2 uppercase tracking-wide"
+                        >
+                          Email
+                        </label>
+                        <input
+                          id="contact-email"
+                          type="email"
+                          name="email"
+                          required
+                          value={formData.email}
+                          onChange={handleChange}
+                          disabled={loading}
+                          className="block w-full rounded-xl border border-cream-200 bg-cream-100/50 px-4 py-3 text-sm focus:border-pink-400 focus:ring-1 focus:ring-pink-400 focus:bg-white outline-none transition-all disabled:bg-cream-100 disabled:cursor-not-allowed"
+                        />
+                      </div>
                     </div>
 
                     <div>
                       <label
                         htmlFor="contact-subject"
-                        className="block text-sm font-medium text-gray-700 mb-1"
+                        className="block text-xs font-semibold text-foreground/70 mb-2 uppercase tracking-wide"
                       >
                         Subject
                       </label>
@@ -276,14 +278,14 @@ export default function Contact() {
                         value={formData.subject}
                         onChange={handleChange}
                         disabled={loading}
-                        className="block w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm focus:border-pink-400 focus:ring-1 focus:ring-pink-400 outline-none transition-colors disabled:bg-gray-50 disabled:cursor-not-allowed"
+                        className="block w-full rounded-xl border border-cream-200 bg-cream-100/50 px-4 py-3 text-sm focus:border-pink-400 focus:ring-1 focus:ring-pink-400 focus:bg-white outline-none transition-all disabled:bg-cream-100 disabled:cursor-not-allowed"
                       />
                     </div>
 
                     <div>
                       <label
                         htmlFor="contact-message"
-                        className="block text-sm font-medium text-gray-700 mb-1"
+                        className="block text-xs font-semibold text-foreground/70 mb-2 uppercase tracking-wide"
                       >
                         Message
                       </label>
@@ -295,14 +297,14 @@ export default function Contact() {
                         value={formData.message}
                         onChange={handleChange}
                         disabled={loading}
-                        className="block w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm focus:border-pink-400 focus:ring-1 focus:ring-pink-400 outline-none transition-colors disabled:bg-gray-50 disabled:cursor-not-allowed resize-none"
+                        className="block w-full rounded-xl border border-cream-200 bg-cream-100/50 px-4 py-3 text-sm focus:border-pink-400 focus:ring-1 focus:ring-pink-400 focus:bg-white outline-none transition-all disabled:bg-cream-100 disabled:cursor-not-allowed resize-none"
                       />
                     </div>
 
                     <button
                       type="submit"
                       disabled={loading}
-                      className="w-full flex items-center justify-center gap-2 px-5 py-3 bg-pink-500 text-white text-sm font-semibold rounded-full hover:bg-pink-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-foreground text-white text-sm font-semibold rounded-full hover:bg-foreground/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       {loading ? (
                         "Sending..."
@@ -322,12 +324,12 @@ export default function Contact() {
       </div>
 
       {/* Map */}
-      <div className="py-14 bg-white">
-        <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
-          <h3 className="text-xl font-serif font-semibold text-gray-900 mb-6 text-center">
+      <div className="py-16 bg-cream-100">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+          <h3 className="text-xl font-serif font-medium text-foreground mb-8 text-center">
             Find Us Here
           </h3>
-          <div className="overflow-hidden rounded-xl border border-gray-100 shadow-soft">
+          <div className="overflow-hidden rounded-2xl border border-cream-200">
             <BusinessMap />
           </div>
         </div>
