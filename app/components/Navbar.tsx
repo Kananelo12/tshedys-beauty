@@ -28,7 +28,6 @@ export default function Navbar() {
     { href: "/", label: "Home" },
     { href: "/#about", label: "About" },
     { href: "/#services", label: "Services" },
-    { href: "/#gallery", label: "Gallery" },
     { href: "/#contact", label: "Contact" },
   ];
 
@@ -42,16 +41,16 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-18">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 shrink-0">
-            <div className="relative w-11 h-11">
+            <div className="relative w-12 h-12">
               <Image
                 src="/logo.jpeg"
-                alt="Tshedy Beauty"
+                alt="Tshedy Beauty Parlour Logo"
                 fill
                 className="object-contain rounded-full"
               />
             </div>
             <span className="text-lg font-serif font-semibold tracking-wide text-gold-500">
-              Tshedy Beauty
+              Tshedy Beauty Parlour
             </span>
           </Link>
 

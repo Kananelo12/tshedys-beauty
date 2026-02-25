@@ -9,7 +9,6 @@ import Footer from "../components/Footer";
 interface Service {
   _id: string;
   name: string;
-  duration: number;
   price: number;
   description: string;
 }
@@ -130,7 +129,7 @@ export default function BookingPage() {
     return (
       <>
         <Navbar />
-        <main className="min-h-screen pt-[72px] pb-16 bg-cream-50 flex items-center">
+        <main className="min-h-screen pt-18 pb-16 bg-cream-50 flex items-center">
           <div className="max-w-lg mx-auto px-5 sm:px-6 w-full">
             <div className="bg-white rounded-xl border border-gray-100 p-8 sm:p-10 text-center">
               <div className="w-14 h-14 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-5">
@@ -141,7 +140,7 @@ export default function BookingPage() {
               </h1>
               <p className="text-gray-500 mb-8 text-sm leading-relaxed">
                 Thank you for booking with Tshedy Beauty. We&apos;ll confirm
-                your appointment via email or WhatsApp shortly.
+                your appointment via email shortly.
               </p>
               <Link
                 href="/"
@@ -161,7 +160,7 @@ export default function BookingPage() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen pt-[72px] pb-16 bg-cream-50">
+      <main className="min-h-screen pt-18 pb-16 bg-cream-50">
         <div className="max-w-2xl mx-auto px-5 sm:px-6 py-12 sm:py-16">
           {/* Header */}
           <div className="text-center mb-10">
@@ -257,7 +256,7 @@ export default function BookingPage() {
                   </option>
                   {services.map((service) => (
                     <option key={service._id} value={service._id}>
-                      {service.name} - M{service.price} ({service.duration} min)
+                      {service.name} - M{service.price}
                     </option>
                   ))}
                 </select>
@@ -336,7 +335,7 @@ export default function BookingPage() {
 
               <p className="text-center text-xs text-gray-400">
                 By submitting, you agree to receive booking confirmations via
-                email or WhatsApp
+                email.
               </p>
             </form>
           </div>

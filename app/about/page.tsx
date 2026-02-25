@@ -40,7 +40,7 @@ export default function AboutPage() {
             <p className="text-lg sm:text-xl text-gray-700 font-serif leading-relaxed">
               Tshedy&apos;s Beauty Parlour began with a little girl who simply
               loved beauty and hair. What started as childhood play became a
-              God-given purpose — and today it&apos;s a growing brand built on
+              God-given purpose, and today it&apos;s a growing brand built on
               passion, creativity, and faith.
             </p>
           </div>
@@ -264,7 +264,7 @@ export default function AboutPage() {
                 />
               </Link>
               <Link
-                href="/contact"
+                href="/#contact"
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-gray-200 text-gray-700 text-sm font-semibold rounded-full hover:bg-gray-50 transition-colors"
               >
                 Get In Touch

@@ -9,12 +9,11 @@ export async function PUT(
   try {
     const { id } = await params;
     const body = await request.json();
-    const { name, description, price, duration, category } = body;
+    const { name, description, price, category } = body;
 
-    if (!name?.trim() || price === undefined || price === null || price === '' || 
-        duration === undefined || duration === null || duration === '' || !category?.trim()) {
+    if (!name?.trim() || price === undefined || price === null || price === '' || !category?.trim()) {
       return NextResponse.json(
-        { error: 'Name, price, duration, and category are required' },
+        { error: 'Name, price, and category are required' },
         { status: 400 }
       );
     }
@@ -29,7 +28,6 @@ export async function PUT(
           name,
           description: description || '',
           price: parseFloat(price),
-          duration: parseInt(duration),
           category,
           updatedAt: new Date(),
         },

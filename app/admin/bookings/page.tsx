@@ -168,7 +168,7 @@ export default function AdminBookingsPage() {
         <button
           onClick={() => setFilter('pending')}
           className={`glass rounded-xl p-4 border-2 transition-all ${
-            filter === 'pending' ? 'border-yellow-400 shadow-lg' : 'border-pink-200 hover:border-yellow-300'
+            filter === 'pending' ? 'border-gold-400 shadow-lg' : 'border-pink-200 hover:border-gold-300'
           }`}
         >
           <div className="flex items-center justify-between">
@@ -176,14 +176,14 @@ export default function AdminBookingsPage() {
               <p className="text-2xl font-bold text-gray-900">{pendingCount}</p>
               <p className="text-sm text-gray-600">Pending</p>
             </div>
-            <Clock className="text-yellow-500" size={24} />
+            <Clock className="text-gold-500" size={24} />
           </div>
         </button>
 
         <button
           onClick={() => setFilter('accepted')}
           className={`glass rounded-xl p-4 border-2 transition-all ${
-            filter === 'accepted' ? 'border-green-400 shadow-lg' : 'border-pink-200 hover:border-green-300'
+            filter === 'accepted' ? 'border-pink-400 shadow-lg' : 'border-pink-200 hover:border-pink-300'
           }`}
         >
           <div className="flex items-center justify-between">
@@ -191,7 +191,7 @@ export default function AdminBookingsPage() {
               <p className="text-2xl font-bold text-gray-900">{acceptedCount}</p>
               <p className="text-sm text-gray-600">Accepted</p>
             </div>
-            <CheckCircle className="text-green-500" size={24} />
+            <CheckCircle className="text-pink-500" size={24} />
           </div>
         </button>
 
@@ -279,9 +279,9 @@ export default function AdminBookingsPage() {
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ delay: index * 0.05 }}
                   className={`glass border-2 rounded-xl overflow-hidden transition-all ${
-                    isPending ? 'border-yellow-300' : 
-                    isAccepted ? 'border-green-300' : 
-                    isRejected ? 'border-red-300' : 'border-pink-200'
+                    isPending ? 'border-gold-300' : 
+                    isAccepted ? 'border-pink-300' : 
+                    isRejected ? 'border-gray-300' : 'border-pink-200'
                   }`}
                 >
                   <div className="p-4 md:p-6">
@@ -290,9 +290,9 @@ export default function AdminBookingsPage() {
                       <div className="flex-1 min-w-0">
                         <div className="flex items-start gap-3 mb-3">
                           <div className={`w-12 h-12 rounded-full flex items-center justify-center text-white font-bold ${
-                            isPending ? 'bg-linear-to-br from-yellow-400 to-orange-500' :
-                            isAccepted ? 'bg-linear-to-br from-green-400 to-emerald-500' :
-                            'bg-linear-to-br from-red-400 to-pink-500'
+                            isPending ? 'bg-linear-to-br from-gold-400 to-gold-500' :
+                            isAccepted ? 'bg-linear-to-br from-pink-400 to-pink-500' :
+                            'bg-linear-to-br from-gray-400 to-gray-500'
                           }`}>
                             {booking.clientName.charAt(0).toUpperCase()}
                           </div>
@@ -318,7 +318,7 @@ export default function AdminBookingsPage() {
                           </div>
                           {booking.isHouseCall && (
                             <div className="flex items-center gap-2 text-gray-600">
-                              <Home size={16} className="text-orange-500" />
+                              <Home size={16} className="text-gold-600" />
                               <span>House Call</span>
                             </div>
                           )}
@@ -328,9 +328,9 @@ export default function AdminBookingsPage() {
                       {/* Status & Actions */}
                       <div className="flex flex-col items-end gap-3">
                         <span className={`inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold rounded-full ${
-                          isAccepted ? 'bg-green-100 text-green-700' :
-                          isPending ? 'bg-yellow-100 text-yellow-700' :
-                          'bg-red-100 text-red-700'
+                          isAccepted ? 'bg-pink-100 text-pink-700' :
+                          isPending ? 'bg-gold-100 text-gold-700' :
+                          'bg-gray-100 text-gray-600'
                         }`}>
                           {isAccepted && <CheckCircle size={14} />}
                           {isPending && <Clock size={14} />}
@@ -344,7 +344,7 @@ export default function AdminBookingsPage() {
                               <button
                                 onClick={() => handleAction(booking._id, booking.actionToken, 'confirm')}
                                 disabled={isProcessing}
-                                className="flex items-center gap-1 px-4 py-2 bg-linear-to-r from-green-500 to-emerald-600 text-white text-sm font-medium rounded-lg hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="flex items-center gap-1 px-4 py-2 bg-pink-500 hover:bg-pink-600 text-white text-sm font-medium rounded-lg hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                               >
                                 <CheckCircle size={16} />
                                 Accept
@@ -352,7 +352,7 @@ export default function AdminBookingsPage() {
                               <button
                                 onClick={() => handleAction(booking._id, booking.actionToken, 'reject')}
                                 disabled={isProcessing}
-                                className="flex items-center gap-1 px-4 py-2 bg-linear-to-r from-red-500 to-red-600 text-white text-sm font-medium rounded-lg hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="flex items-center gap-1 px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white text-sm font-medium rounded-lg hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                               >
                                 <XCircle size={16} />
                                 Reject
@@ -392,7 +392,7 @@ export default function AdminBookingsPage() {
                                   <span className="truncate">{booking.clientEmail}</span>
                                 </div>
                                 <div className="flex items-center gap-2 text-gray-600">
-                                  <Phone size={14} className="text-green-500" />
+                                  <Phone size={14} className="text-pink-500" />
                                   <span>{booking.clientPhone}</span>
                                 </div>
                               </div>

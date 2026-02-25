@@ -20,7 +20,7 @@ const galleryItems = [
   // { label: 'Mermaid Braids', image: '/gallery/mermaid-braids.jpeg' },
 ];
 
-export default function Gallery() {
+export default function ServicesGallery() {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -30,7 +30,7 @@ export default function Gallery() {
   };
 
   return (
-    <section id="gallery" className="py-20 sm:py-24 bg-cream-50">
+    <section id="services" className="py-20 sm:py-24 bg-cream-50">
       <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-14">
@@ -38,10 +38,10 @@ export default function Gallery() {
             Our Work
           </p>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-4">
-            Style Gallery
+            See Our Services
           </h2>
           <p className="text-base text-gray-500 max-w-lg mx-auto">
-            Explore our signature looks — from bold braids to elegant curls
+            Explore our signature looks, from bold braids to elegant curls
           </p>
         </div>
 
@@ -85,7 +85,7 @@ export default function Gallery() {
             href="/gallery"
             className="inline-flex items-center gap-2 text-sm font-semibold text-pink-600 hover:text-pink-700 transition-colors"
           >
-            View Full Gallery
+            View Full Services
             <span aria-hidden>→</span>
           </Link>
         </div>
@@ -98,7 +98,7 @@ export default function Gallery() {
           currentIndex={currentImageIndex}
           onClose={() => setLightboxOpen(false)}
           onNavigate={setCurrentImageIndex}
-          alt="Gallery image"
+          alt="Service Gallery image"
         />
       )}
     </section>

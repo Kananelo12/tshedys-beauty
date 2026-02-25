@@ -9,7 +9,6 @@ interface Service {
   name: string;
   description?: string;
   price: number;
-  duration: number;
   category: string;
 }
 
@@ -17,7 +16,6 @@ interface ServiceFormData {
   name: string;
   description: string;
   price: string;
-  duration: string;
   category: string;
 }
 
@@ -33,7 +31,6 @@ export default function AdminServicesPage() {
     name: '',
     description: '',
     price: '',
-    duration: '',
     category: '',
   });
   const [error, setError] = useState('');
@@ -72,7 +69,6 @@ export default function AdminServicesPage() {
       name: '',
       description: '',
       price: '',
-      duration: '',
       category: categories[0],
     });
     setError('');
@@ -85,7 +81,6 @@ export default function AdminServicesPage() {
       name: service.name,
       description: service.description || '',
       price: service.price.toString(),
-      duration: service.duration.toString(),
       category: service.category,
     });
     setError('');
@@ -163,7 +158,7 @@ export default function AdminServicesPage() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-[400px]">
+      <div className="flex items-center justify-center min-h-100">
         <div className="text-center">
           <Loader2 className="w-12 h-12 text-pink-500 animate-spin mx-auto mb-4" />
           <p className="text-gray-600">Loading services...</p>
@@ -179,7 +174,7 @@ export default function AdminServicesPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          <h2 className="text-3xl font-serif font-bold bg-gradient-to-r from-pink-600 to-pink-600 bg-clip-text text-transparent flex items-center gap-2">
+          <h2 className="text-3xl font-serif font-bold bg-linear-to-r from-pink-600 to-pink-600 bg-clip-text text-transparent flex items-center gap-2">
             <Sparkles className="text-pink-500" size={32} />
             Services
           </h2>
@@ -194,7 +189,7 @@ export default function AdminServicesPage() {
           animate={{ opacity: 1, scale: 1 }}
           whileHover={{ scale: 1.05, y: -2 }}
           whileTap={{ scale: 0.95 }}
-          className="px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 to-pink-500 text-white font-semibold shadow-md hover:shadow-lg transition-all duration-300 flex items-center gap-2"
+          className="px-6 py-3 rounded-full bg-linear-to-r from-pink-500 to-pink-500 text-white font-semibold shadow-md hover:shadow-lg transition-all duration-300 flex items-center gap-2"
         >
           <Plus size={20} />
           Add Service
@@ -216,7 +211,7 @@ export default function AdminServicesPage() {
           </p>
           <button
             onClick={openCreateModal}
-            className="px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 to-pink-500 text-white font-semibold shadow-md hover:shadow-lg transition-all duration-300 inline-flex items-center gap-2"
+            className="px-6 py-3 rounded-full bg-linear-to-r from-pink-500 to-pink-500 text-white font-semibold shadow-md hover:shadow-lg transition-all duration-300 inline-flex items-center gap-2"
           >
             <Plus size={20} />
             Add Your First Service
@@ -249,16 +244,13 @@ export default function AdminServicesPage() {
                     <span className="font-semibold text-pink-600">
                       M{service.price.toFixed(2)}
                     </span>
-                    <span>
-                      {service.duration} min
-                    </span>
                   </div>
                 </div>
                 
                 <div className="flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                   <button
                     onClick={() => openEditModal(service)}
-                    className="p-2 bg-gradient-to-r from-pink-100 to-pink-100 hover:from-pink-200 hover:to-pink-200 rounded-lg text-gray-700 transition-all"
+                    className="p-2 bg-linear-to-r from-pink-100 to-pink-100 hover:from-pink-200 hover:to-pink-200 rounded-lg text-gray-700 transition-all"
                     title="Edit service"
                   >
                     <Edit size={16} />
@@ -308,7 +300,7 @@ export default function AdminServicesPage() {
 
               {error && (
                 <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl flex items-start gap-3">
-                  <AlertCircle className="text-red-500 flex-shrink-0 mt-0.5" size={20} />
+                  <AlertCircle className="text-red-500 shrink-0 mt-0.5" size={20} />
                   <p className="text-red-700 text-sm">{error}</p>
                 </div>
               )}
@@ -359,38 +351,20 @@ export default function AdminServicesPage() {
                   </select>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Price (M) *
-                    </label>
-                    <input
-                      type="number"
-                      step="0.01"
-                      min="0"
-                      value={formData.price}
-                      onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-                      required
-                      className="w-full px-4 py-3 rounded-xl border-2 border-pink-200 focus:border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-500/50 transition-all"
-                      placeholder="0.00"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Duration (min) *
-                    </label>
-                    <input
-                      type="number"
-                      step="15"
-                      min="15"
-                      value={formData.duration}
-                      onChange={(e) => setFormData({ ...formData, duration: e.target.value })}
-                      required
-                      className="w-full px-4 py-3 rounded-xl border-2 border-pink-200 focus:border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-500/50 transition-all"
-                      placeholder="60"
-                    />
-                  </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Price (M) *
+                  </label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    min="0"
+                    value={formData.price}
+                    onChange={(e) => setFormData({ ...formData, price: e.target.value })}
+                    required
+                    className="w-full px-4 py-3 rounded-xl border-2 border-pink-200 focus:border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-500/50 transition-all"
+                    placeholder="0.00"
+                  />
                 </div>
 
                 <div className="flex items-center gap-3 pt-4">
@@ -405,7 +379,7 @@ export default function AdminServicesPage() {
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="flex-1 px-6 py-3 rounded-xl bg-gradient-to-r from-pink-500 to-pink-500 text-white font-semibold shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50"
+                    className="flex-1 px-6 py-3 rounded-xl bg-linear-to-r from-pink-500 to-pink-500 text-white font-semibold shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50"
                   >
                     {submitting ? (
                       <>
@@ -466,7 +440,7 @@ export default function AdminServicesPage() {
                 <button
                   onClick={handleDelete}
                   disabled={submitting}
-                  className="flex-1 px-6 py-3 rounded-xl bg-gradient-to-r from-red-500 to-red-600 text-white font-semibold hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50"
+                  className="flex-1 px-6 py-3 rounded-xl bg-red-500 hover:bg-red-600 text-white font-semibold hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50"
                 >
                   {submitting ? (
                     <>

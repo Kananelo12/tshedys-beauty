@@ -6,7 +6,7 @@ export async function GET() {
     const client = await clientPromise;
     const db = client.db('tshedybeauty');
 
-    const services = await db.collection('services').find({}).toArray();
+    const services = await db.collection('services').find({}).sort({ createdAt: -1 }).toArray();
 
     return NextResponse.json({ success: true, services });
   } catch (error) {
@@ -18,12 +18,11 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, description, price, duration, category } = body;
+    const { name, description, price, category } = body;
 
-    if (!name?.trim() || price === undefined || price === null || price === '' || 
-        duration === undefined || duration === null || duration === '' || !category?.trim()) {
+    if (!name?.trim() || price === undefined || price === null || price === '' || !category?.trim()) {
       return NextResponse.json(
-        { error: 'Name, price, duration, and category are required' },
+        { error: 'Name, price, and category are required' },
         { status: 400 }
       );
     }
@@ -35,7 +34,6 @@ export async function POST(request: Request) {
       name,
       description: description || '',
       price: parseFloat(price),
-      duration: parseInt(duration),
       category,
       createdAt: new Date(),
       updatedAt: new Date(),

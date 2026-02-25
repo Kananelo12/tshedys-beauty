@@ -81,9 +81,9 @@ export default async function BookingDetailsPage({ params }: PageProps) {
             <p className="text-sm text-gray-500">ID: {booking._id.toString()}</p>
           </div>
           <span className={`inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-full self-start ${
-            isAccepted ? 'bg-green-100 text-green-700' :
-            isRejected ? 'bg-red-100 text-red-700' :
-            'bg-yellow-100 text-yellow-700'
+            isAccepted ? 'bg-pink-100 text-pink-700' :
+            isRejected ? 'bg-gray-100 text-gray-600' :
+            'bg-gold-100 text-gold-700'
           }`}>
             {isAccepted && <CheckCircle size={16} />}
             {isPending && <Clock size={16} />}
@@ -94,25 +94,25 @@ export default async function BookingDetailsPage({ params }: PageProps) {
 
         {/* Quick Actions for Pending */}
         {isPending && (
-          <div className="flex flex-wrap gap-3 p-4 bg-yellow-50 border-2 border-yellow-200 rounded-xl">
+          <div className="flex flex-wrap gap-3 p-4 bg-gold-50 border-2 border-gold-200 rounded-xl">
             <div className="flex-1 flex items-center gap-3">
-              <AlertCircle className="text-yellow-600" size={24} />
+              <AlertCircle className="text-gold-600" size={24} />
               <div>
-                <p className="font-semibold text-yellow-800">Action Required</p>
-                <p className="text-sm text-yellow-700">This booking is awaiting your response</p>
+                <p className="font-semibold text-gold-800">Action Required</p>
+                <p className="text-sm text-gold-700">This booking is awaiting your response</p>
               </div>
             </div>
             <div className="flex gap-2">
               <a
                 href={`/api/bookings/${id}/confirm?token=${booking.actionToken}`}
-                className="flex items-center gap-2 px-4 py-2 bg-linear-to-r from-green-500 to-emerald-600 text-white font-medium rounded-lg hover:shadow-lg transition-all"
+                className="flex items-center gap-2 px-4 py-2 bg-pink-500 hover:bg-pink-600 text-white font-medium rounded-lg hover:shadow-lg transition-all"
               >
                 <CheckCircle size={18} />
                 Accept
               </a>
               <a
                 href={`/api/bookings/${id}/reject?token=${booking.actionToken}`}
-                className="flex items-center gap-2 px-4 py-2 bg-linear-to-r from-red-500 to-red-600 text-white font-medium rounded-lg hover:shadow-lg transition-all"
+                className="flex items-center gap-2 px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white font-medium rounded-lg hover:shadow-lg transition-all"
               >
                 <XCircle size={18} />
                 Reject
@@ -149,7 +149,7 @@ export default async function BookingDetailsPage({ params }: PageProps) {
             </div>
             
             <div className="flex items-start gap-3 p-4 bg-cream-50 rounded-lg">
-              <Phone className="text-green-500 mt-0.5" size={20} />
+              <Phone className="text-pink-500 mt-0.5" size={20} />
               <div className="flex-1">
                 <p className="text-sm text-gray-500">Phone Number</p>
                 <p className="font-medium text-gray-900">{booking.clientPhone}</p>
@@ -184,7 +184,7 @@ export default async function BookingDetailsPage({ params }: PageProps) {
             </div>
             
             <div className="flex items-start gap-3 p-4 bg-cream-50 rounded-lg">
-              <Clock className="text-orange-500 mt-0.5" size={20} />
+              <Clock className="text-pink-500 mt-0.5" size={20} />
               <div className="flex-1">
                 <p className="text-sm text-gray-500">Time</p>
                 <p className="font-semibold text-gray-900">{time} - {endTime}</p>
@@ -193,11 +193,11 @@ export default async function BookingDetailsPage({ params }: PageProps) {
             </div>
             
             {booking.isHouseCall && (
-              <div className="flex items-start gap-3 p-4 bg-orange-50 border-2 border-orange-200 rounded-lg">
-                <Home className="text-orange-600 mt-0.5" size={20} />
+              <div className="flex items-start gap-3 p-4 bg-gold-50 border-2 border-gold-200 rounded-lg">
+                <Home className="text-gold-600 mt-0.5" size={20} />
                 <div className="flex-1">
-                  <p className="text-sm font-semibold text-orange-800">House Call Service</p>
-                  <p className="text-xs text-orange-700 mt-1">
+                  <p className="text-sm font-semibold text-gold-800">House Call Service</p>
+                  <p className="text-xs text-gold-700 mt-1">
                     Additional fees: M{booking.houseCallFee} (service) + M{booking.transportCost} (transport)
                   </p>
                 </div>
@@ -227,7 +227,7 @@ export default async function BookingDetailsPage({ params }: PageProps) {
             </div>
             
             <div className="flex items-start gap-3 p-4 bg-cream-50 rounded-lg">
-              <Phone className="text-green-500 mt-0.5" size={20} />
+              <Phone className="text-pink-500 mt-0.5" size={20} />
               <div className="flex-1">
                 <p className="text-sm text-gray-500">Phone</p>
                 <p className="font-medium text-gray-900">{provider.phone}</p>
@@ -239,12 +239,12 @@ export default async function BookingDetailsPage({ params }: PageProps) {
         {/* Pricing & Timeline */}
         <div className="glass border-2 border-pink-200 rounded-2xl p-6">
           <h2 className="text-xl font-serif font-bold text-gray-900 mb-6 flex items-center gap-2">
-            <DollarSign className="text-green-500" size={24} />
+            <DollarSign className="text-pink-500" size={24} />
             Pricing & Timeline
           </h2>
           
           {/* Pricing */}
-          <div className="mb-6 p-4 bg-green-50 border-2 border-green-200 rounded-lg space-y-2">
+          <div className="mb-6 p-4 bg-cream-50 border-2 border-pink-200 rounded-lg space-y-2">
             <div className="flex justify-between text-sm">
               <span className="text-gray-600">Service Price:</span>
               <span className="font-semibold text-gray-900">M{service.price}</span>
@@ -261,9 +261,9 @@ export default async function BookingDetailsPage({ params }: PageProps) {
                 </div>
               </>
             )}
-            <div className="flex justify-between pt-2 border-t-2 border-green-300">
+            <div className="flex justify-between pt-2 border-t-2 border-pink-300">
               <span className="font-bold text-gray-900">Total Amount:</span>
-              <span className="font-bold text-xl text-green-700">M{totalPrice}</span>
+              <span className="font-bold text-xl text-pink-600">M{totalPrice}</span>
             </div>
           </div>
 
@@ -272,7 +272,7 @@ export default async function BookingDetailsPage({ params }: PageProps) {
             <h3 className="font-semibold text-gray-700 text-sm">Timeline</h3>
             
             <div className="flex items-start gap-3">
-              <div className="w-2 h-2 rounded-full bg-blue-500 mt-2" />
+              <div className="w-2 h-2 rounded-full bg-pink-500 mt-2" />
               <div className="flex-1">
                 <p className="text-xs text-gray-500">Created</p>
                 <p className="text-sm font-medium text-gray-700">
@@ -283,7 +283,7 @@ export default async function BookingDetailsPage({ params }: PageProps) {
             
             {booking.providerActionAt && (
               <div className="flex items-start gap-3">
-                <div className={`w-2 h-2 rounded-full mt-2 ${isAccepted ? 'bg-green-500' : 'bg-red-500'}`} />
+                <div className={`w-2 h-2 rounded-full mt-2 ${isAccepted ? 'bg-pink-500' : 'bg-gray-400'}`} />
                 <div className="flex-1">
                   <p className="text-xs text-gray-500">Action Taken</p>
                   <p className="text-sm font-medium text-gray-700">
@@ -295,7 +295,7 @@ export default async function BookingDetailsPage({ params }: PageProps) {
             
             {isPending && (
               <div className="flex items-start gap-3">
-                <div className="w-2 h-2 rounded-full bg-yellow-500 mt-2" />
+                <div className="w-2 h-2 rounded-full bg-gold-500 mt-2" />
                 <div className="flex-1">
                   <p className="text-xs text-gray-500">Expires</p>
                   <p className="text-sm font-medium text-gray-700">

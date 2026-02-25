@@ -22,7 +22,7 @@ export default function Footer() {
                 />
               </div>
               <span className="text-lg font-serif font-semibold text-gold-500">
-                Tshedy Beauty
+                Tshedy Beauty Parlour
               </span>
             </div>
             <p className="text-white/50 text-sm leading-relaxed max-w-xs mb-6">
@@ -75,7 +75,6 @@ export default function Footer() {
                 { label: "Home", href: "/" },
                 { label: "About", href: "/#about" },
                 { label: "Services", href: "/#services" },
-                { label: "Gallery", href: "/#gallery" },
                 { label: "Book Now", href: "/book" },
               ].map((link) => (
                 <li key={link.label}>

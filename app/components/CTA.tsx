@@ -41,18 +41,18 @@ export default function CTA() {
             <ArrowRight size={16} className="group-hover:translate-x-0.5 transition-transform" />
           </Link>
           <Link
-            href="/services"
+            href="/#contact"
             className="inline-flex items-center px-8 py-3.5 border border-white/20 text-white/80 text-sm font-semibold rounded-full hover:bg-white/5 transition-colors duration-200"
           >
-            View All Services
+            Contact Us
           </Link>
         </div>
 
         {/* Stats */}
         <div className="mt-16 grid grid-cols-3 gap-6 max-w-md mx-auto">
           {[
-            { value: '500+', label: 'Happy Clients' },
-            { value: '1000+', label: 'Styles Done' },
+            { value: '100+', label: 'Happy Clients' },
+            { value: '50+', label: 'Styles Done' },
             { value: '5.0', label: 'Rating' },
           ].map((stat, i) => (
             <div key={i} className="text-center">

@@ -95,7 +95,7 @@ export default async function ConfirmBookingPage({ params, searchParams }: PageP
               <div>
                 <p className="text-sm text-gray-500">Status</p>
                 <span className={`inline-flex px-3 py-1 text-sm font-medium rounded-full ${
-                  isAccepted ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+                  isAccepted ? 'bg-pink-100 text-pink-700' : 'bg-gray-100 text-gray-600'
                 }`}>
                   {booking.status.toLowerCase()}
                 </span>
@@ -151,7 +151,7 @@ export default async function ConfirmBookingPage({ params, searchParams }: PageP
             <div className="text-pink-500 text-xl">📊</div>
             <div>
               <p className="text-sm text-gray-500">Status</p>
-              <span className="inline-flex px-3 py-1 text-sm font-medium rounded-full bg-yellow-100 text-yellow-700">
+              <span className="inline-flex px-3 py-1 text-sm font-medium rounded-full bg-gold-100 text-gold-700">
                 {booking.status.toLowerCase()}
               </span>
             </div>
@@ -176,7 +176,7 @@ export default async function ConfirmBookingPage({ params, searchParams }: PageP
           </a>
           <a
             href={`/api/bookings/${id}/reject?token=${token}`}
-            className="flex-1 bg-red-500 text-white px-6 py-3 rounded-lg font-medium hover:bg-red-600 transition-colors text-center flex items-center justify-center gap-2"
+            className="flex-1 bg-gray-500 text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-600 transition-colors text-center flex items-center justify-center gap-2"
           >
             ❌ Reject Booking
           </a>

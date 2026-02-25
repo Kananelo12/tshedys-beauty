@@ -39,7 +39,7 @@ export default function Hero() {
 
           {/* Subtext */}
           <p className="text-base sm:text-lg text-white/70 leading-relaxed mb-8 max-w-md">
-            Expert hair styling, braiding, and beauty treatments — crafted with 
+            Expert hair styling, braiding, and beauty treatments, crafted with 
             care to bring out your natural confidence.
           </p>
 

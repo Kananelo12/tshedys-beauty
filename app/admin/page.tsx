@@ -6,7 +6,6 @@ import { motion } from "framer-motion";
 import {
   Calendar,
   Sparkles,
-  Image as ImageIcon,
   DollarSign,
   TrendingUp,
   Clock,
@@ -35,74 +34,84 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     // Fetch bookings from API
-    fetch('/api/bookings')
-      .then(res => res.json())
-      .then(data => {
+    fetch("/api/bookings")
+      .then((res) => res.json())
+      .then((data) => {
         if (Array.isArray(data)) {
           setBookings(data);
         }
         setLoading(false);
       })
-      .catch(error => {
-        console.error('Error fetching bookings:', error);
+      .catch((error) => {
+        console.error("Error fetching bookings:", error);
         setLoading(false);
       });
   }, []);
 
   // Calculate stats (convert UTC to Lesotho timezone UTC+2)
-  const todayBookings = bookings.filter(b => {
+  const todayBookings = bookings.filter((b) => {
     const utcDate = new Date(b.startDateTime);
-    const localDate = new Date(utcDate.getTime() + (2 * 60 * 60 * 1000));
+    const localDate = new Date(utcDate.getTime() + 2 * 60 * 60 * 1000);
     const today = new Date();
     return localDate.toDateString() === today.toDateString();
   }).length;
 
-  const yesterdayBookings = bookings.filter(b => {
+  const yesterdayBookings = bookings.filter((b) => {
     const utcDate = new Date(b.startDateTime);
-    const localDate = new Date(utcDate.getTime() + (2 * 60 * 60 * 1000));
+    const localDate = new Date(utcDate.getTime() + 2 * 60 * 60 * 1000);
     const yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
     return localDate.toDateString() === yesterday.toDateString();
   }).length;
 
-  const pendingBookings = bookings.filter(b => b.status === 'PENDING').length;
-  const acceptedBookings = bookings.filter(b => b.status === 'ACCEPTED').length;
-  
+  const pendingBookings = bookings.filter((b) => b.status === "PENDING").length;
+  const acceptedBookings = bookings.filter(
+    (b) => b.status === "ACCEPTED",
+  ).length;
+
   // Calculate week's and last week's bookings
   const now = new Date();
   const startOfWeek = new Date(now);
   startOfWeek.setDate(now.getDate() - now.getDay());
   startOfWeek.setHours(0, 0, 0, 0);
-  
+
   const startOfLastWeek = new Date(startOfWeek);
   startOfLastWeek.setDate(startOfWeek.getDate() - 7);
-  
-  const thisWeekBookings = bookings.filter(b => {
+
+  const thisWeekBookings = bookings.filter((b) => {
     const utcDate = new Date(b.startDateTime);
-    const localDate = new Date(utcDate.getTime() + (2 * 60 * 60 * 1000));
-    return localDate >= startOfWeek && b.status === 'ACCEPTED';
+    const localDate = new Date(utcDate.getTime() + 2 * 60 * 60 * 1000);
+    return localDate >= startOfWeek && b.status === "ACCEPTED";
   }).length;
-  
-  const lastWeekBookings = bookings.filter(b => {
+
+  const lastWeekBookings = bookings.filter((b) => {
     const utcDate = new Date(b.startDateTime);
-    const localDate = new Date(utcDate.getTime() + (2 * 60 * 60 * 1000));
-    return localDate >= startOfLastWeek && localDate < startOfWeek && b.status === 'ACCEPTED';
+    const localDate = new Date(utcDate.getTime() + 2 * 60 * 60 * 1000);
+    return (
+      localDate >= startOfLastWeek &&
+      localDate < startOfWeek &&
+      b.status === "ACCEPTED"
+    );
   }).length;
-  
-  const weeklyChange = lastWeekBookings > 0 
-    ? (((thisWeekBookings - lastWeekBookings) / lastWeekBookings) * 100).toFixed(1)
-    : '0';
-  
+
+  const weeklyChange =
+    lastWeekBookings > 0
+      ? (
+          ((thisWeekBookings - lastWeekBookings) / lastWeekBookings) *
+          100
+        ).toFixed(1)
+      : "0";
+
   // Calculate monthly revenue
   const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
   const startOfLastMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
   const endOfLastMonth = new Date(now.getFullYear(), now.getMonth(), 0);
-  
+
   const thisMonthRevenue = bookings
-    .filter(b => {
+    .filter((b) => {
       const utcDate = new Date(b.startDateTime);
-      const localDate = new Date(utcDate.getTime() + (2 * 60 * 60 * 1000));
-      return localDate >= startOfMonth && b.status === 'ACCEPTED';
+      const localDate = new Date(utcDate.getTime() + 2 * 60 * 60 * 1000);
+      return localDate >= startOfMonth && b.status === "ACCEPTED";
     })
     .reduce((sum, b) => {
       const servicePrice = b.service?.price || 0;
@@ -110,12 +119,16 @@ export default function AdminDashboard() {
       const transportCost = b.transportCost || 0;
       return sum + servicePrice + houseCallFee + transportCost;
     }, 0);
-  
+
   const lastMonthRevenue = bookings
-    .filter(b => {
+    .filter((b) => {
       const utcDate = new Date(b.startDateTime);
-      const localDate = new Date(utcDate.getTime() + (2 * 60 * 60 * 1000));
-      return localDate >= startOfLastMonth && localDate <= endOfLastMonth && b.status === 'ACCEPTED';
+      const localDate = new Date(utcDate.getTime() + 2 * 60 * 60 * 1000);
+      return (
+        localDate >= startOfLastMonth &&
+        localDate <= endOfLastMonth &&
+        b.status === "ACCEPTED"
+      );
     })
     .reduce((sum, b) => {
       const servicePrice = b.service?.price || 0;
@@ -123,13 +136,17 @@ export default function AdminDashboard() {
       const transportCost = b.transportCost || 0;
       return sum + servicePrice + houseCallFee + transportCost;
     }, 0);
-  
-  const monthlyChange = lastMonthRevenue > 0
-    ? (((thisMonthRevenue - lastMonthRevenue) / lastMonthRevenue) * 100).toFixed(1)
-    : '0';
-  
+
+  const monthlyChange =
+    lastMonthRevenue > 0
+      ? (
+          ((thisMonthRevenue - lastMonthRevenue) / lastMonthRevenue) *
+          100
+        ).toFixed(1)
+      : "0";
+
   const totalRevenue = bookings
-    .filter(b => b.status === 'ACCEPTED')
+    .filter((b) => b.status === "ACCEPTED")
     .reduce((sum, b) => {
       const servicePrice = b.service?.price || 0;
       const houseCallFee = b.houseCallFee || 0;
@@ -142,54 +159,57 @@ export default function AdminDashboard() {
       label: "Today's Bookings",
       value: todayBookings.toString(),
       icon: Calendar,
-      change: todayBookings > yesterdayBookings 
-        ? `+${todayBookings - yesterdayBookings} from yesterday` 
-        : yesterdayBookings > todayBookings
-        ? `-${yesterdayBookings - todayBookings} from yesterday`
-        : 'Same as yesterday',
-      gradient: 'from-pink-500 to-pink-500',
+      change:
+        todayBookings > yesterdayBookings
+          ? `+${todayBookings - yesterdayBookings} from yesterday`
+          : yesterdayBookings > todayBookings
+            ? `-${yesterdayBookings - todayBookings} from yesterday`
+            : "Same as yesterday",
+      gradient: "from-pink-500 to-pink-500",
     },
     {
       label: "Pending Requests",
       value: pendingBookings.toString(),
       icon: Clock,
-      change: pendingBookings > 0 ? 'Awaiting response' : 'All clear',
-      gradient: 'from-pink-500 to-pink-500',
+      change: pendingBookings > 0 ? "Awaiting response" : "All clear",
+      gradient: "from-pink-500 to-pink-500",
     },
     {
       label: "Confirmed Bookings",
       value: acceptedBookings.toString(),
       icon: CheckCircle,
-      change: weeklyChange !== '0' 
-        ? `${Number(weeklyChange) > 0 ? '+' : ''}${weeklyChange}% this week`
-        : 'No change this week',
-      gradient: 'from-pink-500 to-orange-500',
+      change:
+        weeklyChange !== "0"
+          ? `${Number(weeklyChange) > 0 ? "+" : ""}${weeklyChange}% this week`
+          : "No change this week",
+      gradient: "from-pink-500 to-pink-500",
     },
     {
       label: "Total Revenue",
       value: `M${totalRevenue.toFixed(2)}`,
       icon: DollarSign,
-      change: monthlyChange !== '0'
-        ? `${Number(monthlyChange) > 0 ? '+' : ''}${monthlyChange}% this month`
-        : 'No change this month',
-      gradient: 'from-pink-600 to-pink-600',
+      change:
+        monthlyChange !== "0"
+          ? `${Number(monthlyChange) > 0 ? "+" : ""}${monthlyChange}% this month`
+          : "No change this month",
+      gradient: "from-pink-600 to-pink-600",
     },
   ];
 
   // Calculate weekly data from real bookings
   const weeklyData = (() => {
-    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    const data = days.map(day => ({ name: day, bookings: 0, revenue: 0 }));
-    
-    bookings.forEach(booking => {
+    const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    const data = days.map((day) => ({ name: day, bookings: 0, revenue: 0 }));
+
+    bookings.forEach((booking) => {
       // Convert UTC date to Lesotho timezone (UTC+2)
       const utcDate = new Date(booking.startDateTime);
-      const localDate = new Date(utcDate.getTime() + (2 * 60 * 60 * 1000)); // Add 2 hours for UTC+2
-      
+      const localDate = new Date(utcDate.getTime() + 2 * 60 * 60 * 1000); // Add 2 hours for UTC+2
+
       if (localDate >= startOfWeek) {
         const dayIndex = localDate.getDay();
         data[dayIndex].bookings += 1;
-        if (booking.status === 'ACCEPTED') {
+        if (booking.status === "ACCEPTED") {
           const servicePrice = booking.service?.price || 0;
           const houseCallFee = booking.houseCallFee || 0;
           const transportCost = booking.transportCost || 0;
@@ -197,7 +217,7 @@ export default function AdminDashboard() {
         }
       }
     });
-    
+
     // Reorder to start from Monday
     return [
       data[1], // Mon
@@ -211,13 +231,20 @@ export default function AdminDashboard() {
   })();
 
   const statusData = [
-    { name: 'Accepted', value: acceptedBookings, color: '#10b981' },
-    { name: 'Pending', value: pendingBookings, color: '#f59e0b' },
-    { name: 'Rejected', value: bookings.filter(b => b.status === 'REJECTED').length, color: '#ef4444' },
+    { name: "Accepted", value: acceptedBookings, color: "#E0657A" },
+    { name: "Pending", value: pendingBookings, color: "#D4A04A" },
+    {
+      name: "Rejected",
+      value: bookings.filter((b) => b.status === "REJECTED").length,
+      color: "#9CA3AF",
+    },
   ];
 
   const recentBookings = bookings
-    .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+    .sort(
+      (a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+    )
     .slice(0, 5);
 
   return (
@@ -289,31 +316,31 @@ export default function AdminDashboard() {
           ) : (
             <ResponsiveContainer width="100%" height={300}>
               <LineChart data={weeklyData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#f3e8ff" />
+                <CartesianGrid strokeDasharray="3 3" stroke="#FDD5DA" />
                 <XAxis dataKey="name" stroke="#6b7280" />
                 <YAxis stroke="#6b7280" />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: '#fff',
-                    border: '2px solid #fbcfe8',
-                    borderRadius: '12px',
+                    backgroundColor: "#fff",
+                    border: "2px solid #FDD5DA",
+                    borderRadius: "12px",
                   }}
                 />
                 <Legend />
                 <Line
                   type="monotone"
                   dataKey="bookings"
-                  stroke="#ec4899"
+                  stroke="#E0657A"
                   strokeWidth={3}
-                  dot={{ fill: '#ec4899', r: 5 }}
+                  dot={{ fill: "#E0657A", r: 5 }}
                   name="Bookings"
                 />
                 <Line
                   type="monotone"
                   dataKey="revenue"
-                  stroke="#a855f7"
+                  stroke="#D4A04A"
                   strokeWidth={3}
-                  dot={{ fill: '#a855f7', r: 5 }}
+                  dot={{ fill: "#D4A04A", r: 5 }}
                   name="Revenue (M)"
                 />
               </LineChart>
@@ -350,18 +377,18 @@ export default function AdminDashboard() {
                   labelLine={false}
                   label={({ cx, cy, midAngle, outerRadius, percent }) => {
                     if (!midAngle || !percent) return null;
-                    
+
                     const RADIAN = Math.PI / 180;
                     const radius = outerRadius + 25;
                     const x = cx + radius * Math.cos(-midAngle * RADIAN);
                     const y = cy + radius * Math.sin(-midAngle * RADIAN);
-                    
+
                     return (
-                      <text 
-                        x={x} 
-                        y={y} 
-                        fill="#374151" 
-                        textAnchor={x > cx ? 'start' : 'end'} 
+                      <text
+                        x={x}
+                        y={y}
+                        fill="#374151"
+                        textAnchor={x > cx ? "start" : "end"}
                         dominantBaseline="central"
                         className="text-sm font-semibold"
                       >
@@ -370,7 +397,7 @@ export default function AdminDashboard() {
                     );
                   }}
                   outerRadius={90}
-                  fill="#8884d8"
+                  fill="#E0657A"
                   dataKey="value"
                 >
                   {statusData.map((entry, index) => (
@@ -378,8 +405,8 @@ export default function AdminDashboard() {
                   ))}
                 </Pie>
                 <Tooltip />
-                <Legend 
-                  verticalAlign="bottom" 
+                <Legend
+                  verticalAlign="bottom"
                   height={36}
                   formatter={(value) => (
                     <span className="text-sm text-gray-700">{value}</span>
@@ -460,7 +487,7 @@ export default function AdminDashboard() {
                       </div>
                     </td>
                     <td className="px-4 py-4 text-sm text-gray-600">
-                      {booking.service?.name || 'N/A'}
+                      {booking.service?.name || "N/A"}
                     </td>
                     <td className="px-4 py-4 text-sm text-gray-600">
                       {new Date(booking.startDateTime).toLocaleString()}
@@ -468,18 +495,18 @@ export default function AdminDashboard() {
                     <td className="px-4 py-4">
                       <span
                         className={`inline-flex items-center gap-1 px-3 py-1 text-xs font-semibold rounded-full ${
-                          booking.status === 'ACCEPTED'
-                            ? 'bg-green-100 text-green-700'
-                            : booking.status === 'PENDING'
-                            ? 'bg-yellow-100 text-yellow-700'
-                            : 'bg-red-100 text-red-700'
+                          booking.status === "ACCEPTED"
+                            ? "bg-pink-100 text-pink-700"
+                            : booking.status === "PENDING"
+                              ? "bg-gold-100 text-gold-700"
+                              : "bg-gray-100 text-gray-600"
                         }`}
                       >
-                        {booking.status === 'ACCEPTED' && (
+                        {booking.status === "ACCEPTED" && (
                           <CheckCircle size={14} />
                         )}
-                        {booking.status === 'PENDING' && <Clock size={14} />}
-                        {booking.status === 'REJECTED' && <XCircle size={14} />}
+                        {booking.status === "PENDING" && <Clock size={14} />}
+                        {booking.status === "REJECTED" && <XCircle size={14} />}
                         {booking.status}
                       </span>
                     </td>
@@ -511,33 +538,20 @@ export default function AdminDashboard() {
           className="glass border-2 border-pink-200 rounded-xl p-6 text-center hover:shadow-lg hover:border-pink-300 transition-all group"
         >
           <Calendar className="w-8 h-8 text-pink-500 mx-auto mb-2 group-hover:scale-110 transition-transform" />
-          <p className="text-sm font-medium text-gray-700">
-            Manage Bookings
-          </p>
+          <p className="text-sm font-medium text-gray-700">Manage Bookings</p>
         </Link>
         <Link
           href="/admin/services"
           className="glass border-2 border-pink-200 rounded-xl p-6 text-center hover:shadow-lg hover:border-pink-300 transition-all group"
         >
           <Sparkles className="w-8 h-8 text-pink-500 mx-auto mb-2 group-hover:scale-110 transition-transform" />
-          <p className="text-sm font-medium text-gray-700">
-            Manage Services
-          </p>
-        </Link>
-        <Link
-          href="/admin/gallery"
-          className="glass border-2 border-pink-200 rounded-xl p-6 text-center hover:shadow-lg hover:border-pink-300 transition-all group"
-        >
-          <ImageIcon className="w-8 h-8 text-pink-500 mx-auto mb-2 group-hover:scale-110 transition-transform" />
-          <p className="text-sm font-medium text-gray-700">
-            Update Gallery
-          </p>
+          <p className="text-sm font-medium text-gray-700">Manage Services</p>
         </Link>
         <a
           href="#reports"
           className="glass border-2 border-pink-200 rounded-xl p-6 text-center hover:shadow-lg hover:border-pink-300 transition-all group"
         >
-          <TrendingUp className="w-8 h-8 text-orange-500 mx-auto mb-2 group-hover:scale-110 transition-transform" />
+          <TrendingUp className="w-8 h-8 text-pink-500 mx-auto mb-2 group-hover:scale-110 transition-transform" />
           <p className="text-sm font-medium text-gray-700">View Reports</p>
         </a>
       </motion.div>
