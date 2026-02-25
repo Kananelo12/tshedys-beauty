@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
-import { Calendar, Clock, Mail, Phone, User, Check, ArrowLeft } from "lucide-react";
+import { Calendar, Clock, Mail, Phone, User, Check, ArrowLeft, Loader2 } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
@@ -13,6 +13,33 @@ interface Service {
   description: string;
 }
 
+// Provider availability schedule (0=Sunday, 1=Monday, ..., 6=Saturday)
+// null = fully unavailable, otherwise array of available hour ranges
+const AVAILABILITY: Record<number, { start: number; end: number }[] | null> = {
+  0: [{ start: 9, end: 17 }],   // Sunday: by appointment
+  1: [{ start: 8, end: 20 }],   // Monday: all day
+  2: null,                        // Tuesday: not available
+  3: [{ start: 8, end: 20 }],   // Wednesday: all day
+  4: [{ start: 9, end: 20 }],   // Thursday: from 9 AM
+  5: [{ start: 8, end: 11 }, { start: 15, end: 20 }], // Friday: before 11, after 3
+  6: [{ start: 8, end: 20 }],   // Saturday: all day
+};
+
+const DAY_LABELS: Record<number, string> = {
+  0: "Sunday (by appointment)",
+  1: "Monday",
+  2: "Tuesday (unavailable)",
+  3: "Wednesday",
+  4: "Thursday (from 9 AM)",
+  5: "Friday (breaks 11 AM–3 PM)",
+  6: "Saturday",
+};
+
+function isDayAvailable(date: Date): boolean {
+  const day = date.getDay();
+  return AVAILABILITY[day] !== null;
+}
+
 export default function BookingPage() {
   const [services, setServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState(false);
@@ -20,6 +47,9 @@ export default function BookingPage() {
   const [servicesError, setServicesError] = useState("");
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
+  const [availableSlots, setAvailableSlots] = useState<string[]>([]);
+  const [slotsLoading, setSlotsLoading] = useState(false);
+  const [slotsError, setSlotsError] = useState("");
 
   const [formData, setFormData] = useState({
     name: "",
@@ -62,6 +92,49 @@ export default function BookingPage() {
         setServicesLoading(false);
       });
   }, []);
+
+  // Fetch available time slots when date changes
+  const fetchSlots = useCallback(async (date: string) => {
+    if (!date) {
+      setAvailableSlots([]);
+      return;
+    }
+
+    // Check if the selected day is available at all
+    const selectedDate = new Date(date + "T12:00:00");
+    if (!isDayAvailable(selectedDate)) {
+      setAvailableSlots([]);
+      setSlotsError("The provider is not available on this day. Please pick another date.");
+      return;
+    }
+
+    setSlotsLoading(true);
+    setSlotsError("");
+    try {
+      const res = await fetch(`/api/availability?date=${date}`);
+      const data = await res.json();
+      if (res.ok && data.slots) {
+        setAvailableSlots(data.slots);
+        if (data.slots.length === 0) {
+          setSlotsError("No available time slots for this date. Please try another day.");
+        }
+      } else {
+        setSlotsError("Could not load available times. Please try again.");
+        setAvailableSlots([]);
+      }
+    } catch {
+      setSlotsError("Could not load available times. Please try again.");
+      setAvailableSlots([]);
+    } finally {
+      setSlotsLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    // Clear selected time when date changes
+    setFormData((prev) => ({ ...prev, preferredTime: "" }));
+    fetchSlots(formData.preferredDate);
+  }, [formData.preferredDate, fetchSlots]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -113,17 +186,28 @@ export default function BookingPage() {
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
     >,
   ) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    // Validate date selection — block unavailable days
+    if (name === "preferredDate" && value) {
+      const selected = new Date(value + "T12:00:00");
+      if (!isDayAvailable(selected)) {
+        setError("The provider is not available on Tuesdays. Please choose another day.");
+        return;
+      }
+      setError("");
+    }
+
+    setFormData({ ...formData, [name]: value });
   };
 
-  // Generate time slots
-  const timeSlots = [];
-  for (let hour = 9; hour <= 17; hour++) {
-    timeSlots.push(`${hour.toString().padStart(2, "0")}:00`);
-    if (hour < 17) {
-      timeSlots.push(`${hour.toString().padStart(2, "0")}:30`);
-    }
-  }
+  // Get the day info hint for the currently selected date
+  const getSelectedDayHint = (): string | null => {
+    if (!formData.preferredDate) return null;
+    const selected = new Date(formData.preferredDate + "T12:00:00");
+    const day = selected.getDay();
+    return DAY_LABELS[day] || null;
+  };
 
   if (success) {
     return (
@@ -279,25 +363,51 @@ export default function BookingPage() {
                     min={new Date().toISOString().split("T")[0]}
                     className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:border-pink-400 focus:ring-1 focus:ring-pink-400 focus:outline-none transition-colors"
                   />
+                  {formData.preferredDate && (
+                    <p className={`mt-1 text-xs ${
+                      !isDayAvailable(new Date(formData.preferredDate + "T12:00:00"))
+                        ? "text-red-500"
+                        : "text-gray-400"
+                    }`}>
+                      {getSelectedDayHint()}
+                    </p>
+                  )}
                 </div>
                 <div>
                   <label htmlFor="preferredTime" className="block text-sm font-medium text-gray-700 mb-1.5">
                     <Clock size={14} className="inline mr-1.5 text-gray-400" />
                     Time
                   </label>
-                  <select
-                    id="preferredTime"
-                    name="preferredTime"
-                    value={formData.preferredTime}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:border-pink-400 focus:ring-1 focus:ring-pink-400 focus:outline-none transition-colors"
-                  >
-                    <option value="">Select time</option>
-                    {timeSlots.map((time) => (
-                      <option key={time} value={time}>{time}</option>
-                    ))}
-                  </select>
+                  {slotsLoading ? (
+                    <div className="flex items-center gap-2 px-4 py-2.5 border border-gray-200 rounded-lg text-sm text-gray-400">
+                      <Loader2 size={14} className="animate-spin" />
+                      Loading available times...
+                    </div>
+                  ) : (
+                    <select
+                      id="preferredTime"
+                      name="preferredTime"
+                      value={formData.preferredTime}
+                      onChange={handleChange}
+                      required
+                      disabled={!formData.preferredDate || availableSlots.length === 0}
+                      className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:border-pink-400 focus:ring-1 focus:ring-pink-400 focus:outline-none transition-colors disabled:bg-gray-50 disabled:cursor-not-allowed"
+                    >
+                      <option value="">
+                        {!formData.preferredDate
+                          ? "Select a date first"
+                          : availableSlots.length === 0
+                            ? "No available slots"
+                            : "Select time"}
+                      </option>
+                      {availableSlots.map((time) => (
+                        <option key={time} value={time}>{time}</option>
+                      ))}
+                    </select>
+                  )}
+                  {slotsError && (
+                    <p className="mt-1 text-xs text-red-500">{slotsError}</p>
+                  )}
                 </div>
               </div>
 

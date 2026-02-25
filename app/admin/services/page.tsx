@@ -71,6 +71,7 @@ export default function AdminServicesPage() {
       price: '',
       category: categories[0],
     });
+
     setError('');
     setShowModal(true);
   };
@@ -366,6 +367,7 @@ export default function AdminServicesPage() {
                     placeholder="0.00"
                   />
                 </div>
+
 
                 <div className="flex items-center gap-3 pt-4">
                   <button

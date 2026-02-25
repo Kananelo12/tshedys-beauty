@@ -32,3 +32,28 @@ Contacts:
 Email: mamahlokomahloko818@gmail.com
 Phone Numbers: +266 58809665
 location: Room 4, Olympic Building, Maseru
+
+## Schedule/Availability
+- Monday:
+Available all day
+
+- Tuesday:
+In class: 7:00 AM – 5:00 PM
+Not available
+
+- Wednesday:
+ Available all day
+
+- Thursday:
+ In class in the morning
+✅ Available from 9:00 AM onwards
+
+- Friday:
+ In class: 11:00 AM – 3:00 PM
+
+
+- Saturday:
+Available (full day / by appointment)
+
+- Sunday:
+ Available (by appointment only)

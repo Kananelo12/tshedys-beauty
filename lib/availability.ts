@@ -7,19 +7,19 @@ const TIMEZONE = 'Africa/Maseru'; // UTC+2
 // Blocked periods per day (0=Sunday, 1=Monday, ..., 6=Saturday)
 const BLOCKED_PERIODS = {
   1: [], // Monday: available all day
-  2: [{ start: '07:00', end: '17:00' }], // Tuesday: 7am-5pm blocked
-  3: [], // Wednesday: all
+  2: [{ start: '00:00', end: '23:59' }], // Tuesday: fully unavailable (in class all day)
+  3: [], // Wednesday: all day
   4: [{ start: '00:00', end: '09:00' }], // Thursday: before 9am blocked
-  5: [{ start: '11:00', end: '15:00' }], // Friday: 11am-3pm blocked
+  5: [{ start: '00:00', end: '15:00' }], // Friday: 11am-3pm blocked (in class)
   6: [], // Saturday: all
   0: [], // Sunday: all
 };
 
-const WORKING_HOURS_START = 8; // 8am
-const WORKING_HOURS_END = 20; // 8pm
+const WORKING_HOURS_START = 9; // 9am
+const WORKING_HOURS_END = 19; // 7pm
 const SLOT_INTERVAL = 30; // minutes
 
-export function getAvailableSlots(date: string, serviceDuration: number, existingBookings: any[]): string[] {
+export function getAvailableSlots(date: string, existingBookings: any[]): string[] {
   const day = getDay(parseISO(date)); // 0=Sun, 1=Mon, etc.
   const blocked = BLOCKED_PERIODS[day as keyof typeof BLOCKED_PERIODS] || [];
 
@@ -29,8 +29,7 @@ export function getAvailableSlots(date: string, serviceDuration: number, existin
 
   let current = startTime;
   while (current < endTime) {
-    const slotEnd = addMinutes(current, serviceDuration);
-    if (slotEnd <= endTime && isSlotAvailable(current, slotEnd, blocked, existingBookings)) {
+    if (isSlotFree(current, blocked, existingBookings)) {
       slots.push(format(current, 'HH:mm'));
     }
     current = addMinutes(current, SLOT_INTERVAL);
@@ -39,22 +38,21 @@ export function getAvailableSlots(date: string, serviceDuration: number, existin
   return slots;
 }
 
-function isSlotAvailable(start: Date, end: Date, blocked: { start: string; end: string }[], bookings: any[]): boolean {
+function isSlotFree(start: Date, blocked: { start: string; end: string }[], bookings: any[]): boolean {
   // Check blocked periods
   for (const block of blocked) {
     const blockStart = setMinutes(setHours(start, parseInt(block.start.split(':')[0])), parseInt(block.start.split(':')[1]));
     const blockEnd = setMinutes(setHours(start, parseInt(block.end.split(':')[0])), parseInt(block.end.split(':')[1]));
-    if (isWithinInterval(start, { start: blockStart, end: blockEnd }) || isWithinInterval(end, { start: blockStart, end: blockEnd })) {
+    if (isWithinInterval(start, { start: blockStart, end: blockEnd })) {
       return false;
     }
   }
 
-  // Check existing bookings (confirmed and pending)
+  // Check existing bookings (confirmed and pending) — block the exact booked slot
   for (const booking of bookings) {
     if (booking.status === 'confirmed' || booking.status === 'pending') {
       const bookingStart = new Date(booking.startDateTime);
-      const bookingEnd = new Date(booking.endDateTime);
-      if (start < bookingEnd && end > bookingStart) {
+      if (format(start, 'HH:mm') === format(bookingStart, 'HH:mm')) {
         return false;
       }
     }

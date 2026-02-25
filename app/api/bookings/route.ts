@@ -6,6 +6,8 @@ import { addMinutes } from 'date-fns';
 import { toUTC } from '@/lib/availability';
 import { sendBookingNotification } from '@/lib/notifications';
 
+const DEFAULT_SLOT_DURATION = 30; // minutes
+
 export async function GET() {
   try {
     const client = await clientPromise;
@@ -58,7 +60,7 @@ export async function POST(request: NextRequest) {
     }
 
     const startDateTime = toUTC(date, time);
-    const endDateTime = addMinutes(startDateTime, service.duration);
+    const endDateTime = addMinutes(startDateTime, DEFAULT_SLOT_DURATION);
 
     // Check for conflicts
     const conflict = await db.collection('bookings').findOne({
