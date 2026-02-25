@@ -6,18 +6,18 @@ import Link from 'next/link';
 import Lightbox from './Lightbox';
 
 const galleryItems = [
-  { label: 'Jumbo Braids', image: '/gallery/jumbo-braids.jpeg' },
-  { label: 'Small Boho Braids', image: '/gallery/small-boho-braids.jpeg' },
-  { label: 'French Curls', image: '/gallery/french-curls.jpeg' },
-  { label: 'Short Curled Braids', image: '/gallery/short-curled-braids.jpeg' },
-  // { label: 'Medium Curly Braids', image: '/gallery/medium-curly-braids.jpeg' },
-  // { label: 'French Curls', image: '/gallery/french-curls2.jpeg' },
-  // { label: 'Gel Hairstyle', image: '/gallery/gel-hairstyle.jpeg' },
-  // { label: 'Bubble Braids', image: '/gallery/bubble-braids.jpeg' },
-  // { label: 'Koroba Braids', image: '/gallery/koroba-braids.jpeg' },
-  // { label: 'Extended Essence', image: '/gallery/extended-essence.jpeg' },
-  // { label: 'Small Knotless Braids', image: '/gallery/small-knotless-braids.jpeg' },
-  // { label: 'Mermaid Braids', image: '/gallery/mermaid-braids.jpeg' },
+  { label: 'Jumbo Braids', price: 150, image: '/gallery/jumbo-braids.jpeg' },
+  { label: 'Small Boho Braids', price: 300, image: '/gallery/small-boho-braids.jpeg' },
+  { label: 'French Curls', price: 200, image: '/gallery/french-curls.jpeg' },
+  { label: 'Short Curled Braids', price: 280, image: '/gallery/short-curled-braids.jpeg' },
+  // { label: 'Medium Curly Braids', price: 230, image: '/gallery/medium-curly-braids.jpeg' },
+  // { label: 'French Curls', price: 200, image: '/gallery/french-curls2.jpeg' },
+  // { label: 'Gel Hairstyle', price: 100, image: '/gallery/gel-hairstyle.jpeg' },
+  // { label: 'Bubble Braids', price: 350, image: '/gallery/bubble-braids.jpeg' },
+  // { label: 'Koroba Braids', price: 350, image: '/gallery/koroba-braids.jpeg' },
+  // { label: 'Extended Essence', price: 150, image: '/gallery/extended-essence.jpeg' },
+  // { label: 'Small Knotless Braids', price: 250, image: '/gallery/small-knotless-braids.jpeg' },
+  // { label: 'Mermaid Braids', price: 580, image: '/gallery/mermaid-braids.jpeg' },
 ];
 
 export default function ServicesGallery() {
@@ -63,6 +63,7 @@ export default function ServicesGallery() {
               {/* Label */}
               <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 translate-y-2 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
                 <p className="text-white text-sm font-semibold">{item.label}</p>
+                <p className="text-gold-400 text-xs font-semibold">M{item.price}</p>
                 <Link
                   href={`/book?style=${encodeURIComponent(item.label)}`}
                   onClick={(e) => e.stopPropagation()}
@@ -74,6 +75,7 @@ export default function ServicesGallery() {
               {/* Always-visible label on mobile */}
               <div className="absolute bottom-0 left-0 right-0 p-2.5 bg-linear-to-t from-black/50 to-transparent sm:hidden">
                 <p className="text-white text-xs font-medium">{item.label}</p>
+                <p className="text-gold-400 text-[10px] font-semibold">M{item.price}</p>
               </div>
             </div>
           ))}
