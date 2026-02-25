@@ -87,7 +87,7 @@ export default function Navbar({ hasDarkHero = false }: { hasDarkHero?: boolean 
               </div>
               <span className={`hidden sm:inline text-base font-serif font-medium transition-colors duration-300 ${
                 useLightText ? "text-white" : "text-pink-500"
-              }`}>Tshedy</span>
+              }`}>Tshedy Beauty Parlour</span>
             </Link>
           </div>
 

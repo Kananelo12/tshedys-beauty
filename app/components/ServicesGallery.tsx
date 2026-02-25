@@ -7,10 +7,10 @@ import { ArrowRight } from 'lucide-react';
 import Lightbox from './Lightbox';
 
 const galleryItems = [
-  { label: 'Jumbo Braids', image: '/gallery/jumbo-braids.jpeg' },
-  { label: 'Small Boho Braids', image: '/gallery/small-boho-braids.jpeg' },
-  { label: 'French Curls', image: '/gallery/french-curls.jpeg' },
-  { label: 'Short Curled Braids', image: '/gallery/short-curled-braids.jpeg' },
+  { label: 'Jumbo Braids', price: 150, image: '/gallery/jumbo-braids.jpeg' },
+  { label: 'Small Boho Braids', price: 300, image: '/gallery/small-boho-braids.jpeg' },
+  { label: 'French Curls', price: 200, image: '/gallery/french-curls.jpeg' },
+  { label: 'Short Curled Braids', price: 280, image: '/gallery/short-curled-braids.jpeg' },
 ];
 
 export default function ServicesGallery() {
@@ -64,8 +64,9 @@ export default function ServicesGallery() {
               {/* Label */}
               <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5 translate-y-2 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500">
                 <p className="text-white text-sm font-medium">{item.label}</p>
+                <p className="text-white/60 text-xs font-medium">M{item.price}</p>
                 <Link
-                  href="/book"
+                  href={`/book?style=${encodeURIComponent(item.label)}`}
                   onClick={(e) => e.stopPropagation()}
                   className="inline-block mt-1 text-xs text-white/70 hover:text-white font-medium transition-colors"
                 >
@@ -75,6 +76,7 @@ export default function ServicesGallery() {
               {/* Always-visible label on mobile */}
               <div className="absolute bottom-0 left-0 right-0 p-3 bg-linear-to-t from-black/50 to-transparent sm:hidden">
                 <p className="text-white text-xs font-medium">{item.label}</p>
+                <p className="text-white/50 text-[10px] font-medium">M{item.price}</p>
               </div>
             </div>
           ))}

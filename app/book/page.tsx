@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Calendar, Clock, Mail, Phone, User, Check, ArrowLeft, Loader2 } from "lucide-react";
 import Navbar from "../components/Navbar";
@@ -41,6 +42,25 @@ function isDayAvailable(date: Date): boolean {
 }
 
 export default function BookingPage() {
+  return (
+    <Suspense fallback={
+      <>
+        <Navbar />
+        <main className="min-h-screen pt-18 pb-16 bg-cream-50 flex items-center justify-center">
+          <Loader2 className="w-8 h-8 animate-spin text-pink-400" />
+        </main>
+        <Footer />
+      </>
+    }>
+      <BookingPageContent />
+    </Suspense>
+  );
+}
+
+function BookingPageContent() {
+  const searchParams = useSearchParams();
+  const preselectedStyle = searchParams.get("style");
+
   const [services, setServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState(false);
   const [servicesLoading, setServicesLoading] = useState(true);
@@ -92,6 +112,18 @@ export default function BookingPage() {
         setServicesLoading(false);
       });
   }, []);
+
+  // Pre-select service from gallery deep link
+  useEffect(() => {
+    if (preselectedStyle && services.length > 0 && !formData.serviceId) {
+      const match = services.find(
+        (s) => s.name.toLowerCase() === preselectedStyle.toLowerCase()
+      );
+      if (match) {
+        setFormData((prev) => ({ ...prev, serviceId: match._id }));
+      }
+    }
+  }, [preselectedStyle, services, formData.serviceId]);
 
   // Fetch available time slots when date changes
   const fetchSlots = useCallback(async (date: string) => {

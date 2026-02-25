@@ -8,21 +8,18 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { ArrowRight, ArrowDown } from "lucide-react";
 
 const galleryItems = [
-  { label: "Jumbo Braids", image: "/gallery/jumbo-braids.jpeg" },
-  { label: "Small Boho Braids", image: "/gallery/small-boho-braids.jpeg" },
-  { label: "French Curls", image: "/gallery/french-curls.jpeg" },
-  { label: "Short Curled Braids", image: "/gallery/short-curled-braids.jpeg" },
-  { label: "Medium Curly Braids", image: "/gallery/medium-curly-braids.jpeg" },
-  { label: "French Curls", image: "/gallery/french-curls2.jpeg" },
-  { label: "Gel Hairstyle", image: "/gallery/gel-hairstyle.jpeg" },
-  { label: "Bubble Braids", image: "/gallery/bubble-braids.jpeg" },
-  { label: "Koroba Braids", image: "/gallery/koroba-braids.jpeg" },
-  { label: "Extended Essence", image: "/gallery/extended-essence.jpeg" },
-  {
-    label: "Small Knotless Braids",
-    image: "/gallery/small-knotless-braids.jpeg",
-  },
-  { label: "Mermaid Braids", image: "/gallery/mermaid-braids.jpeg" },
+  { label: "Jumbo Braids", price: 150, image: "/gallery/jumbo-braids.jpeg" },
+  { label: "Small Boho Braids", price: 300, image: "/gallery/small-boho-braids.jpeg" },
+  { label: "French Curls", price: 200, image: "/gallery/french-curls.jpeg" },
+  { label: "Short Curled Braids", price: 280, image: "/gallery/short-curled-braids.jpeg" },
+  { label: "Medium Curly Braids", price: 230, image: "/gallery/medium-curly-braids.jpeg" },
+  { label: "French Curls", price: 200, image: "/gallery/french-curls2.jpeg" },
+  { label: "Gel Hairstyle", price: 100, image: "/gallery/gel-hairstyle.jpeg" },
+  { label: "Bubble Braids", price: 350, image: "/gallery/bubble-braids.jpeg" },
+  { label: "Koroba Braids", price: 350, image: "/gallery/koroba-braids.jpeg" },
+  { label: "Extended Essence", price: 150, image: "/gallery/extended-essence.jpeg" },
+  { label: "Small Knotless Braids", price: 250, image: "/gallery/small-knotless-braids.jpeg" },
+  { label: "Mermaid Braids", price: 580, image: "/gallery/mermaid-braids.jpeg" },
 ];
 
 export default function GalleryPage() {
@@ -101,8 +98,9 @@ export default function GalleryPage() {
                 {/* Label — always visible on mobile, hover on desktop */}
                 <div className="absolute bottom-0 inset-x-0 p-4 sm:p-8 sm:translate-y-4 sm:group-hover:translate-y-0 sm:opacity-0 sm:group-hover:opacity-100 transition-all duration-500">
                   <p className="text-white text-sm sm:text-base font-medium">{item.label}</p>
+                  <p className="text-white/50 text-xs font-medium">M{item.price}</p>
                   <Link
-                    href="/book"
+                    href={`/book?style=${encodeURIComponent(item.label)}`}
                     onClick={(e) => e.stopPropagation()}
                     className="inline-block mt-1 text-xs text-white/60 hover:text-white font-medium transition-colors"
                   >
@@ -192,8 +190,9 @@ export default function GalleryPage() {
                     {/* Label — always visible on mobile, hover on desktop */}
                     <div className="absolute bottom-0 inset-x-0 p-3 sm:p-5 sm:translate-y-3 sm:group-hover:translate-y-0 sm:opacity-0 sm:group-hover:opacity-100 transition-all duration-500 ease-out">
                       <p className="text-white text-[11px] sm:text-sm font-medium mb-0.5">{item.label}</p>
+                      <p className="text-white/50 text-[10px] sm:text-xs font-medium">M{item.price}</p>
                       <Link
-                        href="/book"
+                        href={`/book?style=${encodeURIComponent(item.label)}`}
                         onClick={(e) => e.stopPropagation()}
                         className="hidden sm:inline-block text-xs text-white/60 hover:text-white font-medium transition-colors"
                       >
