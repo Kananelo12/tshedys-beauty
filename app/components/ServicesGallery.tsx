@@ -6,18 +6,10 @@ import Link from 'next/link';
 import Lightbox from './Lightbox';
 
 const galleryItems = [
-  { label: 'Jumbo Braids', price: 150, image: '/gallery/jumbo-braids.jpeg' },
-  { label: 'Small Boho Braids', price: 300, image: '/gallery/small-boho-braids.jpeg' },
-  { label: 'French Curls', price: 200, image: '/gallery/french-curls.jpeg' },
-  { label: 'Short Curled Braids', price: 280, image: '/gallery/short-curled-braids.jpeg' },
-  // { label: 'Medium Curly Braids', price: 230, image: '/gallery/medium-curly-braids.jpeg' },
-  // { label: 'French Curls', price: 200, image: '/gallery/french-curls2.jpeg' },
-  // { label: 'Gel Hairstyle', price: 100, image: '/gallery/gel-hairstyle.jpeg' },
-  // { label: 'Bubble Braids', price: 350, image: '/gallery/bubble-braids.jpeg' },
-  // { label: 'Koroba Braids', price: 350, image: '/gallery/koroba-braids.jpeg' },
-  // { label: 'Extended Essence', price: 150, image: '/gallery/extended-essence.jpeg' },
-  // { label: 'Small Knotless Braids', price: 250, image: '/gallery/small-knotless-braids.jpeg' },
-  // { label: 'Mermaid Braids', price: 580, image: '/gallery/mermaid-braids.jpeg' },
+  { label: 'Mermaid Braids', price: 450, image: '/gallery/gallery-1.jpeg' },
+  { label: 'French Curls', price: 400, image: '/gallery/gallery-2.jpeg' },
+  { label: 'Medium Curly Braids', price: 400, image: '/gallery/gallery-3.jpeg' },
+  { label: 'Jumbo Braids', price: 250, image: '/gallery/gallery-4.jpeg' },
 ];
 
 export default function ServicesGallery() {
