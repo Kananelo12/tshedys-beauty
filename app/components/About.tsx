@@ -51,7 +51,7 @@ export default function About() {
             <div className="grid grid-cols-3 gap-2.5">
               <div className="rounded-lg overflow-hidden aspect-4/3">
                 <Image
-                  src="/logo.jpeg"
+                  src="/CHRISTMAS Lunch 23303GM.JPG"
                   alt="Our salon"
                   width={400}
                   height={300}
@@ -60,7 +60,7 @@ export default function About() {
               </div>
               <div className="rounded-lg overflow-hidden aspect-4/3">
                 <Image
-                  src="/CHRISTMAS Lunch 23171BK.JPG"
+                  src="/logo.jpeg"
                   alt="Styling in action"
                   width={400}
                   height={300}
@@ -69,7 +69,7 @@ export default function About() {
               </div>
               <div className="rounded-lg overflow-hidden aspect-4/3">
                 <Image
-                  src="/CHRISTMAS Lunch 23303GM.JPG"
+                  src="/CHRISTMAS Lunch 23302GL.JPG"
                   alt="Studio interior"
                   width={400}
                   height={300}

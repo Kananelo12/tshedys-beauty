@@ -15,8 +15,8 @@ export default function Features() {
       icon: Heart,
     },
     {
-      title: "Nails & Manicure",
-      desc: "Detail-driven nail art and luxurious hand care treatments.",
+      title: "Make-Up",
+      desc: "Flawless make-up artistry for every occasion, from natural glam to bold looks.",
       icon: Sparkles,
     },
     {
