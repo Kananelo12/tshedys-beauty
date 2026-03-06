@@ -1,17 +1,28 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { Mail, Lock, Sparkles, AlertCircle, Eye, EyeOff } from "lucide-react";
 
 export default function AdminLogin() {
+  return (
+    <Suspense>
+      <AdminLoginContent />
+    </Suspense>
+  );
+}
+
+function AdminLoginContent() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get("redirect") || "/admin";
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -38,7 +49,7 @@ export default function AdminLogin() {
 
       // Force a full page reload to ensure middleware picks up the cookie
       setTimeout(() => {
-        window.location.replace("/admin");
+        window.location.replace(redirectTo);
       }, 100);
     } catch {
       setError("An error occurred. Please try again.");

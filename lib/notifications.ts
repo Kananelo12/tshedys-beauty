@@ -111,14 +111,14 @@ export function generateNewBookingWhatsApp(
     : "In-salon";
 
   const message =
-    `Hi Tshedy! 👋\n` +
+    `Hi Tshedy!\n` +
     `I just booked an appointment:\n\n` +
-    `📋 Service: ${service.name}\n` +
-    `📅 Date: ${date} at ${time}\n` +
-    `👤 Name: ${booking.clientName}\n` +
-    `📍 Location: ${location}\n\n` +
+    `Service: ${service.name}\n` +
+    `Date: ${date} at ${time}\n` +
+    `Name: ${booking.clientName}\n` +
+    `Location: ${location}\n\n` +
     `Please review and confirm:\n${confirmUrl}\n\n` +
-    `Thank you! 💖`;
+    `Thank you!`;
 
   return generateWhatsAppLink(provider.phone, message);
 }
@@ -139,23 +139,23 @@ export function generateStatusWhatsApp(
       : "Room 4, Olympic Building, Maseru";
 
     message =
-      `Hi ${firstName}! 🎉\n` +
-      `Your appointment at *Tshedy Beauty Parlour* is confirmed! ✅\n\n` +
-      `💇‍♀️ Service: ${service.name}\n` +
-      `📅 Date: ${date} at ${time}\n` +
-      `📍 Location: ${location}\n\n` +
-      `⏰ Please arrive 5 minutes early.\n` +
-      `📞 Need to reschedule? Contact us at least 24 hours in advance.\n\n` +
-      `See you soon! ✨`;
+      `Hi ${firstName}!\n` +
+      `Your appointment at *Tshedy Beauty Parlour* is confirmed!\n\n` +
+      `Service: ${service.name}\n` +
+      `Date: ${date} at ${time}\n` +
+      `Location: ${location}\n\n` +
+      `Please arrive 5 minutes early.\n` +
+      `Need to reschedule? Contact us at least 24 hours in advance.\n\n` +
+      `See you soon!`;
   } else {
     message =
       `Hi ${firstName},\n` +
       `We're sorry, but we couldn't accommodate your booking:\n\n` +
-      `💇‍♀️ Service: ${service.name}\n` +
-      `📅 Date: ${date} at ${time}\n\n` +
+      `Service: ${service.name}\n` +
+      `Date: ${date} at ${time}\n\n` +
       `You can book a different time here:\n` +
       `${process.env.BASE_URL}/book\n\n` +
-      `We hope to see you soon! 💖`;
+      `We hope to see you soon!`;
   }
 
   return generateWhatsAppLink(booking.clientPhone, message);

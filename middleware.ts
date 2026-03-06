@@ -15,9 +15,14 @@ export async function middleware(request: NextRequest) {
   if (isAdminRoute) {
     const token = request.cookies.get('admin_token')?.value;
 
+    // Build login URL preserving the original destination
+    const loginUrl = new URL('/admin/login', request.url);
+    const originalPath = request.nextUrl.pathname + request.nextUrl.search;
+    loginUrl.searchParams.set('redirect', originalPath);
+
     if (!token) {
       console.log('[Middleware] No token found, redirecting to login');
-      return NextResponse.redirect(new URL('/admin/login', request.url));
+      return NextResponse.redirect(loginUrl);
     }
 
     try {
@@ -27,7 +32,7 @@ export async function middleware(request: NextRequest) {
     } catch (error) {
       // Invalid token, redirect to login
       console.log('[Middleware] Token verification failed:', error);
-      const response = NextResponse.redirect(new URL('/admin/login', request.url));
+      const response = NextResponse.redirect(loginUrl);
       response.cookies.delete('admin_token');
       return response;
     }
@@ -40,8 +45,10 @@ export async function middleware(request: NextRequest) {
     if (token) {
       try {
         await jwtVerify(token, JWT_SECRET);
-        console.log('[Middleware] Already authenticated, redirecting to dashboard');
-        return NextResponse.redirect(new URL('/admin', request.url));
+        // If already authenticated, honor the redirect param or go to dashboard
+        const redirectTo = request.nextUrl.searchParams.get('redirect') || '/admin';
+        console.log('[Middleware] Already authenticated, redirecting to:', redirectTo);
+        return NextResponse.redirect(new URL(redirectTo, request.url));
       } catch {
         // Invalid token, stay on login page
         console.log('[Middleware] Invalid token on login page, clearing');
