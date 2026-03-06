@@ -7,41 +7,56 @@ import Lightbox from "../components/Lightbox";
 import { useState } from "react";
 import { ArrowRight } from "lucide-react";
 
-const galleryItems = [
-  { label: 'Mermaid Braids', price: 450, image: '/gallery/gallery-1.jpeg' },
-  { label: 'French Curls', price: 400, image: '/gallery/gallery-2.jpeg' },
-  { label: 'Medium Curly Braids', price: 400, image: '/gallery/gallery-3.jpeg' },
-  { label: 'Jumbo Braids', price: 250, image: '/gallery/gallery-4.jpeg' },
+type Category = "all" | "braids" | "makeup";
 
-  { label: "Small Knotless Braids", price: 450, image: "/gallery/gallery-5.jpeg" },
-  { label: "French Curls", price: 350, image: "/gallery/gallery-6.jpeg" },
-  { label: "French Curls", price: 400, image: "/gallery/gallery-7.jpeg" },
-  { label: "Change Name", price: 200, image: "/gallery/gallery-8.jpeg" },
-  { label: "Braids", price: 450, image: "/gallery/gallery-9.jpeg" },
-  { label: "Braids", price: 450, image: "/gallery/gallery-10.jpeg" },
-  { label: "Short Curled Braids", price: 350, image: "/gallery/gallery-11.jpeg" },
-  { label: "Mermaid Braids", price: 400, image: "/gallery/gallery-12.jpeg" },
-  { label: "French Curls", price: 400, image: "/gallery/gallery-13.jpeg" },
-  { label: "Gel Hairstyle", price: 200, image: "/gallery/gel-hairstyle.jpeg" },
-  { label: "Bubble Braids", price: 300, image: "/gallery/gallery-14.jpeg" },
-  { label: "Koroba Braids", price: 350, image: "/gallery/koroba-braids.jpeg" },
-  { label: "Extended Essence", price: 180, image: "/gallery/gallery-15.jpeg" },
-  { label: "Extended Essence", price: 180, image: "/gallery/gallery-16.jpeg" },
-  { label: "Change Name", price: 200, image: "/gallery/gallery-17.jpeg" },
+interface GalleryItem {
+  label: string;
+  price?: number;
+  image: string;
+  category: "braids" | "makeup";
+}
 
-  // { label: "Small Boho Braids", price: 300, image: "/gallery/small-boho-braids.jpeg" },
-  // { label: "French Curls", price: 200, image: "/gallery/french-curls.jpeg" },
-  // { label: "Medium Curly Braids", price: 230, image: "/gallery/medium-curly-braids.jpeg" },
-  // { label: "French Curls", price: 200, image: "/gallery/french-curls2.jpeg" },
-  // { label: "Bubble Braids", price: 350, image: "/gallery/bubble-braids.jpeg" },
-  // { label: "Extended Essence", price: 150, image: "/gallery/extended-essence.jpeg" },
-  // { label: "Small Knotless Braids", price: 250, image: "/gallery/small-knotless-braids.jpeg" },
-  // { label: "Mermaid Braids", price: 580, image: "/gallery/mermaid-braids.jpeg" },
+const galleryItems: GalleryItem[] = [
+  { label: 'Mermaid Braids', price: 450, image: '/gallery/gallery-1.jpeg', category: 'braids' },
+  { label: 'French Curls', price: 400, image: '/gallery/gallery-2.jpeg', category: 'braids' },
+  { label: 'Medium Curly Braids', price: 400, image: '/gallery/gallery-3.jpeg', category: 'braids' },
+  { label: 'Jumbo Braids', price: 250, image: '/gallery/gallery-4.jpeg', category: 'braids' },
+  { label: "Small Knotless Braids", price: 450, image: "/gallery/gallery-5.jpeg", category: 'braids' },
+  { label: "French Curls", price: 350, image: "/gallery/gallery-6.jpeg", category: 'braids' },
+  { label: "French Curls", price: 400, image: "/gallery/gallery-7.jpeg", category: 'braids' },
+  { label: "Change Name", price: 200, image: "/gallery/gallery-8.jpeg", category: 'braids' },
+  { label: "Braids", price: 450, image: "/gallery/gallery-9.jpeg", category: 'braids' },
+  { label: "Braids", price: 450, image: "/gallery/gallery-10.jpeg", category: 'braids' },
+  { label: "Short Curled Braids", price: 350, image: "/gallery/gallery-11.jpeg", category: 'braids' },
+  { label: "Mermaid Braids", price: 400, image: "/gallery/gallery-12.jpeg", category: 'braids' },
+  { label: "French Curls", price: 400, image: "/gallery/gallery-13.jpeg", category: 'braids' },
+  { label: "Gel Hairstyle", price: 200, image: "/gallery/gel-hairstyle.jpeg", category: 'braids' },
+  { label: "Bubble Braids", price: 300, image: "/gallery/gallery-14.jpeg", category: 'braids' },
+  { label: "Koroba Braids", price: 350, image: "/gallery/koroba-braids.jpeg", category: 'braids' },
+  { label: "Extended Essence", price: 180, image: "/gallery/gallery-15.jpeg", category: 'braids' },
+  { label: "Extended Essence", price: 180, image: "/gallery/gallery-16.jpeg", category: 'braids' },
+  { label: "Change Name", price: 200, image: "/gallery/gallery-17.jpeg", category: 'braids' },
+
+  // Makeup
+  { label: "Makeup Look", image: "/gallery/make-up-1.jpeg", category: 'makeup' },
+  { label: "Glam Makeup", image: "/gallery/make-up-2.jpeg", category: 'makeup' },
+  { label: "Makeup Look", image: "/gallery/make-up-3.jpeg", category: 'makeup' },
+];
+
+const tabs: { label: string; value: Category }[] = [
+  { label: "All", value: "all" },
+  { label: "Braids & Styles", value: "braids" },
+  { label: "Makeup", value: "makeup" },
 ];
 
 export default function GalleryPage() {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [activeTab, setActiveTab] = useState<Category>("all");
+
+  const filtered = activeTab === "all"
+    ? galleryItems
+    : galleryItems.filter((item) => item.category === activeTab);
 
   const openLightbox = (index: number) => {
     setCurrentImageIndex(index);
@@ -67,13 +82,32 @@ export default function GalleryPage() {
           </div>
         </section>
 
+        {/* Filter Tabs */}
+        <section className="pb-6 sm:pb-8">
+          <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 flex justify-center gap-2">
+            {tabs.map((tab) => (
+              <button
+                key={tab.value}
+                onClick={() => setActiveTab(tab.value)}
+                className={`px-4 py-2 text-sm font-medium rounded-full transition-colors ${
+                  activeTab === tab.value
+                    ? "bg-pink-500 text-white"
+                    : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+        </section>
+
         {/* Gallery Grid */}
         <section className="pb-14 sm:pb-20">
           <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
-              {galleryItems.map((item, i) => (
+              {filtered.map((item, i) => (
                 <div
-                  key={i}
+                  key={item.image}
                   className="group relative aspect-3/4 rounded-xl overflow-hidden cursor-pointer bg-gray-100"
                   onClick={() => openLightbox(i)}
                 >
@@ -90,25 +124,31 @@ export default function GalleryPage() {
                     <p className="text-white text-sm font-semibold">
                       {item.label}
                     </p>
-                    <p className="text-gold-400 text-xs font-semibold">
-                      M{item.price}
-                    </p>
-                    <Link
-                      href={`/book?style=${encodeURIComponent(item.label)}`}
-                      onClick={(e) => e.stopPropagation()}
-                      className="inline-block mt-1.5 text-xs text-gold-400 hover:text-gold-300 font-medium transition-colors"
-                    >
-                      Book this style →
-                    </Link>
+                    {item.category === "braids" && (
+                      <>
+                        <p className="text-gold-400 text-xs font-semibold">
+                          M{item.price}
+                        </p>
+                        <Link
+                          href={`/book?style=${encodeURIComponent(item.label)}`}
+                          onClick={(e) => e.stopPropagation()}
+                          className="inline-block mt-1.5 text-xs text-gold-400 hover:text-gold-300 font-medium transition-colors"
+                        >
+                          Book this style →
+                        </Link>
+                      </>
+                    )}
                   </div>
                   {/* Always-visible label on mobile */}
                   <div className="absolute bottom-0 left-0 right-0 p-2.5 bg-linear-to-t from-black/50 to-transparent sm:hidden">
                     <p className="text-white text-xs font-medium">
                       {item.label}
                     </p>
-                    <p className="text-gold-400 text-[10px] font-semibold">
-                      M{item.price}
-                    </p>
+                    {item.category === "braids" && (
+                      <p className="text-gold-400 text-[10px] font-semibold">
+                        M{item.price}
+                      </p>
+                    )}
                   </div>
                 </div>
               ))}
@@ -143,7 +183,7 @@ export default function GalleryPage() {
       {/* Lightbox */}
       {lightboxOpen && (
         <Lightbox
-          images={galleryItems.map((item) => item.image)}
+          images={filtered.map((item) => item.image)}
           currentIndex={currentImageIndex}
           onClose={() => setLightboxOpen(false)}
           onNavigate={setCurrentImageIndex}

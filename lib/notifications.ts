@@ -83,10 +83,82 @@ function emailWrapper(content: string): string {
 </html>`;
 }
 
+function normalizePhone(phone: string): string {
+  const digits = phone.replace(/\D/g, "");
+  // Lesotho numbers: 8 digits local → prepend 266
+  if (digits.length === 8) return `266${digits}`;
+  // Leading 0 (local format like 058...) → replace 0 with 266
+  if (digits.startsWith("0") && digits.length === 9) return `266${digits.slice(1)}`;
+  // Already has country code
+  return digits;
+}
+
 function generateWhatsAppLink(phone: string, message: string): string {
-  const normalizedPhone = phone.replace(/\D/g, ""); // digits only
+  const normalizedPhone = normalizePhone(phone);
   const encodedMessage = encodeURIComponent(message);
   return `https://wa.me/${normalizedPhone}?text=${encodedMessage}`;
+}
+
+export function generateNewBookingWhatsApp(
+  booking: any,
+  service: any,
+  provider: any,
+  confirmUrl: string,
+): string {
+  const { date, time } = fromUTC(booking.startDateTime);
+  const location = booking.isHouseCall
+    ? `House Call (+M${booking.houseCallFee} + transport M${booking.transportCost})`
+    : "In-salon";
+
+  const message =
+    `Hi Tshedy! 👋\n` +
+    `I just booked an appointment:\n\n` +
+    `📋 Service: ${service.name}\n` +
+    `📅 Date: ${date} at ${time}\n` +
+    `👤 Name: ${booking.clientName}\n` +
+    `📍 Location: ${location}\n\n` +
+    `Please review and confirm:\n${confirmUrl}\n\n` +
+    `Thank you! 💖`;
+
+  return generateWhatsAppLink(provider.phone, message);
+}
+
+export function generateStatusWhatsApp(
+  booking: any,
+  service: any,
+  status: "confirmed" | "rejected",
+): string {
+  const { date, time } = fromUTC(booking.startDateTime);
+  const firstName = booking.clientName.split(" ")[0];
+
+  let message: string;
+
+  if (status === "confirmed") {
+    const location = booking.isHouseCall
+      ? "House Call"
+      : "Room 4, Olympic Building, Maseru";
+
+    message =
+      `Hi ${firstName}! 🎉\n` +
+      `Your appointment at *Tshedy Beauty Parlour* is confirmed! ✅\n\n` +
+      `💇‍♀️ Service: ${service.name}\n` +
+      `📅 Date: ${date} at ${time}\n` +
+      `📍 Location: ${location}\n\n` +
+      `⏰ Please arrive 5 minutes early.\n` +
+      `📞 Need to reschedule? Contact us at least 24 hours in advance.\n\n` +
+      `See you soon! ✨`;
+  } else {
+    message =
+      `Hi ${firstName},\n` +
+      `We're sorry, but we couldn't accommodate your booking:\n\n` +
+      `💇‍♀️ Service: ${service.name}\n` +
+      `📅 Date: ${date} at ${time}\n\n` +
+      `You can book a different time here:\n` +
+      `${process.env.BASE_URL}/book\n\n` +
+      `We hope to see you soon! 💖`;
+  }
+
+  return generateWhatsAppLink(booking.clientPhone, message);
 }
 
 export async function sendBookingNotification(

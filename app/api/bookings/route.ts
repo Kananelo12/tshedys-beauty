@@ -4,7 +4,7 @@ import { ObjectId } from 'mongodb';
 import { randomUUID } from 'crypto';
 import { addMinutes } from 'date-fns';
 import { toUTC } from '@/lib/availability';
-import { sendBookingNotification } from '@/lib/notifications';
+import { sendBookingNotification, generateNewBookingWhatsApp } from '@/lib/notifications';
 
 const DEFAULT_SLOT_DURATION = 30; // minutes
 
@@ -99,9 +99,14 @@ export async function POST(request: NextRequest) {
     // Send notifications
     await sendBookingNotification(booking, service, provider);
 
+    // Generate WhatsApp click-to-chat link for client to notify provider
+    const confirmUrl = `${process.env.BASE_URL}/admin/bookings/${result.insertedId}/confirm?token=${booking.actionToken}`;
+    const whatsappLink = generateNewBookingWhatsApp(booking, service, provider, confirmUrl);
+
     return NextResponse.json({ 
       success: true, 
       bookingId: result.insertedId, 
+      whatsappLink,
       message: 'Booking created, awaiting confirmation' 
     });
   } catch (error) {
