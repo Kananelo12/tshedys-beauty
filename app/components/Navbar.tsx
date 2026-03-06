@@ -46,6 +46,7 @@ export default function Navbar() {
                 src="/logo.jpeg"
                 alt="Tshedy Beauty Parlour Logo"
                 fill
+                sizes="48px"
                 className="object-contain rounded-full"
               />
             </div>

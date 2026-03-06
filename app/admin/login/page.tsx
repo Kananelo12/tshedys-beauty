@@ -76,6 +76,7 @@ export default function AdminLogin() {
                   src="/logo.jpeg"
                   alt="Tshedy Beauty Logo"
                   fill
+                  sizes="80px"
                   className="object-contain rounded-full border-4 border-white shadow-2xl"
                 />
               </div>

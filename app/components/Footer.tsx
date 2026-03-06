@@ -18,6 +18,7 @@ export default function Footer() {
                   src="/logo.jpeg"
                   alt="Tshedy Beauty"
                   fill
+                  sizes="40px"
                   className="object-contain rounded-full"
                 />
               </div>

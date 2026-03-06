@@ -2,11 +2,7 @@
 
 import { useState } from "react";
 import { Phone, Mail, MapPin, Check, Send } from "lucide-react";
-import dynamic from "next/dynamic";
 
-const BusinessMap = dynamic(() => import("@/app/components/BusinessMap"), {
-  ssr: false,
-});
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -328,7 +324,15 @@ export default function Contact() {
             Find Us Here
           </h3>
           <div className="overflow-hidden rounded-xl border border-gray-100 shadow-soft">
-            <BusinessMap />
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3583.055473771209!2d27.49129877576107!3d-29.315472697857224!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e8dcb2e12f7b2df%3A0x889bcb677b323a33!2sTshedys%20Beauty%20Parlour!5e1!3m2!1sen!2sls!4v1772762950011!5m2!1sen!2sls"
+              width="100%"
+              height="450"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
           </div>
         </div>
       </div>
