@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
-import { LayoutDashboard, Calendar, Sparkles, Settings, LogOut, Menu, X, User } from 'lucide-react';
+import { LayoutDashboard, Calendar, Sparkles, Settings, LogOut, Menu, X, User, BarChart3 } from 'lucide-react';
 
 interface Provider {
   id: string;
@@ -52,6 +52,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
     { name: 'Bookings', href: '/admin/bookings', icon: Calendar },
     { name: 'Services', href: '/admin/services', icon: Sparkles },
+    { name: 'Reports', href: '/admin/reports', icon: BarChart3 },
     { name: 'Settings', href: '/admin/settings', icon: Settings },
   ];
 

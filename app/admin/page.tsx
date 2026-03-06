@@ -231,8 +231,8 @@ export default function AdminDashboard() {
   })();
 
   const statusData = [
-    { name: "Accepted", value: acceptedBookings, color: "#E0657A" },
-    { name: "Pending", value: pendingBookings, color: "#D4A04A" },
+    { name: "Accepted", value: acceptedBookings, color: "#10B981" },
+    { name: "Pending", value: pendingBookings, color: "#F59E0B" },
     {
       name: "Rejected",
       value: bookings.filter((b) => b.status === "REJECTED").length,
@@ -272,7 +272,7 @@ export default function AdminDashboard() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: i * 0.1 }}
-            className="glass border-2 border-pink-200 rounded-2xl p-6 hover:shadow-lg transition-all duration-300"
+            className="glass border border-gray-200 rounded-2xl p-6 hover:shadow-lg transition-all duration-300"
           >
             <div className="flex items-start justify-between mb-4">
               <div
@@ -299,7 +299,7 @@ export default function AdminDashboard() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
-          className="lg:col-span-2 glass border-2 border-pink-200 rounded-2xl p-6"
+          className="lg:col-span-2 glass border border-gray-200 rounded-2xl p-6"
         >
           <h3 className="text-xl font-serif font-bold text-gray-900 mb-6 flex items-center gap-2">
             <TrendingUp className="text-pink-500" size={24} />
@@ -316,13 +316,13 @@ export default function AdminDashboard() {
           ) : (
             <ResponsiveContainer width="100%" height={300}>
               <LineChart data={weeklyData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#FDD5DA" />
+                <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
                 <XAxis dataKey="name" stroke="#6b7280" />
                 <YAxis stroke="#6b7280" />
                 <Tooltip
                   contentStyle={{
                     backgroundColor: "#fff",
-                    border: "2px solid #FDD5DA",
+                    border: "1px solid #E5E7EB",
                     borderRadius: "12px",
                   }}
                 />
@@ -330,17 +330,17 @@ export default function AdminDashboard() {
                 <Line
                   type="monotone"
                   dataKey="bookings"
-                  stroke="#E0657A"
+                  stroke="#EC4899"
                   strokeWidth={3}
-                  dot={{ fill: "#E0657A", r: 5 }}
+                  dot={{ fill: "#EC4899", r: 5 }}
                   name="Bookings"
                 />
                 <Line
                   type="monotone"
                   dataKey="revenue"
-                  stroke="#D4A04A"
+                  stroke="#64748B"
                   strokeWidth={3}
-                  dot={{ fill: "#D4A04A", r: 5 }}
+                  dot={{ fill: "#64748B", r: 5 }}
                   name="Revenue (M)"
                 />
               </LineChart>
@@ -353,10 +353,10 @@ export default function AdminDashboard() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.5 }}
-          className="glass border-2 border-pink-200 rounded-2xl p-6"
+          className="glass border border-gray-200 rounded-2xl p-6"
         >
           <h3 className="text-xl font-serif font-bold text-gray-900 mb-6 flex items-center gap-2">
-            <AlertCircle className="text-pink-500" size={24} />
+            <AlertCircle className="text-gray-500" size={24} />
             Booking Status
           </h3>
           {bookings.length === 0 ? (
@@ -397,7 +397,7 @@ export default function AdminDashboard() {
                     );
                   }}
                   outerRadius={90}
-                  fill="#E0657A"
+                  fill="#10B981"
                   dataKey="value"
                 >
                   {statusData.map((entry, index) => (
@@ -423,11 +423,11 @@ export default function AdminDashboard() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.6 }}
-        className="glass border-2 border-pink-200 rounded-2xl p-6"
+        className="glass border border-gray-200 rounded-2xl p-6"
       >
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-xl font-serif font-bold text-gray-900 flex items-center gap-2">
-            <Calendar className="text-pink-500" size={24} />
+            <Calendar className="text-gray-500" size={24} />
             Recent Bookings
           </h3>
           <Link
@@ -452,7 +452,7 @@ export default function AdminDashboard() {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b-2 border-pink-200">
+                <tr className="border-b border-gray-200">
                   <th className="text-left px-4 py-3 text-sm font-semibold text-gray-700">
                     Client
                   </th>
@@ -474,7 +474,7 @@ export default function AdminDashboard() {
                 {recentBookings.map((booking) => (
                   <tr
                     key={booking._id}
-                    className="border-b border-pink-100 hover:bg-pink-50/50 transition-colors"
+                    className="border-b border-gray-100 hover:bg-gray-50 transition-colors"
                   >
                     <td className="px-4 py-4">
                       <div>
@@ -496,9 +496,9 @@ export default function AdminDashboard() {
                       <span
                         className={`inline-flex items-center gap-1 px-3 py-1 text-xs font-semibold rounded-full ${
                           booking.status === "ACCEPTED"
-                            ? "bg-pink-100 text-pink-700"
+                            ? "bg-emerald-50 text-emerald-700"
                             : booking.status === "PENDING"
-                              ? "bg-gold-100 text-gold-700"
+                              ? "bg-amber-50 text-amber-700"
                               : "bg-gray-100 text-gray-600"
                         }`}
                       >
@@ -535,25 +535,25 @@ export default function AdminDashboard() {
       >
         <Link
           href="/admin/bookings"
-          className="glass border-2 border-pink-200 rounded-xl p-6 text-center hover:shadow-lg hover:border-pink-300 transition-all group"
+          className="glass border border-gray-200 rounded-xl p-6 text-center hover:shadow-lg hover:border-gray-300 transition-all group"
         >
           <Calendar className="w-8 h-8 text-pink-500 mx-auto mb-2 group-hover:scale-110 transition-transform" />
           <p className="text-sm font-medium text-gray-700">Manage Bookings</p>
         </Link>
         <Link
           href="/admin/services"
-          className="glass border-2 border-pink-200 rounded-xl p-6 text-center hover:shadow-lg hover:border-pink-300 transition-all group"
+          className="glass border border-gray-200 rounded-xl p-6 text-center hover:shadow-lg hover:border-gray-300 transition-all group"
         >
           <Sparkles className="w-8 h-8 text-pink-500 mx-auto mb-2 group-hover:scale-110 transition-transform" />
           <p className="text-sm font-medium text-gray-700">Manage Services</p>
         </Link>
-        <a
-          href="#reports"
-          className="glass border-2 border-pink-200 rounded-xl p-6 text-center hover:shadow-lg hover:border-pink-300 transition-all group"
+        <Link
+          href="/admin/reports"
+          className="glass border border-gray-200 rounded-xl p-6 text-center hover:shadow-lg hover:border-gray-300 transition-all group"
         >
           <TrendingUp className="w-8 h-8 text-pink-500 mx-auto mb-2 group-hover:scale-110 transition-transform" />
           <p className="text-sm font-medium text-gray-700">View Reports</p>
-        </a>
+        </Link>
       </motion.div>
     </div>
   );

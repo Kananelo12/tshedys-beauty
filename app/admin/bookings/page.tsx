@@ -152,8 +152,8 @@ export default function AdminBookingsPage() {
       >
         <button
           onClick={() => setFilter('all')}
-          className={`glass rounded-xl p-4 border-2 transition-all ${
-            filter === 'all' ? 'border-pink-400 shadow-lg' : 'border-pink-200 hover:border-pink-300'
+          className={`glass rounded-xl p-4 border transition-all ${
+            filter === 'all' ? 'border-pink-400 shadow-lg' : 'border-gray-200 hover:border-gray-300'
           }`}
         >
           <div className="flex items-center justify-between">
@@ -161,14 +161,14 @@ export default function AdminBookingsPage() {
               <p className="text-2xl font-bold text-gray-900">{bookings.length}</p>
               <p className="text-sm text-gray-600">Total</p>
             </div>
-            <Calendar className="text-pink-500" size={24} />
+            <Calendar className="text-gray-400" size={24} />
           </div>
         </button>
 
         <button
           onClick={() => setFilter('pending')}
-          className={`glass rounded-xl p-4 border-2 transition-all ${
-            filter === 'pending' ? 'border-gold-400 shadow-lg' : 'border-pink-200 hover:border-gold-300'
+          className={`glass rounded-xl p-4 border transition-all ${
+            filter === 'pending' ? 'border-amber-400 shadow-lg' : 'border-gray-200 hover:border-gray-300'
           }`}
         >
           <div className="flex items-center justify-between">
@@ -176,14 +176,14 @@ export default function AdminBookingsPage() {
               <p className="text-2xl font-bold text-gray-900">{pendingCount}</p>
               <p className="text-sm text-gray-600">Pending</p>
             </div>
-            <Clock className="text-gold-500" size={24} />
+            <Clock className="text-amber-500" size={24} />
           </div>
         </button>
 
         <button
           onClick={() => setFilter('accepted')}
-          className={`glass rounded-xl p-4 border-2 transition-all ${
-            filter === 'accepted' ? 'border-pink-400 shadow-lg' : 'border-pink-200 hover:border-pink-300'
+          className={`glass rounded-xl p-4 border transition-all ${
+            filter === 'accepted' ? 'border-emerald-400 shadow-lg' : 'border-gray-200 hover:border-gray-300'
           }`}
         >
           <div className="flex items-center justify-between">
@@ -191,14 +191,14 @@ export default function AdminBookingsPage() {
               <p className="text-2xl font-bold text-gray-900">{acceptedCount}</p>
               <p className="text-sm text-gray-600">Accepted</p>
             </div>
-            <CheckCircle className="text-pink-500" size={24} />
+            <CheckCircle className="text-emerald-500" size={24} />
           </div>
         </button>
 
         <button
           onClick={() => setFilter('today')}
-          className={`glass rounded-xl p-4 border-2 transition-all ${
-            filter === 'today' ? 'border-pink-400 shadow-lg' : 'border-pink-200 hover:border-pink-300'
+          className={`glass rounded-xl p-4 border transition-all ${
+            filter === 'today' ? 'border-pink-400 shadow-lg' : 'border-gray-200 hover:border-gray-300'
           }`}
         >
           <div className="flex items-center justify-between">
@@ -216,7 +216,7 @@ export default function AdminBookingsPage() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
-        className="glass border-2 border-pink-200 rounded-xl p-4"
+        className="glass border border-gray-200 rounded-xl p-4"
       >
         <div className="flex flex-col md:flex-row gap-3">
           <div className="flex-1 relative">
@@ -226,7 +226,7 @@ export default function AdminBookingsPage() {
               placeholder="Search by client name, email, or service..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-pink-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-300 bg-white"
+              className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-300 bg-white"
             />
           </div>
           <div className="relative">
@@ -234,7 +234,7 @@ export default function AdminBookingsPage() {
             <select
               value={filter}
               onChange={(e) => setFilter(e.target.value)}
-              className="pl-10 pr-8 py-2 border border-pink-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-300 bg-white appearance-none"
+              className="pl-10 pr-8 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-300 bg-white appearance-none"
             >
               <option value="all">All Bookings</option>
               <option value="pending">Pending</option>
@@ -253,7 +253,7 @@ export default function AdminBookingsPage() {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="glass border-2 border-pink-200 rounded-xl p-12 text-center"
+            className="glass border border-gray-200 rounded-xl p-12 text-center"
           >
             <Calendar className="w-16 h-16 text-gray-300 mx-auto mb-4" />
             <h3 className="text-xl font-serif font-medium text-gray-700 mb-2">No bookings found</h3>
@@ -278,10 +278,10 @@ export default function AdminBookingsPage() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ delay: index * 0.05 }}
-                  className={`glass border-2 rounded-xl overflow-hidden transition-all ${
-                    isPending ? 'border-gold-300' : 
-                    isAccepted ? 'border-pink-300' : 
-                    isRejected ? 'border-gray-300' : 'border-pink-200'
+                  className={`glass border rounded-xl overflow-hidden transition-all ${
+                    isPending ? 'border-slate-300' : 
+                    isAccepted ? 'border-emerald-200' : 
+                    isRejected ? 'border-gray-200' : 'border-gray-200'
                   }`}
                 >
                   <div className="p-4 md:p-6">
@@ -290,8 +290,8 @@ export default function AdminBookingsPage() {
                       <div className="flex-1 min-w-0">
                         <div className="flex items-start gap-3 mb-3">
                           <div className={`w-12 h-12 rounded-full flex items-center justify-center text-white font-bold ${
-                            isPending ? 'bg-linear-to-br from-gold-400 to-gold-500' :
-                            isAccepted ? 'bg-linear-to-br from-pink-400 to-pink-500' :
+                            isPending ? 'bg-linear-to-br from-emerald-400 to-emerald-500' :
+                            isAccepted ? 'bg-linear-to-br from-emerald-400 to-emerald-500' :
                             'bg-linear-to-br from-gray-400 to-gray-500'
                           }`}>
                             {booking.clientName.charAt(0).toUpperCase()}
@@ -301,7 +301,7 @@ export default function AdminBookingsPage() {
                               {booking.clientName}
                             </h3>
                             <p className="text-sm text-gray-600 truncate flex items-center gap-1">
-                              <Sparkles size={14} className="text-pink-500" />
+                              <Sparkles size={14} className="text-gray-400" />
                               {booking.service?.name || 'Unknown Service'}
                             </p>
                           </div>
@@ -309,16 +309,16 @@ export default function AdminBookingsPage() {
 
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-3 text-sm">
                           <div className="flex items-center gap-2 text-gray-600">
-                            <Calendar size={16} className="text-pink-500" />
+                            <Calendar size={16} className="text-gray-400" />
                             <span>{date}</span>
                           </div>
                           <div className="flex items-center gap-2 text-gray-600">
-                            <Clock size={16} className="text-pink-500" />
+                            <Clock size={16} className="text-gray-400" />
                             <span>{time}</span>
                           </div>
                           {booking.isHouseCall && (
                             <div className="flex items-center gap-2 text-gray-600">
-                              <Home size={16} className="text-gold-600" />
+                              <Home size={16} className="text-amber-500" />
                               <span>House Call</span>
                             </div>
                           )}
@@ -328,8 +328,8 @@ export default function AdminBookingsPage() {
                       {/* Status & Actions */}
                       <div className="flex flex-col items-end gap-3">
                         <span className={`inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold rounded-full ${
-                          isAccepted ? 'bg-pink-100 text-pink-700' :
-                          isPending ? 'bg-gold-100 text-gold-700' :
+                          isAccepted ? 'bg-emerald-50 text-emerald-700' :
+                          isPending ? 'bg-amber-50 text-amber-700' :
                           'bg-gray-100 text-gray-600'
                         }`}>
                           {isAccepted && <CheckCircle size={14} />}
@@ -361,7 +361,7 @@ export default function AdminBookingsPage() {
                           )}
                           <button
                             onClick={() => setExpandedId(isExpanded ? null : booking._id)}
-                            className="flex items-center gap-1 px-4 py-2 bg-white border-2 border-pink-300 text-pink-600 text-sm font-medium rounded-lg hover:bg-pink-50 transition-all"
+                            className="flex items-center gap-1 px-4 py-2 bg-white border border-gray-200 text-gray-600 text-sm font-medium rounded-lg hover:bg-gray-50 transition-all"
                           >
                             {isExpanded ? 'Less' : 'More'}
                             <ChevronDown size={16} className={`transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
@@ -378,21 +378,21 @@ export default function AdminBookingsPage() {
                           animate={{ height: 'auto', opacity: 1 }}
                           exit={{ height: 0, opacity: 0 }}
                           transition={{ duration: 0.2 }}
-                          className="mt-4 pt-4 border-t-2 border-pink-200"
+                          className="mt-4 pt-4 border-t border-gray-200"
                         >
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div className="space-y-3">
                               <h4 className="font-semibold text-gray-700 flex items-center gap-2">
-                                <User size={16} className="text-pink-500" />
+                                <User size={16} className="text-gray-400" />
                                 Contact Details
                               </h4>
                               <div className="space-y-2 text-sm">
                                 <div className="flex items-center gap-2 text-gray-600">
-                                  <Mail size={14} className="text-pink-500" />
+                                  <Mail size={14} className="text-gray-400" />
                                   <span className="truncate">{booking.clientEmail}</span>
                                 </div>
                                 <div className="flex items-center gap-2 text-gray-600">
-                                  <Phone size={14} className="text-pink-500" />
+                                  <Phone size={14} className="text-gray-400" />
                                   <span>{booking.clientPhone}</span>
                                 </div>
                               </div>
@@ -400,7 +400,7 @@ export default function AdminBookingsPage() {
                             
                             <div className="space-y-3">
                               <h4 className="font-semibold text-gray-700 flex items-center gap-2">
-                                <DollarSign size={16} className="text-pink-500" />
+                                <DollarSign size={16} className="text-gray-400" />
                                 Pricing Details
                               </h4>
                               <div className="space-y-2 text-sm">
@@ -418,9 +418,9 @@ export default function AdminBookingsPage() {
                                       <span className="text-gray-600">Transport:</span>
                                       <span className="font-medium">M{booking.transportCost || 0}</span>
                                     </div>
-                                    <div className="flex justify-between pt-2 border-t border-pink-200">
+                                    <div className="flex justify-between pt-2 border-t border-gray-200">
                                       <span className="font-semibold text-gray-700">Total:</span>
-                                      <span className="font-bold text-pink-600">
+                                      <span className="font-bold text-gray-900">
                                         M{(booking.service?.price || 0) + (booking.houseCallFee || 0) + (booking.transportCost || 0)}
                                       </span>
                                     </div>
@@ -430,7 +430,7 @@ export default function AdminBookingsPage() {
                             </div>
                           </div>
 
-                          <div className="mt-4 pt-4 border-t-2 border-pink-200">
+                          <div className="mt-4 pt-4 border-t border-gray-200">
                             <Link
                               href={`/admin/bookings/${booking._id}`}
                               className="inline-flex items-center gap-2 text-sm text-pink-600 hover:text-pink-700 font-medium"
