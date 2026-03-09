@@ -24,9 +24,9 @@ const galleryItems: GalleryItem[] = [
   { label: "Small Knotless Braids", price: 450, image: "/gallery/gallery-5.jpeg", category: 'braids' },
   { label: "French Curls", price: 350, image: "/gallery/gallery-6.jpeg", category: 'braids' },
   { label: "French Curls", price: 400, image: "/gallery/gallery-7.jpeg", category: 'braids' },
-  { label: "Change Name", price: 200, image: "/gallery/gallery-8.jpeg", category: 'braids' },
-  { label: "Braids", price: 450, image: "/gallery/gallery-9.jpeg", category: 'braids' },
-  { label: "Braids", price: 450, image: "/gallery/gallery-10.jpeg", category: 'braids' },
+  { label: "Kiddies Hairstyles", price: 200, image: "/gallery/gallery-8.jpeg", category: 'braids' },
+  { label: "Small Knotless Braids", price: 450, image: "/gallery/gallery-9.jpeg", category: 'braids' },
+  { label: "Small Knotless Braids", price: 450, image: "/gallery/gallery-10.jpeg", category: 'braids' },
   { label: "Short Curled Braids", price: 350, image: "/gallery/gallery-11.jpeg", category: 'braids' },
   { label: "Mermaid Braids", price: 400, image: "/gallery/gallery-12.jpeg", category: 'braids' },
   { label: "French Curls", price: 400, image: "/gallery/gallery-13.jpeg", category: 'braids' },
@@ -35,7 +35,7 @@ const galleryItems: GalleryItem[] = [
   { label: "Koroba Braids", price: 350, image: "/gallery/koroba-braids.jpeg", category: 'braids' },
   { label: "Extended Essence", price: 180, image: "/gallery/gallery-15.jpeg", category: 'braids' },
   { label: "Extended Essence", price: 180, image: "/gallery/gallery-16.jpeg", category: 'braids' },
-  { label: "Change Name", price: 200, image: "/gallery/gallery-17.jpeg", category: 'braids' },
+  { label: "Braided 2 Ponytail Hairstyles", price: 200, image: "/gallery/gallery-17.jpeg", category: 'braids' },
 
   // Makeup
   { label: "Makeup Look", image: "/gallery/make-up-1.jpeg", category: 'makeup' },
