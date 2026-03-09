@@ -159,7 +159,7 @@ export default function GalleryPage() {
         {/* CTA */}
         <section className="py-14 bg-black text-white">
           <div className="max-w-xl mx-auto px-5 sm:px-6 text-center">
-            <h2 className="text-2xl sm:text-3xl font-serif font-bold mb-3">
+            <h2 className="text-white/70 text-2xl sm:text-3xl font-serif font-bold mb-3">
               Inspired by what you see?
             </h2>
             <p className="text-white/60 text-sm mb-7">
