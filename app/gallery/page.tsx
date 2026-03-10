@@ -17,21 +17,21 @@ interface GalleryItem {
 }
 
 const galleryItems: GalleryItem[] = [
-  { label: 'Mermaid Braids', price: 450, image: '/gallery/gallery-1.jpeg', category: 'braids' },
-  { label: 'French Curls', price: 400, image: '/gallery/gallery-2.jpeg', category: 'braids' },
-  { label: 'Medium Curly Braids', price: 400, image: '/gallery/gallery-3.jpeg', category: 'braids' },
-  { label: 'Jumbo Braids', price: 250, image: '/gallery/gallery-4.jpeg', category: 'braids' },
-  { label: "Small Knotless Braids", price: 450, image: "/gallery/gallery-5.jpeg", category: 'braids' },
-  { label: "French Curls", price: 350, image: "/gallery/gallery-6.jpeg", category: 'braids' },
-  { label: "French Curls", price: 400, image: "/gallery/gallery-7.jpeg", category: 'braids' },
-  { label: "Kiddies Hairstyles", price: 200, image: "/gallery/gallery-8.jpeg", category: 'braids' },
-  { label: "Small Knotless Braids", price: 450, image: "/gallery/gallery-9.jpeg", category: 'braids' },
-  { label: "Small Knotless Braids", price: 450, image: "/gallery/gallery-10.jpeg", category: 'braids' },
-  { label: "Short Curled Braids", price: 350, image: "/gallery/gallery-11.jpeg", category: 'braids' },
-  { label: "Mermaid Braids", price: 400, image: "/gallery/gallery-12.jpeg", category: 'braids' },
+  { label: 'Mermaid Braids', price: 580, image: '/gallery/gallery-1.jpeg', category: 'braids' },
+  { label: 'French Curls', price: 600, image: '/gallery/gallery-2.jpeg', category: 'braids' },
+  { label: 'Medium Curly Braids', price: 480, image: '/gallery/gallery-3.jpeg', category: 'braids' },
+  { label: 'Jumbo Braids', price: 380, image: '/gallery/gallery-4.jpeg', category: 'braids' },
+  { label: "Small Knotless Braids", price: 580, image: "/gallery/gallery-5.jpeg", category: 'braids' },
+  { label: "French Curls", price: 450, image: "/gallery/gallery-6.jpeg", category: 'braids' },
+  { label: "French Curls", price: 650, image: "/gallery/gallery-7.jpeg", category: 'braids' },
+  { label: "Bohomian Knotless", price: 650, image: "/gallery/bohomain-knotless.jpeg", category: 'braids' },
+  { label: "Small Knotless Braids", price: 580, image: "/gallery/gallery-9.jpeg", category: 'braids' },
+  { label: "Small Knotless Braids", price: 580, image: "/gallery/gallery-10.jpeg", category: 'braids' },
+  { label: "Short Curled Braids", price: 400, image: "/gallery/gallery-11.jpeg", category: 'braids' },
+  { label: "Mermaid Braids", price: 480, image: "/gallery/gallery-12.jpeg", category: 'braids' },
   { label: "French Curls", price: 400, image: "/gallery/gallery-13.jpeg", category: 'braids' },
   { label: "Gel Hairstyle", price: 200, image: "/gallery/gel-hairstyle.jpeg", category: 'braids' },
-  { label: "Bubble Braids", price: 300, image: "/gallery/gallery-14.jpeg", category: 'braids' },
+  { label: "Bubble Braids", price: 350, image: "/gallery/gallery-14.jpg", category: 'braids' },
   { label: "Koroba Braids", price: 350, image: "/gallery/koroba-braids.jpeg", category: 'braids' },
   { label: "Extended Essence", price: 180, image: "/gallery/gallery-15.jpeg", category: 'braids' },
   { label: "Extended Essence", price: 180, image: "/gallery/gallery-16.jpeg", category: 'braids' },
@@ -78,6 +78,9 @@ export default function GalleryPage() {
             </h1>
             <p className="text-gray-500 max-w-lg mx-auto text-sm sm:text-base">
               A curated selection of our signature styles and transformations
+            </p>
+            <p className="mt-3 inline-block bg-pink-50 text-pink-600 text-xs sm:text-sm font-medium px-4 py-2 rounded-full">
+              All hairstyles include free hair wash &amp; hairpiece
             </p>
           </div>
         </section>
