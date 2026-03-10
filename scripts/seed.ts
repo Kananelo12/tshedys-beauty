@@ -15,19 +15,27 @@ async function seed() {
 
   await db.collection('providers').insertOne(provider);
 
-  // Insert services
+  // Insert services (all styles from gallery, duplicates differ by size)
   const services = [
-    { name: 'Jumbo Braids', price: 150, category: 'Braids', description: 'Jumbo knotless braids for a trendy, voluminous style.' },
-    { name: 'Small Boho Braids', price: 300, category: 'Braids', description: 'Small boho knotless braids with free-flowing curls for a bohemian vibe.' },
-    { name: 'French Curls', price: 200, category: 'Curls', description: 'Bouncy French curls for a playful, elegant look.' },
-    { name: 'Short Curled Braids', price: 280, category: 'Braids', description: 'Small knotless braids with beautiful curled ends for added flair.' },
-    { name: 'Medium Curly Braids', price: 230, category: 'Braids', description: 'Medium curled knotless braids combining elegance with texture.' },
-    { name: 'Gel Hairstyle', price: 100, category: 'Styling', description: 'Sleek gel styling for a polished, sophisticated look.' },
-    { name: 'Bubble Braids', price: 180, category: 'Braids', description: 'Fun, trendy bubble braids with a playful, segmented finish.' },
-    { name: 'Koroba Braids', price: 200, category: 'Braids', description: 'Bold koroba braids with intricate, statement-making patterns.' },
-    { name: 'Extended Essence', price: 150, category: 'Cornrows', description: 'Extended essence cornrows with added length and volume for a fuller style.' },
-    { name: 'Small Knotless Braids', price: 250, category: 'Braids', description: 'Sleek protective braids without tension, perfect for a natural look.' },
-    { name: 'Mermaid Braids', price: 280, category: 'Braids', description: 'Flowing mermaid braids with a beautiful, wavy finish.' },
+    { name: 'Mermaid Braids (Large)', price: 580, category: 'Braids', description: 'Flowing large mermaid braids with a beautiful, wavy finish.' },
+    { name: 'French Curls (Large)', price: 600, category: 'Curls', description: 'Bouncy large French curls for an elegant, voluminous look.' },
+    { name: 'Medium Curly Braids', price: 480, category: 'Braids', description: 'Medium curled knotless braids combining elegance with texture.' },
+    { name: 'Jumbo Braids', price: 380, category: 'Braids', description: 'Jumbo knotless braids for a trendy, voluminous style.' },
+    { name: 'Small Knotless Braids (Short)', price: 580, category: 'Braids', description: 'Short-length small knotless braids, sleek and protective.' },
+    { name: 'French Curls (Medium)', price: 450, category: 'Curls', description: 'Bouncy medium French curls for a playful, elegant look.' },
+    { name: 'French Curls (Extra Large)', price: 650, category: 'Curls', description: 'Extra large French curls for a bold, statement-making style.' },
+    { name: 'Bohemian Knotless', price: 650, category: 'Braids', description: 'Bohemian knotless braids with free-flowing curls for a boho vibe.' },
+    { name: 'Small Knotless Braids (Medium)', price: 580, category: 'Braids', description: 'Medium-length small knotless braids for a natural, polished look.' },
+    { name: 'Small Knotless Braids (Long)', price: 580, category: 'Braids', description: 'Long small knotless braids, sleek protective style with added length.' },
+    { name: 'Short Curled Braids', price: 400, category: 'Braids', description: 'Small knotless braids with beautiful curled ends for added flair.' },
+    { name: 'Mermaid Braids (Medium)', price: 480, category: 'Braids', description: 'Flowing medium mermaid braids with a wavy, elegant finish.' },
+    { name: 'French Curls (Small)', price: 400, category: 'Curls', description: 'Bouncy small French curls for a subtle, playful look.' },
+    { name: 'Gel Hairstyle', price: 200, category: 'Styling', description: 'Sleek gel styling for a polished, sophisticated look.' },
+    { name: 'Bubble Braids', price: 350, category: 'Braids', description: 'Fun, trendy bubble braids with a playful, segmented finish.' },
+    { name: 'Koroba Braids', price: 350, category: 'Braids', description: 'Bold koroba braids with intricate, statement-making patterns.' },
+    { name: 'Extended Essence (Short)', price: 180, category: 'Cornrows', description: 'Short extended essence cornrows with added volume for a fuller style.' },
+    { name: 'Extended Essence (Medium)', price: 180, category: 'Cornrows', description: 'Medium extended essence cornrows with added length and volume.' },
+    { name: 'Braided 2 Ponytail Hairstyles', price: 200, category: 'Braids', description: 'Stylish braided double ponytail hairstyles for a fun, youthful look.' },
   ];
 
   await db.collection('services').insertMany(services);
