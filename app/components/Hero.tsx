@@ -14,7 +14,7 @@ export default function Hero() {
           alt="Tshedy Beauty"
           fill
           sizes="100vw"
-          className="object-contain"
+          className="object-cover lg:object-contain"
           priority
         />
         {/* Overlay for text readability */}

@@ -31,7 +31,7 @@ const galleryItems: GalleryItem[] = [
   { label: "Mermaid Braids", price: 480, image: "/gallery/gallery-12.jpeg", category: 'braids' },
   { label: "French Curls", price: 400, image: "/gallery/gallery-13.jpeg", category: 'braids' },
   { label: "Gel Hairstyle", price: 200, image: "/gallery/gel-hairstyle.jpeg", category: 'braids' },
-  { label: "Bubble Braids", price: 350, image: "/gallery/gallery-14.jpg", category: 'braids' },
+  { label: "Bubble Braids", price: 350, image: "/gallery/bubble-braids.jpeg", category: 'braids' },
   { label: "Koroba Braids", price: 350, image: "/gallery/koroba-braids.jpeg", category: 'braids' },
   { label: "Extended Essence", price: 180, image: "/gallery/gallery-15.jpeg", category: 'braids' },
   { label: "Extended Essence", price: 180, image: "/gallery/gallery-16.jpeg", category: 'braids' },

@@ -257,7 +257,7 @@ function BookingPageContent() {
                 Booking Sent!
               </h1>
               <p className="text-gray-500 mb-8 text-sm leading-relaxed">
-                Thank you for booking with Tshedy Beauty. We&apos;ll confirm
+                Thank you for booking with Tshedy Beauty Parlour. We&apos;ll confirm
                 your appointment via email shortly.
               </p>
               <div className="flex flex-col items-center gap-3">
