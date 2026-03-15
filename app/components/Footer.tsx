@@ -16,7 +16,7 @@ export default function Footer() {
               <div className="relative w-10 h-10">
                 <Image
                   src="/logo.jpeg"
-                  alt="Tshedy Beauty"
+                  alt="Tshedy Beauty Parlour"
                   fill
                   sizes="40px"
                   className="object-contain rounded-full"

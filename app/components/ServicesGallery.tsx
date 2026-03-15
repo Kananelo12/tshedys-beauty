@@ -6,8 +6,8 @@ import Link from 'next/link';
 import Lightbox from './Lightbox';
 
 const galleryItems = [
-  { label: 'Mermaid Braids', price: 580, image: '/gallery/gallery-1.jpeg' },
-  { label: 'French Curls', price: 600, image: '/gallery/gallery-2.jpeg' },
+  { label: 'Mermaid Braids (Large)', price: 580, image: '/gallery/gallery-1.jpeg' },
+  { label: 'French Curls (Large)', price: 600, image: '/gallery/gallery-2.jpeg' },
   { label: 'Medium Curly Braids', price: 480, image: '/gallery/gallery-3.jpeg' },
   { label: 'Jumbo Braids', price: 380, image: '/gallery/gallery-4.jpeg' },
 ];

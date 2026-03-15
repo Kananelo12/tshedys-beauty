@@ -11,7 +11,7 @@ export default function Hero() {
       <div className="absolute inset-0">
         <Image
           src="/hero-banner.png"
-          alt="Tshedy Beauty"
+          alt="Tshedy Beauty Parlour"
           fill
           sizes="100vw"
           className="object-cover lg:object-contain"

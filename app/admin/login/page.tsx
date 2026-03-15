@@ -85,7 +85,7 @@ function AdminLoginContent() {
               <div className="relative w-20 h-20">
                 <Image
                   src="/logo.jpeg"
-                  alt="Tshedy Beauty Logo"
+                  alt="Tshedy Beauty Parlour Logo"
                   fill
                   sizes="80px"
                   className="object-contain rounded-full border-4 border-white shadow-2xl"
