@@ -3,7 +3,7 @@ import clientPromise from '../lib/mongodb';
 
 async function seed() {
   const client = await clientPromise;
-  const db = client.db('tshedybeauty');
+  const db = client.db('tshedybeautyparlour');
 
   // Insert provider
   const provider = {

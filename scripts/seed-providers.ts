@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs';
 
 async function seedProviders() {
   const client = await clientPromise;
-  const db = client.db('tshedybeauty');
+  const db = client.db('tshedybeautyparlour');
 
   // Clear existing providers
   await db.collection('providers').deleteMany({});
