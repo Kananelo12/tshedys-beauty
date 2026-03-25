@@ -28,7 +28,7 @@ export default async function BookingDetailsPage({ params }: PageProps) {
   const { id } = await params;
 
   const client = await clientPromise;
-  const db = client.db('tshedybeauty');
+  const db = client.db('tshedybeautyparlour');
 
   const booking = await db.collection('bookings').findOne({
     _id: new ObjectId(id),

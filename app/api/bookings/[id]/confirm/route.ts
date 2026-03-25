@@ -5,7 +5,7 @@ import { sendClientNotification } from '@/lib/notifications';
 
 async function handleConfirm(id: string, token: string) {
   const client = await clientPromise;
-  const db = client.db('tshedybeauty');
+  const db = client.db('tshedybeautyparlour');
 
   const booking = await db.collection('bookings').findOne({
     _id: new ObjectId(id),

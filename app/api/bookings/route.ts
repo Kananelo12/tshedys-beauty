@@ -11,7 +11,7 @@ const DEFAULT_SLOT_DURATION = 30; // minutes
 export async function GET() {
   try {
     const client = await clientPromise;
-    const db = client.db('tshedybeauty');
+    const db = client.db('tshedybeautyparlour');
 
     const bookings = await db.collection('bookings').find({}).sort({ startDateTime: -1 }).toArray();
     const services = await db.collection('services').find({}).toArray();
@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
     }
 
     const client = await clientPromise;
-    const db = client.db('tshedybeauty');
+    const db = client.db('tshedybeautyparlour');
 
     // Get service
     const service = await db.collection('services').findOne({ _id: new ObjectId(serviceId) });

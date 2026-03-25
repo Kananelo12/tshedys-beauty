@@ -5,7 +5,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
   try {
     const { token } = await params;
     const client = await clientPromise;
-    const db = client.db('tshedybeauty');
+    const db = client.db('tshedybeautyparlour');
 
     const booking = await db.collection('bookings').findOne({
       actionToken: token,

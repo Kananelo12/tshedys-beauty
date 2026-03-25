@@ -797,7 +797,7 @@ Create `.env.local`:
 
 ```env
 # MongoDB
-MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/tshedybeauty
+MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/tshedybeautyparlour
 
 # JWT Secret
 JWT_SECRET=your-super-secret-key-change-in-production

@@ -72,7 +72,7 @@ export async function getCurrentProvider(): Promise<ProviderWithoutPassword | nu
     if (!payload) return null;
 
     const client = await clientPromise;
-    const db = client.db('tshedybeauty');
+    const db = client.db('tshedybeautyparlour');
     
     const provider = await db.collection<IProvider>('providers').findOne(
       { _id: new ObjectId(payload.providerId) },
@@ -89,7 +89,7 @@ export async function getCurrentProvider(): Promise<ProviderWithoutPassword | nu
 export async function authenticateProvider(email: string, password: string): Promise<ProviderWithoutPassword | null> {
   try {
     const client = await clientPromise;
-    const db = client.db('tshedybeauty');
+    const db = client.db('tshedybeautyparlour');
     
     const provider = await db.collection<IProvider>('providers').findOne({ email });
     

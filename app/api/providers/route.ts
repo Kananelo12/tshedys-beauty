@@ -12,7 +12,7 @@ export async function GET() {
     }
 
     const client = await clientPromise;
-    const db = client.db('tshedybeauty');
+    const db = client.db('tshedybeautyparlour');
 
     const providers = await db
       .collection<IProvider>('providers')
@@ -56,7 +56,7 @@ export async function POST(request: NextRequest) {
     }
 
     const client = await clientPromise;
-    const db = client.db('tshedybeauty');
+    const db = client.db('tshedybeautyparlour');
 
     // Check for duplicate email
     const existing = await db.collection<IProvider>('providers').findOne({ email });

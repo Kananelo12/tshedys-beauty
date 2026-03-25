@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
     }
 
     const client = await clientPromise;
-    const db = client.db('tshedybeauty');
+    const db = client.db('tshedybeautyparlour');
 
     // Get existing bookings for the date
     const startOfDay = new Date(`${date}T00:00:00.000Z`);

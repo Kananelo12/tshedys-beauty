@@ -19,7 +19,7 @@ export async function PUT(
     }
 
     const client = await clientPromise;
-    const db = client.db('tshedybeauty');
+    const db = client.db('tshedybeautyparlour');
 
     const result = await db.collection('services').updateOne(
       { _id: new ObjectId(id) },
@@ -53,7 +53,7 @@ export async function DELETE(
     const { id } = await params;
 
     const client = await clientPromise;
-    const db = client.db('tshedybeauty');
+    const db = client.db('tshedybeautyparlour');
 
     const result = await db.collection('services').deleteOne({
       _id: new ObjectId(id),

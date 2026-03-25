@@ -21,7 +21,7 @@ export async function GET(
     }
 
     const client = await clientPromise;
-    const db = client.db('tshedybeauty');
+    const db = client.db('tshedybeautyparlour');
 
     const provider = await db
       .collection<IProvider>('providers')
@@ -66,7 +66,7 @@ export async function PUT(
     const { name, email, phone, timezone, password } = body;
 
     const client = await clientPromise;
-    const db = client.db('tshedybeauty');
+    const db = client.db('tshedybeautyparlour');
     const collection = db.collection<IProvider>('providers');
 
     // Check provider exists
@@ -141,7 +141,7 @@ export async function DELETE(
     }
 
     const client = await clientPromise;
-    const db = client.db('tshedybeauty');
+    const db = client.db('tshedybeautyparlour');
 
     const result = await db
       .collection<IProvider>('providers')

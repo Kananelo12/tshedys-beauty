@@ -148,9 +148,18 @@ export default function GalleryPage() {
                       {item.label}
                     </p>
                     {item.category === "braids" && (
-                      <p className="text-gold-400 text-[10px] font-semibold">
-                        M{item.price}
-                      </p>
+                      <>
+                        <p className="text-gold-400 text-[10px] font-semibold">
+                          M{item.price}
+                        </p>
+                        <Link
+                          href={`/book?style=${encodeURIComponent(item.label)}`}
+                          onClick={(e) => e.stopPropagation()}
+                          className="inline-block mt-1 text-[10px] text-gold-400 font-medium"
+                        >
+                          Book this style →
+                        </Link>
+                      </>
                     )}
                   </div>
                 </div>

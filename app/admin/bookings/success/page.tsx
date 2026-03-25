@@ -19,7 +19,7 @@ export default async function SuccessPage({ searchParams }: PageProps) {
   if (bookingId) {
     try {
       const client = await clientPromise;
-      const db = client.db('tshedybeauty');
+      const db = client.db('tshedybeautyparlour');
       const booking = await db.collection('bookings').findOne({ _id: new ObjectId(bookingId) });
       if (booking) {
         clientName = booking.clientName;

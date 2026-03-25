@@ -68,6 +68,13 @@ export default function ServicesGallery() {
               <div className="absolute bottom-0 left-0 right-0 p-2.5 bg-linear-to-t from-black/50 to-transparent sm:hidden">
                 <p className="text-white text-xs font-medium">{item.label}</p>
                 <p className="text-gold-400 text-[10px] font-semibold">M{item.price}</p>
+                <Link
+                  href={`/book?style=${encodeURIComponent(item.label)}`}
+                  onClick={(e) => e.stopPropagation()}
+                  className="inline-block mt-1 text-[10px] text-gold-400 font-medium"
+                >
+                  Book this style →
+                </Link>
               </div>
             </div>
           ))}
