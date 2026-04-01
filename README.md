@@ -2,43 +2,76 @@
 
 A comprehensive, modern web application for a premium beauty parlour featuring both customer-facing pages and a complete admin dashboard.
 
-## 🎨 Design System
+## 🚀 Project Architecture
 
-### Brand Guidelines
+This project is a full-stack application built with Next.js, Tailwind CSS, and MongoDB. It provides a seamless booking experience for customers and a powerful management dashboard for administrators.
 
-#### Color Palette
-- **Primary Gold**: `#d4a853` (gold-500) - Used for accents, CTAs, and premium highlights
-- **Deep Charcoal/Black**: `#0a0a0a` (charcoal-950) - Primary background
-- **Secondary Charcoal**: `#1a1a1a` (charcoal-900) - Card backgrounds and elevated surfaces
-- **Border Colors**: `#454545` (charcoal-800) - Subtle borders and dividers
+### 🎨 Design System & Frontend
 
-#### Typography
-- **Headings**: Dancing Script (elegant script font) - For brand name, section titles, and premium feel
-- **Body Text**: Inter (clean sans-serif) - For readability and modern aesthetic
+- **Framework**: Next.js with App Router
+- **Styling**: Tailwind CSS for a utility-first styling approach.
+- **Typography**: `next/font` is used to load 'Dancing Script' for headings and 'Inter' for body text, ensuring optimal performance and a consistent look.
+- **UI Components**: A rich set of reusable React components is located in `app/components/`, including `Navbar`, `Footer`, `ServiceCard`, and a `BusinessMap`.
 
-#### Visual Style
-- **Layout**: Mobile-first responsive design with clean spacing
-- **Cards**: Rounded corners (rounded-2xl), subtle borders, hover effects with gold glow
-- **Visual Effects**: Subtle gold glows, gradient backgrounds, smooth transitions (300ms)
+### 🏗️ Backend & API
 
-## 📱 Application Structure
+- **API Routes**: The backend is built using Next.js API Routes, located in `app/api/`.
+  - **Authentication**: `app/api/auth/` handles login, logout, and session management (`me`).
+  - **Bookings**: `app/api/bookings/` manages booking creation, confirmation, and rejection. It includes a token-based system to allow providers to act on a booking.
+  - **Other Endpoints**: Separate routes for managing `services`, `providers`, `availability`, and a `contact` form.
+- **Database**: MongoDB is used as the primary database, with connection logic in `lib/mongodb.ts`.
+- **Models**: TypeScript types and interfaces are defined in `types/index.ts` and Mongoose models like `models/Provider.ts` structure the data.
 
-### Customer-Facing Pages
-1. **Homepage** (`/`) - Hero section, featured services, trust indicators
-2. **Services** (`/services`) - Complete service catalog with filtering
-3. **Gallery** (`/gallery`) - Portfolio showcase with category filters
-4. **Booking** (`/book`) - Multi-step appointment booking form
-5. **Contact** (`/contact`) - Contact information and inquiry form
+### 🔐 Authentication & Authorization
 
-### Admin Dashboard (`/admin`)
-1. **Dashboard** - Overview with metrics and recent activity
-2. **Bookings Management** - Full appointment management with search/filter
-3. **Services Management** - CRUD interface for services
-4. **Gallery Management** - Image upload and organization
-5. **Settings** - Business info, hours, social links, notifications
+- **JWT-based Auth**: The application uses JSON Web Tokens for securing the admin routes. The logic for handling tokens is in `lib/auth.ts`.
+- **Middleware**: `middleware.ts` protects the `/admin` routes, redirecting unauthenticated users to the login page.
+
+### ⚙️ Key Libraries
+
+- **`date-fns`**: For date manipulation, especially for calculating booking expiration times.
+- **`mongodb`**: The official MongoDB driver for Node.js.
+- **`nodemailer`**: For sending email notifications (e.g., booking confirmations).
+- **`eslint` & `prettier`**: For maintaining code quality and consistency.
+
+## 🔧 Configuring Booking Timeout
+
+When a customer makes a booking, the service provider has a limited time to accept or reject it. If they take too long, the action links sent to them will expire.
+
+### How It Works
+
+1.  **Booking Creation**: When a new booking is created in `app/api/bookings/route.ts`, an `expiresAt` timestamp is added to the booking document in the database.
+2.  **Timeout Duration**: By default, this duration is hardcoded to **30 minutes**.
+3.  **Validation**: When the provider clicks the "accept" or "reject" link, the API checks if the current time is past the `expiresAt` time. The validation happens in:
+    - `app/api/bookings/[id]/confirm/route.ts`
+    - `app/api/bookings/[id]/reject/route.ts`
+    - `app/api/bookings/token/[token]/route.ts`
+
+### How to Change the Timeout Duration
+
+To make this configurable, the hardcoded value has been replaced with an environment variable.
+
+1.  **Create a `.env.local` file** in the root of the project if you don't have one.
+2.  **Add the environment variable**:
+
+    ```env
+    # The time in minutes a provider has to confirm or reject a booking
+    BOOKING_EXPIRATION_MINUTES=60
+    ```
+
+3.  **Update the Code**: The code in `app/api/bookings/route.ts` now uses this variable. If the variable is not set, it defaults to 30 minutes.
+
+    ```typescript
+    // In app/api/bookings/route.ts
+    const expirationMinutes = parseInt(process.env.BOOKING_EXPIRATION_MINUTES || '30', 10);
+    const newBooking = {
+      // ... other fields
+      expiresAt: addMinutes(new Date(), expirationMinutes),
+      // ... other fields
+    };
+    ```
 
 ## 🚀 Getting Started
-
 
 First, run the development server:
 

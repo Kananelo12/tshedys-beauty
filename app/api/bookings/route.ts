@@ -89,7 +89,7 @@ export async function POST(request: NextRequest) {
       houseCallFee: isHouseCall ? 100 : 0,
       transportCost: isHouseCall ? 50 : 0, // configurable
       createdAt: new Date(),
-      expiresAt: addMinutes(new Date(), 30), // 30 min hold
+      expiresAt: addMinutes(new Date(), parseInt(process.env.BOOKING_EXPIRATION_MINUTES || '30', 10)), // Configurable hold
       actionToken: randomUUID(),
     };
 
